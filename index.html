@@ -3,13 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>LAVAR SCOTT — No. 45 | Alpha Prime Racing</title>
-<meta name="description" content="Lavar Scott. NASCAR O'Reilly Auto Parts Series. The No. 45 Alpha Prime Racing Chevrolet. No Plan B.">
+<title>LAVAR SCOTT — No. 45 | 2026 Partnership</title>
+<meta name="description" content="Lavar Scott, No. 45 Alpha Prime Racing. NASCAR O'Reilly Auto Parts Series rookie season — nearly 100K social following, 33 races live on The CW, and partnership opportunities for 2026.">
 <!-- ============================================================
-     LAVAR SCOTT / 45 — SITE CONCEPT
+     LAVAR SCOTT / 45 — SPONSORSHIP SITE
      Built by Cozy Digital · cozydigital.org
-     100% self-contained: no external fonts, images, or scripts.
-     Works fully offline (race-track proof).
+
+     Structured as a marketing platform, not a driver bio:
+       01 Story   02 Reach (social)      03 Off Track (training)
+       04 Community/UAC                  05 Road     06 Machine
+       07 Beyond The Car (activation + content integrations)
+       08 Ideal Partners                 09 Investment
+       10 Shop    11 Pit Crew
+
+     >>> BEFORE SENDING TO A BRAND: every element with
+         class="tbd" is a placeholder. Replace with real
+         analytics (per-platform followers, engagement rates,
+         top-post numbers) and the booking email in section 09.
+
      PHOTO SLOTS are marked with:  PHOTO SLOT  comments.
      For production, swap the display face for a licensed
      condensed grotesque (e.g. Druk / Monument / Tungsten).
@@ -102,7 +113,7 @@ body.cursor-on a,body.cursor-on button{cursor:none}
   clip-path:polygon(12% 0,100% 0,88% 100%,0 100%);
 }
 .brand .nm{font-size:14px;text-transform:uppercase;letter-spacing:.14em}
-.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links{display:flex;gap:24px;align-items:center}
 .nav-links a{
   font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--paper-dim);transition:color .25s;position:relative;
@@ -438,12 +449,120 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 }
 .f-bottom .cozy b{color:var(--paper)}
 
+/* ---------- MARKETING BLOCKS ----------
+   Added for the sponsor-facing build: reach, lifestyle,
+   community, activation, ideal partners, investment.
+   Values marked TBD are placeholders — swap in real
+   analytics before this goes in front of a brand. */
+.lede{color:var(--paper-dim);max-width:64ch;margin-top:22px;font-size:clamp(.98rem,1.4vw,1.12rem)}
+.lede strong{color:var(--paper);font-weight:700}
+.grid{display:grid;gap:16px;margin-top:44px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{
+  border:1px solid var(--line);background:var(--asphalt-2);
+  padding:26px 22px;position:relative;display:flex;flex-direction:column;
+  transition:border-color .3s,transform .3s;
+}
+.card:hover{border-color:var(--amber);transform:translateY(-4px)}
+.card h3{
+  font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.01em;
+  font-size:clamp(1.1rem,1.8vw,1.45rem);line-height:1.02;margin-bottom:12px;
+}
+.card p{color:var(--paper-dim);font-size:.92rem}
+.card .k{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--amber);display:block;margin-bottom:14px;
+}
+.mrow{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:11px 0;border-top:1px solid var(--line-soft);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim);
+}
+.mrow b{color:var(--paper);font-weight:700;font-size:12px;letter-spacing:.05em}
+.tbd{opacity:.5;font-style:italic}
+
+/* platform cards */
+.plat .hd{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--paper-dim);word-break:break-all}
+.plat .n{
+  font-weight:900;font-style:italic;letter-spacing:-.03em;
+  font-size:clamp(2.1rem,4.2vw,3.2rem);line-height:1;margin:10px 0 16px;
+}
+.plat .n b{color:var(--amber)}
+.plat .rows{margin-top:auto}
+
+/* post examples */
+.post{border:1px solid var(--line);background:var(--asphalt-2);display:flex;flex-direction:column;overflow:hidden}
+.post .art{aspect-ratio:4/5;position:relative;overflow:hidden;border-bottom:1px solid var(--line-soft)}
+.post .art img{width:100%;height:100%;object-fit:cover}
+.post .art .chip{
+  position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;padding:5px 8px;
+  background:rgba(13,14,17,.82);border:1px solid var(--line);
+}
+.post .body{padding:16px;display:flex;flex-direction:column;flex:1}
+.post .body .cap{font-size:.88rem;color:var(--paper-dim);margin-bottom:16px}
+.post .s3{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-soft);margin-top:auto}
+.post .s3 div{padding:12px 6px;text-align:center;border-right:1px solid var(--line-soft)}
+.post .s3 div:last-child{border-right:none}
+.post .s3 b{display:block;font-weight:900;font-style:italic;font-size:1.1rem;line-height:1.2}
+.post .s3 span{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--paper-dim)}
+.embed-wrap{border:1px solid var(--line);background:var(--asphalt-2);padding:14px;display:flex;flex-direction:column}
+.embed-wrap .instagram-media{margin:0 auto!important;min-width:0!important;max-width:100%!important}
+
+/* deliverables columns */
+.del{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-top:44px}
+.del-col{padding:26px 22px;border-right:1px solid var(--line-soft)}
+.del-col:last-child{border-right:none}
+.del-col h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+.del-col ul{list-style:none}
+.del-col li{position:relative;padding:9px 0 9px 20px;font-size:.88rem;color:var(--paper-dim);border-bottom:1px solid var(--line-soft)}
+.del-col li:last-child{border-bottom:none}
+.del-col li::before{content:'▸';position:absolute;left:0;top:9px;color:var(--amber)}
+
+/* ideal partner rows */
+.fit{border-top:1px solid var(--line);margin-top:44px}
+.fit-row{
+  display:grid;grid-template-columns:54px .8fr 1.25fr;gap:20px;align-items:baseline;
+  padding:22px 0;border-bottom:1px solid var(--line-soft);transition:padding-left .3s;
+}
+.fit-row:hover{padding-left:8px}
+.fit-row .i{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--amber)}
+.fit-row .t{font-weight:900;text-transform:uppercase;letter-spacing:.01em;font-size:clamp(1rem,1.6vw,1.2rem);transition:color .3s}
+.fit-row:hover .t{color:var(--amber)}
+.fit-row .d{color:var(--paper-dim);font-size:.92rem}
+
+/* investment */
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+.pkg{
+  border:1px solid var(--amber);padding:clamp(26px,4vw,42px);
+  background:linear-gradient(165deg,rgba(255,179,0,.10),var(--asphalt-2) 58%);
+  display:flex;flex-direction:column;
+}
+.pkg .price{font-weight:900;font-style:italic;letter-spacing:-.03em;font-size:clamp(2.8rem,7.5vw,5rem);line-height:.9;margin:14px 0 6px}
+.pkg .what{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-dim)}
+.pkg p{color:var(--paper-dim);font-size:.92rem;margin-top:20px}
+.pkg .btn{margin-top:auto;align-self:flex-start}
+.pkg.alt{border-color:var(--line);background:var(--asphalt-2)}
+.pkg.alt .price{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--paper)}
+.contact{
+  border:1px solid var(--line);background:var(--asphalt-2);margin-top:16px;
+  padding:clamp(22px,3vw,30px);display:flex;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;align-items:center;
+}
+.contact .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-dim)}
+.contact .val{font-weight:900;text-transform:uppercase;font-size:clamp(1rem,2vw,1.4rem);letter-spacing:-.01em}
+
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:1020px){
   .shop-grid{grid-template-columns:repeat(2,1fr)}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .stat:nth-child(2){border-right:none}
   .stat:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
+  .g4,.del{grid-template-columns:repeat(2,1fr)}
+  .del-col:nth-child(2){border-right:none}
+  .del-col:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
 }
 @media(max-width:860px){
   .nav-links,.nav-cta{display:none}
@@ -454,12 +573,18 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   .ghost45{right:-16vw;top:36%;font-size:clamp(16rem,80vw,30rem)}
   .tree{top:auto;bottom:120px;right:calc(var(--pad) - 4px)}
   .spec-row{grid-template-columns:120px 1fr}
+  .g3,.pkg-grid{grid-template-columns:1fr}
+  .fit-row{grid-template-columns:40px 1fr;row-gap:8px}
+  .fit-row .d{grid-column:2}
 }
 @media(max-width:560px){
   .shop-grid{grid-template-columns:1fr 1fr;gap:10px}
   .plate{font-size:9px}
   .plate>span{padding:7px 9px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:12px}
+  .g2,.g4,.del{grid-template-columns:1fr}
+  .del-col{border-right:none;border-bottom:1px solid var(--line-soft)}
+  .del-col:last-child{border-bottom:none}
 }
 
 /* ---------- REDUCED MOTION ---------- */
@@ -483,11 +608,12 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </a>
   <div class="nav-links">
     <a href="#story">Story</a>
-    <a href="#road">The Road</a>
-    <a href="#car">The 45</a>
+    <a href="#reach">Reach</a>
+    <a href="#community">Community</a>
+    <a href="#beyond">Activation</a>
     <a href="#shop">Shop</a>
   </div>
-  <a href="#raceday"><button class="nav-cta">● Race Day</button></a>
+  <a href="#partner"><button class="nav-cta">● Partner With 45</button></a>
   <button class="burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -496,10 +622,11 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 <!-- MOBILE MENU -->
 <div class="mmenu" id="mmenu">
   <a href="#story">Story <span class="mono">The origin</span></a>
-  <a href="#road">The Road <span class="mono">Timeline</span></a>
-  <a href="#car">The 45 <span class="mono">Machine</span></a>
-  <a href="#shop">Shop <span class="mono">Drop 001</span></a>
-  <a href="#raceday">Race Day <span class="mono green">● Live</span></a>
+  <a href="#reach">Reach <span class="mono">≈100K social</span></a>
+  <a href="#offtrack">Off Track <span class="mono">Training</span></a>
+  <a href="#community">Community <span class="mono">UAC / workforce</span></a>
+  <a href="#beyond">Activation <span class="mono">Beyond the car</span></a>
+  <a href="#partner">Partner <span class="mono green">● 2026 open</span></a>
 </div>
 
 <!-- HERO -->
@@ -515,12 +642,11 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
 
   <div class="hero-inner" id="heroInner">
-    <div class="plate" id="raceday">
-      <span><i class="dot"></i>Race Day</span>
-      <span>Cuervo 300</span>
-      <span>Chicagoland Speedway · Joliet, IL</span>
-      <span>Green Flag 4:30 PM CT</span>
-      <span>200 Laps</span>
+    <div class="plate">
+      <span><i class="dot"></i>2026 Rookie Season</span>
+      <span>NASCAR O'Reilly Auto Parts Series</span>
+      <span>33 Races · Live on The CW</span>
+      <span>No. 45 Alpha Prime Chevrolet</span>
     </div>
 
     <h1 class="hero-name">
@@ -529,29 +655,30 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
     </h1>
 
     <p class="hero-sub">
-      Driver of the No. 45 Alpha Prime Racing Chevrolet in the NASCAR O'Reilly
-      Auto Parts Series. From South Jersey dirt to the national stage — and
-      he's just getting started.
+      Driver of the No. 45 Alpha Prime Racing Chevrolet — and a full media
+      platform around it. Nearly <strong>100,000 followers</strong>, 33 national
+      TV weekends, a training-and-lifestyle audience, and workforce work in the
+      community. A partnership here runs a lot deeper than a decal.
     </p>
 
     <div class="hero-ctas">
-      <a href="#road"><button class="btn primary magnetic">Follow The Road ↴</button></a>
-      <a href="#shop"><button class="btn ghosty magnetic">Shop Drop 001</button></a>
+      <a href="#partner"><button class="btn primary magnetic">Partner With The 45 ↴</button></a>
+      <a href="#reach"><button class="btn ghosty magnetic">See The Reach</button></a>
     </div>
   </div>
 
   <div class="hero-foot">
     <span>Carneys Point, NJ — Est. behind the wheel age 5</span>
     <span class="scroll-cue"><i></i>Scroll</span>
-    <span>Alpha Prime Racing · Chevrolet</span>
+    <span>≈100K social · 1.5M avg viewers per race</span>
   </div>
 </header>
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span>No Plan B</span><span>#45</span><span>Full Send</span><span>Carneys Point → NASCAR</span>
-    <span>No Plan B</span><span>#45</span><span>Full Send</span><span>Carneys Point → NASCAR</span>
+    <span>No Plan B</span><span>#45</span><span>A Platform, Not A Decal</span><span>Carneys Point → NASCAR</span>
+    <span>No Plan B</span><span>#45</span><span>A Platform, Not A Decal</span><span>Carneys Point → NASCAR</span>
   </div>
 </div>
 
@@ -569,15 +696,23 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
         even old enough for an engine.
       </p>
       <p class="rv d2">
-        From quarter midgets at <strong>Airport Speedway</strong> to years of grinding on
-        Northeast dirt, Lavar earned every lap. A first late model win at
-        <strong>Hickory</strong> in 2021. Two full ARCA seasons with Rev Racing and NASCAR's
-        <strong>Drive for Diversity</strong> program — stacking 22 top-five finishes.
+        From quarter midgets at <strong>Airport Speedway</strong> to a 600 Micro Sprint at 12,
+        Lavar earned every lap. The 2019 <strong>NASCAR Driver Development Combine</strong> put
+        him in a Legend Car with Rev Racing; five seasons later he left ARCA with
+        <strong>Rookie of the Year in 2024</strong> and a runner-up finish in the drivers
+        championship.
       </p>
       <p class="rv d3">
-        Now, at 22, he's a rookie on NASCAR's second-biggest stage — one of only three Black
-        drivers competing at the national level — carrying his family, his hometown, and every
-        kid who never saw themselves in this sport.
+        He debuted in the NASCAR O'Reilly Auto Parts Series in 2025 with Alpha Prime — qualifying
+        22nd and finishing 19th at both Dover and World Wide Technology Raceway. Now he's full-time
+        in the No. 45, one of only three Black drivers at NASCAR's national level, carrying his
+        family, his hometown, and every kid who never saw themselves in this sport.
+      </p>
+      <p class="rv d3">
+        That last part is the business case. Lavar doesn't just drive the car — he
+        <strong>builds the audience around it</strong>: nearly 100,000 followers, a training
+        and lifestyle channel that runs 52 weeks a year, and community work that puts brands
+        in front of people long after the checkered flag.
       </p>
       <div class="pull rv d3">
         "There was no Plan B."
@@ -594,24 +729,210 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
 </section>
 
-<!-- STATS -->
+<!-- STATS — platform metrics, not career stats -->
 <section class="stats">
   <div class="stats-grid">
     <div class="stat rv">
-      <div class="n"><span class="cnt" data-n="22">0</span></div>
-      <div class="l mono">ARCA Top-Fives · '24–'25</div>
+      <div class="n"><span class="cnt" data-n="100">0</span><b>K</b></div>
+      <div class="l mono">Combined following · IG / TikTok / X</div>
     </div>
     <div class="stat rv d1">
-      <div class="n"><span class="cnt" data-n="17">0</span><b>y</b></div>
-      <div class="l mono">Behind the wheel</div>
+      <div class="n"><span class="cnt" data-n="1.5" data-dec="1">0</span><b>M</b></div>
+      <div class="l mono">Avg viewers per race · The CW</div>
     </div>
     <div class="stat rv d2">
-      <div class="n"><b>#</b><span class="cnt" data-n="45">0</span></div>
-      <div class="l mono">Alpha Prime Chevrolet</div>
+      <div class="n"><span class="cnt" data-n="33">0</span></div>
+      <div class="l mono">National TV race weekends</div>
     </div>
     <div class="stat rv d3">
-      <div class="n"><span class="cnt" data-n="200">0</span></div>
-      <div class="l mono">Laps tonight · Chicagoland</div>
+      <div class="n"><span class="cnt" data-n="52">0</span></div>
+      <div class="l mono">Weeks a year of content</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE REACH — social platform page.
+     TBD MARKERS: per-platform followers, engagement rate,
+     30-day views and the three post examples' numbers.
+     Pull these from IG/TikTok/X native analytics and replace
+     every element carrying class="tbd".
+============================================================ -->
+<section class="section" id="reach">
+  <div class="kicker rv">02 — The Reach</div>
+  <h2 class="h-xl rv d1">Not just a driver.<br>A <em>channel.</em></h2>
+  <p class="lede rv d2">
+    Nearly <strong>100,000 followers</strong> across Instagram, TikTok and X, built in five
+    years behind the wheel. When Lavar isn't in the helmet he's planning the next piece of
+    content — race weeks, training, travel, the shop, the community. Partners don't wait for
+    Saturday to get value.
+  </p>
+
+  <div class="grid g3">
+    <div class="card plat rv">
+      <span class="k">Instagram — primary</span>
+      <span class="hd">@lavar.scott34</span>
+      <div class="n"><span class="tbd">TBD</span></div>
+      <p>Race weekends, paddock access, training, family. The home feed for partner
+         announcements and Reels.</p>
+      <div class="rows">
+        <div class="mrow"><span>Engagement rate</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>Avg views / Reel</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>Core audience</span><b class="tbd">TBD</b></div>
+      </div>
+    </div>
+    <div class="card plat rv d1">
+      <span class="k">TikTok — growth</span>
+      <span class="hd">@lavar.scott34</span>
+      <div class="n"><span class="tbd">TBD</span></div>
+      <p>Short-form and trend-led. Where the youngest, fastest-growing slice of the audience
+         lives — and where product integrations travel furthest.</p>
+      <div class="rows">
+        <div class="mrow"><span>Engagement rate</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>Avg views / video</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>30-day views</span><b class="tbd">TBD</b></div>
+      </div>
+    </div>
+    <div class="card plat rv d2">
+      <span class="k">X — race day</span>
+      <span class="hd">@LavarScott</span>
+      <div class="n"><span class="tbd">TBD</span></div>
+      <p>Live race-day voice: qualifying, in-race updates, results. Plugged straight into the
+         NASCAR conversation while broadcast is running.</p>
+      <div class="rows">
+        <div class="mrow"><span>Engagement rate</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>Avg impressions</span><b class="tbd">TBD</b></div>
+        <div class="mrow"><span>Race-day lift</span><b class="tbd">TBD</b></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h-xl rv" style="font-size:clamp(1.6rem,4vw,2.6rem);margin-top:clamp(60px,9vh,100px)">
+    Posts that <em>worked.</em>
+  </h3>
+  <p class="lede rv d1" style="margin-top:14px">
+    A sample of what performs — and the shape a partner's content would take.
+  </p>
+
+  <div class="grid g3">
+    <!-- PHOTO SLOT: swap for the actual top-performing post creative -->
+    <article class="post rv">
+      <div class="art">
+        <span class="chip">Instagram · Reel</span>
+        <img src="lavar_face_out_of_car.jpg" alt="Lavar Scott at the track">
+      </div>
+      <div class="body">
+        <p class="cap">Helmet off, first look after the run — the driver-POV moment that
+           consistently outperforms polished team assets.</p>
+        <div class="s3">
+          <div><b class="tbd">TBD</b><span>Views</span></div>
+          <div><b class="tbd">TBD</b><span>Likes</span></div>
+          <div><b class="tbd">TBD</b><span>Shares</span></div>
+        </div>
+      </div>
+    </article>
+    <article class="post rv d1">
+      <div class="art">
+        <span class="chip">TikTok</span>
+        <img src="lavar_in_car.jpg" alt="Lavar Scott strapped into the No. 45">
+      </div>
+      <div class="body">
+        <p class="cap">Belted in, pre-green. Cockpit content is the highest-retention format
+           on the channel — and the most natural home for a product placement.</p>
+        <div class="s3">
+          <div><b class="tbd">TBD</b><span>Views</span></div>
+          <div><b class="tbd">TBD</b><span>Likes</span></div>
+          <div><b class="tbd">TBD</b><span>Comments</span></div>
+        </div>
+      </div>
+    </article>
+    <div class="embed-wrap rv d2">
+      <span class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:12px">Live from the feed</span>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DaV9V7rpB86/" data-instgrm-version="14"></blockquote>
+      <p style="color:var(--paper-dim);font-size:.88rem;margin-top:12px">
+        Race weekend, live on the grid.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OFF TRACK — fitness / lifestyle differentiator -->
+<section class="section" id="offtrack" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="kicker rv">03 — Off The Track</div>
+  <h2 class="h-xl rv d1">The work <em>nobody films.</em></h2>
+  <p class="lede rv d2">
+    A stock car cockpit runs past 120°F. A race is three-plus hours of sustained load, heart
+    rate pinned, hands and neck taking every bump. Lavar trains for it year-round — and that
+    training is a content channel of its own, running the 19 weeks a year when there's no race
+    to post about.
+  </p>
+
+  <div class="grid g4">
+    <div class="card rv">
+      <span class="k">Format 01</span>
+      <h3>Weight room</h3>
+      <p>Lift days, neck and grip work, the unglamorous conditioning that keeps a rookie sharp
+         at lap 180. Apparel, equipment and supplement partners live here natively.</p>
+    </div>
+    <div class="card rv d1">
+      <span class="k">Format 02</span>
+      <h3>Fuel &amp; recovery</h3>
+      <p>What he eats on a Thursday travel day, hydration through a hot race, sleep and
+         recovery between back-to-backs. Straight-line fit for nutrition and beverage brands.</p>
+    </div>
+    <div class="card rv d2">
+      <span class="k">Format 03</span>
+      <h3>Race-week build</h3>
+      <p>A Monday-to-Sunday series that turns one race into seven days of content — sim work,
+         travel, hauler, garage, grid. Partners get seven touchpoints, not one.</p>
+    </div>
+    <div class="card rv d3">
+      <span class="k">Format 04</span>
+      <h3>Fit for the job</h3>
+      <p>Young, disciplined, drug-free, on camera in the gym as often as the car. A brand-safe
+         athlete story that translates outside motorsport audiences.</p>
+    </div>
+  </div>
+
+  <div class="pull rv d2" style="margin-top:48px">
+    A driver audience watches on Saturday.<br>An athlete audience watches all week.
+    <span class="mono">— Why the lifestyle channel matters</span>
+  </div>
+</section>
+
+<!-- COMMUNITY / WORKFORCE -->
+<section class="section" id="community">
+  <div class="kicker rv">04 — On The Ground</div>
+  <div class="story-grid">
+    <div class="story-copy">
+      <h2 class="h-xl rv">More than a<br><em>race car.</em></h2>
+      <p class="lede rv d1" style="margin-top:26px">
+        The No. 45 already carries the <strong>Urban Affairs Coalition</strong> — one of the
+        Philadelphia region's biggest workforce-development organizations. That partnership is
+        the template: motorsport as a doorway into careers most kids never hear about.
+      </p>
+      <p class="rv d2" style="color:var(--paper-dim);max-width:56ch;margin-top:18px">
+        A NASCAR team is a workforce — fabricators, engine builders, mechanics, engineers,
+        logistics, media. Lavar uses the platform to show that, in front of the students and
+        communities that rarely get a look inside the garage.
+      </p>
+      <p class="rv d2" style="color:var(--paper-dim);max-width:56ch;margin-top:18px">
+        For a partner, that's real local-market goodwill with photography, video and earned
+        media attached — the part of a sponsorship that keeps working after the season ends.
+      </p>
+    </div>
+    <div class="rv d2">
+      <div class="grid" style="margin-top:0;gap:12px">
+        <div class="card"><span class="k">01</span><h3>School &amp; STEM visits</h3>
+          <p>Show car, hero cards, and a driver who looks like the room — trades and motorsport
+             careers made concrete.</p></div>
+        <div class="card"><span class="k">02</span><h3>Workforce pathways</h3>
+          <p>Built alongside UAC: the pipeline from shop floor to pit road, and the training
+             that actually gets someone there.</p></div>
+        <div class="card"><span class="k">03</span><h3>Co-branded activation</h3>
+          <p>Partners can put their name on the community program, not just the quarter panel —
+             with content and reporting to match.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -620,7 +941,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 <section class="section" id="road">
   <div class="tl-head">
     <div>
-      <div class="kicker rv">02 — The Road</div>
+      <div class="kicker rv">05 — The Road</div>
       <h2 class="h-xl rv d1">Dirt to <em>the big stage.</em></h2>
     </div>
     <div class="tl-arrows rv d2">
@@ -657,14 +978,14 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
         <p>First big-track start at Daytona with Rev Racing. Superspeedway checked off.</p>
       </article>
       <article class="tcard" data-i="06">
-        <div class="yr">2024–25</div>
-        <h3>22 top fives</h3>
-        <p>Two full ARCA Menards Series seasons. Week in, week out, running up front.</p>
+        <div class="yr">2024</div>
+        <h3>ARCA Rookie of the Year</h3>
+        <p>Rookie of the Year honours and runner-up in the ARCA Menards Series drivers championship.</p>
       </article>
       <article class="tcard" data-i="07">
-        <div class="yr">Jul 2025</div>
+        <div class="yr">2025</div>
         <h3>National debut</h3>
-        <p>First NASCAR national-series start at Dover — the Monster Mile — with Alpha Prime.</p>
+        <p>O'Reilly Auto Parts Series starts at Dover and WWT Raceway with Alpha Prime — qualified 22nd, finished 19th at both.</p>
       </article>
       <article class="tcard" data-i="08">
         <div class="yr">Dec 2025</div>
@@ -674,12 +995,12 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
       <article class="tcard" data-i="09">
         <div class="yr">2026</div>
         <h3>Rookie season</h3>
-        <p>The No. 45 Camaro SS, full-time in the NASCAR O'Reilly Auto Parts Series.</p>
+        <p>The No. 45 Camaro SS, full-time across 33 races — every one live on The CW.</p>
       </article>
       <article class="tcard tonight" data-i="10">
-        <div class="yr">● Tonight</div>
-        <h3>Cuervo 300</h3>
-        <p>200 laps under the lights at Chicagoland Speedway. Independence Day. Green flag 4:30 CT.</p>
+        <div class="yr">● Now</div>
+        <h3>Open for 2026</h3>
+        <p>Primary and associate positions available for the season. Full deliverables and pricing below.</p>
       </article>
     </div>
   </div>
@@ -688,7 +1009,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 
 <!-- CAR -->
 <section class="section" id="car">
-  <div class="kicker rv">03 — The Machine</div>
+  <div class="kicker rv">06 — The Machine</div>
   <div class="car-grid">
     <div>
       <h2 class="h-xl rv">The <em>No. 45.</em></h2>
@@ -697,6 +1018,8 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
         <div class="spec-row rv d1"><span class="k">Team</span><span class="v">Alpha Prime <em>Racing</em></span></div>
         <div class="spec-row rv d2"><span class="k">Series</span><span class="v">NASCAR O'Reilly Auto Parts Series</span></div>
         <div class="spec-row rv d2"><span class="k">Class</span><span class="v">2026 <em>Rookie</em></span></div>
+        <div class="spec-row rv d2"><span class="k">Broadcast</span><span class="v">The CW · <em>33 races live</em></span></div>
+        <div class="spec-row rv d3"><span class="k">Audience</span><span class="v">1.5M <em>avg viewers</em> per race</span></div>
         <div class="spec-row rv d3"><span class="k">Partners</span><span class="v">Urban Affairs Coalition · Archer &amp; Greiner</span></div>
         <div class="spec-row rv d3"><span class="k">Roots</span><span class="v">Airport Speedway, DE</span></div>
       </div>
@@ -708,11 +1031,228 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
 </section>
 
+<!-- BEYOND THE CAR — activation + content integrations -->
+<section class="section" id="beyond" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="kicker rv">07 — Beyond The Car</div>
+  <h2 class="h-xl rv d1">Where your brand<br><em>actually shows up.</em></h2>
+  <p class="lede rv d2">
+    The quarter panel is the smallest part of the deal. Here's the full surface area of a
+    primary partnership — on the car, in the content, in front of the fans, and in the report
+    that lands on your desk after every race.
+  </p>
+
+  <div class="del rv d2">
+    <div class="del-col">
+      <h4>On the car</h4>
+      <ul>
+        <li>Five premium logo positions on the race car</li>
+        <li>Custom-designed paint scheme</li>
+        <li>Branded helmet and fire suit</li>
+        <li>Merchandise likeness rights — Lavar Scott &amp; Alpha Prime Racing</li>
+      </ul>
+    </div>
+    <div class="del-col">
+      <h4>In the content</h4>
+      <ul>
+        <li>Partnership announcement package</li>
+        <li>Race-week graphics and video, every week</li>
+        <li>2 Instagram Reels with Lavar and team accounts</li>
+        <li>Active participation from both Lavar and Alpha Prime channels</li>
+        <li>Professional weekend photography by Barr Visuals</li>
+      </ul>
+    </div>
+    <div class="del-col">
+      <h4>With the fans</h4>
+      <ul>
+        <li>250 branded autograph hero cards</li>
+        <li>15 VIP garage access passes</li>
+        <li>Pre-race meet &amp; greet with Lavar</li>
+        <li>Show car and appearance availability</li>
+        <li>Community activation through the UAC programme</li>
+      </ul>
+    </div>
+    <div class="del-col">
+      <h4>In the report</h4>
+      <ul>
+        <li>Post-race summary after every event</li>
+        <li>TV broadcast exposure valuation</li>
+        <li>Social media analytics</li>
+        <li>Earned media tracking</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="h-xl rv" style="font-size:clamp(1.6rem,4vw,2.6rem);margin-top:clamp(60px,9vh,100px)">
+    Content <em>integrations.</em>
+  </h3>
+  <p class="lede rv d1" style="margin-top:14px">
+    Four formats we'd build with you — not ads bolted on, but the stuff the audience already
+    shows up for, with your product inside it.
+  </p>
+
+  <div class="grid g4">
+    <div class="card rv">
+      <span class="k">Integration 01</span>
+      <h3>Race week ritual</h3>
+      <p>Monday-to-Sunday build to green flag with your product in the routine — travel day,
+         sim session, hauler, grid walk.</p>
+      <div class="rows" style="margin-top:18px">
+        <div class="mrow"><span>Format</span><b>Reel / TikTok series</b></div>
+        <div class="mrow"><span>Cadence</span><b>Weekly, in season</b></div>
+        <div class="mrow"><span>Runs on</span><b>IG · TikTok</b></div>
+      </div>
+    </div>
+    <div class="card rv d1">
+      <span class="k">Integration 02</span>
+      <h3>Weight room to wheel</h3>
+      <p>Training series pairing the physical demands of the cockpit with the apparel,
+         nutrition or recovery product that gets him there.</p>
+      <div class="rows" style="margin-top:18px">
+        <div class="mrow"><span>Format</span><b>Long + short cutdowns</b></div>
+        <div class="mrow"><span>Cadence</span><b>2× monthly, year-round</b></div>
+        <div class="mrow"><span>Runs on</span><b>IG · TikTok · YouTube</b></div>
+      </div>
+    </div>
+    <div class="card rv d2">
+      <span class="k">Integration 03</span>
+      <h3>Garage class</h3>
+      <p>Lavar and a UAC student in the shop — tools, trade, and a career path — co-branded
+         with your community programme.</p>
+      <div class="rows" style="margin-top:18px">
+        <div class="mrow"><span>Format</span><b>Mini-doc + stills</b></div>
+        <div class="mrow"><span>Cadence</span><b>Quarterly</b></div>
+        <div class="mrow"><span>Runs on</span><b>Social · PR · Your channels</b></div>
+      </div>
+    </div>
+    <div class="card rv d3">
+      <span class="k">Integration 04</span>
+      <h3>Post-race POV</h3>
+      <p>Same-day in-car and pit-lane cut while the broadcast conversation is still live,
+         closing on your end card.</p>
+      <div class="rows" style="margin-top:18px">
+        <div class="mrow"><span>Format</span><b>Vertical video</b></div>
+        <div class="mrow"><span>Cadence</span><b>Every race weekend</b></div>
+        <div class="mrow"><span>Runs on</span><b>IG · TikTok · X</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDEAL BRAND PARTNERS -->
+<section class="section" id="fit">
+  <div class="kicker rv">08 — Ideal Partners</div>
+  <h2 class="h-xl rv d1">Who this <em>works for.</em></h2>
+  <p class="lede rv d2">
+    Independent research is consistent on one point: NASCAR fans are measurably more responsive
+    to sponsorship than the general population — more likely to notice a brand, try it, and stay
+    with it. These are the categories where Lavar's audience, content and story line up hardest.
+  </p>
+
+  <div class="fit rv d2">
+    <div class="fit-row">
+      <span class="i">01</span><span class="t">Automotive &amp; aftermarket</span>
+      <span class="d">Parts, tools, tires, fluids, service. The most native fit in the series — and a
+        family that has run an auto shop since 1978 telling the story.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">02</span><span class="t">Fitness, nutrition &amp; recovery</span>
+      <span class="d">The training channel already exists and runs year-round. Supplements, hydration,
+        equipment and recovery tech integrate without a word of ad copy.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">03</span><span class="t">Apparel &amp; workwear</span>
+      <span class="d">Fire suit, merch line, and everyday wear across every appearance. Built-in
+        product surface plus a licensed retail path.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">04</span><span class="t">Beverage, QSR &amp; convenience</span>
+      <span class="d">33 weekends of travel, fuel stops and race-day routine. High-frequency,
+        low-friction placement in content people already watch.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">05</span><span class="t">Financial services &amp; insurance</span>
+      <span class="d">A first-generation, family-backed story about long-odds investment paying off.
+        Trust categories buy narrative, and this one is real.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">06</span><span class="t">Trades, workforce &amp; education</span>
+      <span class="d">Direct alignment with the Urban Affairs Coalition work — recruiting pipelines,
+        apprenticeships, and skilled-trade brands reaching the next generation.</span>
+    </div>
+    <div class="fit-row">
+      <span class="i">07</span><span class="t">Tech, telecom &amp; gaming</span>
+      <span class="d">A young, mobile-first, multicultural audience that over-indexes on short-form
+        and sim racing.</span>
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card rv"><span class="k">Best fit if</span><h3>You want content</h3>
+      <p>Brands that treat this as a media buy with a car attached get far more out of it than
+         brands buying a logo position.</p></div>
+    <div class="card rv d1"><span class="k">Best fit if</span><h3>You sell to 18–44</h3>
+      <p>The social audience skews younger than the broadcast audience. Together they cover a
+         span very few motorsport properties can.</p></div>
+    <div class="card rv d2"><span class="k">Best fit if</span><h3>You need a local story</h3>
+      <p>Philadelphia, South Jersey and Delaware are home ground, with community programming
+         already running.</p></div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="section" id="partner" style="background:var(--asphalt-2);border-top:1px solid var(--line)">
+  <div class="kicker rv">09 — The Investment</div>
+  <h2 class="h-xl rv d1">Let's build <em>the deal.</em></h2>
+  <p class="lede rv d2">
+    Primary partnership takes the entire car for a race weekend and everything listed in
+    section 07. Associate, multi-race and season-long structures are built to fit — including
+    content-only packages for brands that want the channel without the quarter panel.
+  </p>
+
+  <div class="pkg-grid">
+    <div class="pkg rv">
+      <span class="what">Primary — entire car</span>
+      <div class="price">$50,000</div>
+      <span class="what">Per race weekend</span>
+      <p>Full car, custom paint scheme, helmet and fire suit, five premium logo positions,
+         both social channels, 2 Instagram Reels, 250 hero cards, 15 VIP garage passes,
+         professional photography, and a full post-race analytics report.</p>
+      <a href="#partner-contact"><button class="btn primary magnetic" style="margin-top:28px">Request the 2026 deck</button></a>
+    </div>
+    <div class="pkg alt rv d1">
+      <span class="what">Also available</span>
+      <div class="price">Associate<br>&amp; content</div>
+      <p style="margin-top:24px">
+        Associate positions on the car, season-long multi-race builds, community-programme
+        sponsorship through the UAC partnership, and standalone content integrations from
+        section 07. Scoped and priced against what you're trying to move.
+      </p>
+      <a href="#partner-contact"><button class="btn ghosty magnetic" style="margin-top:28px">Start a conversation</button></a>
+    </div>
+  </div>
+
+  <!-- TBD: drop in the real booking email / phone before this goes live -->
+  <div class="contact rv d2" id="partner-contact">
+    <div>
+      <div class="lbl">Partnership enquiries</div>
+      <div class="val tbd">Add booking email</div>
+    </div>
+    <div>
+      <div class="lbl">Team</div>
+      <div class="val">Alpha Prime Racing</div>
+    </div>
+    <div>
+      <div class="lbl">Season</div>
+      <div class="val">2026 — 33 races</div>
+    </div>
+  </div>
+</section>
+
 <!-- SHOP -->
 <section class="section shop" id="shop">
   <div class="shop-head">
     <div>
-      <div class="kicker rv">04 — The Shop</div>
+      <div class="kicker rv">10 — The Shop</div>
       <h2 class="h-xl rv d1">Drop <em>001.</em></h2>
     </div>
     <span class="mono rv d2" style="color:var(--paper-dim)">Concept storefront — checkout wires to Shopify / Stripe at launch</span>
@@ -759,7 +1299,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 <section class="section">
   <div class="pit">
     <div>
-      <div class="kicker rv">05 — Pit Crew</div>
+      <div class="kicker rv">11 — Pit Crew</div>
       <h2 class="h-xl rv d1">Ride <em>along.</em></h2>
     </div>
     <div class="rv d2">
@@ -776,28 +1316,19 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 </section>
 
 
-<section class="section">
-<div class="kicker">Latest From Instagram</div>
-<h2 class="h-xl">Chicago <em>Weekend.</em></h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0;">
-  <div style="border:1px solid var(--line);aspect-ratio:1/1;overflow:hidden;"><img src="lavar_face_out_of_car.jpg" alt="Lavar Scott" style="width:100%;height:100%;object-fit:cover;"></div>
-  <div style="border:1px solid var(--line);aspect-ratio:1/1;overflow:hidden;"><img src="lavar_in_car.jpg" alt="Lavar Scott in car" style="width:100%;height:100%;object-fit:cover;"></div>
-</div>
-<p style="color:var(--paper-dim);max-width:60ch;margin:20px 0;">Chicago race weekend — full focus on the No. 45 Chevrolet.</p>
-<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DaV9V7rpB86/" data-instgrm-version="14"></blockquote>
+<!-- Instagram embed script — powers the live post in section 02 -->
 <script async src="https://www.instagram.com/embed.js"></script>
-</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="f-top">
     <div class="f-name">Lavar<br>Scott <b>45</b></div>
     <div class="f-links">
-      <a href="#" onclick="return false">X / @LavarScott</a>
-      <a href="#" onclick="return false">Instagram</a>
-      <a href="#" onclick="return false">TikTok</a>
-      <a href="#" onclick="return false">YouTube</a>
-      <a href="#" onclick="return false">Press / Booking</a>
+      <a href="https://www.instagram.com/lavar.scott34/" target="_blank" rel="noopener">Instagram / @lavar.scott34</a>
+      <a href="https://www.tiktok.com/@lavar.scott34" target="_blank" rel="noopener">TikTok / @lavar.scott34</a>
+      <a href="https://x.com/LavarScott" target="_blank" rel="noopener">X / @LavarScott</a>
+      <a href="#partner">Partnerships</a>
+      <a href="#shop">Shop</a>
     </div>
   </div>
   <div class="f-bottom">
@@ -902,13 +1433,13 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   var cio = new IntersectionObserver(function(entries){
     entries.forEach(function(en){
       if (!en.isIntersecting) return;
-      var el = en.target, end = +el.dataset.n, t0 = null;
+      var el = en.target, end = +el.dataset.n, dec = +(el.dataset.dec || 0), t0 = null;
       cio.unobserve(el);
-      if (reduced){ el.textContent = end; return; }
+      if (reduced){ el.textContent = end.toFixed(dec); return; }
       function step(ts){
         if(!t0) t0 = ts;
         var p = Math.min((ts - t0)/1200, 1);
-        el.textContent = Math.round(end * (1 - Math.pow(1-p, 3)));
+        el.textContent = (end * (1 - Math.pow(1-p, 3))).toFixed(dec);
         if (p < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
