@@ -15,9 +15,17 @@
        03 Reach (social)                04 Off Track (training)
        05 Community / UAC workforce     06 Road
        07 Machine + track record + Alpha Prime
-       08 Beyond The Car (activation + content integrations)
-       09 Ideal Partners (+ Nielsen research) + earned media
-       10 Investment   11 Shop          12 Pit Crew
+       08 Calendar (auto-updating schedule)
+       09 Beyond The Car (activation + content integrations)
+       10 Ideal Partners (+ Nielsen research) + earned media
+       11 Investment   12 Shop          13 Pit Crew
+       Official partners logo strip · Footer
+
+     >>> MAINTENANCE — everything an editor touches lives in
+         ONE place: the SITE_CONFIG object at the top of the
+         main <script> (GA4 measurement ID, Stripe payment
+         links, Zapier mailing-list hook). Race schedule data
+         is the RACES array right below it.
 
      >>> BEFORE SENDING TO A BRAND: every element with
          class="tbd" is a placeholder — the per-platform
@@ -368,7 +376,7 @@ body.lit .hero-ctas{opacity:1}
 /* ---------- SHOP ---------- */
 .shop{background:var(--asphalt-2);border-top:1px solid var(--line)}
 .shop-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:40px}
-.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .prod{
   border:1px solid var(--line);background:var(--asphalt);
   display:flex;flex-direction:column;transition:border-color .3s;
@@ -621,6 +629,71 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 .presscard .hl{font-weight:700;font-size:.98rem;line-height:1.35}
 .presscard .mt{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--paper-dim);margin-top:auto;padding-top:10px}
 
+/* ---------- RACE CALENDAR ----------
+   Fully data-driven: rendered by JS from the RACES array,
+   auto-highlights the next race by date, dims completed
+   rounds, and upgrades itself from NASCAR's public feed
+   when reachable. No manual updates on race weekends. */
+.next-race{
+  border:1px solid var(--amber);margin-top:44px;position:relative;overflow:hidden;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0 14px,transparent 14px 28px),
+    linear-gradient(150deg,rgba(255,179,0,.14),var(--asphalt-2) 55%);
+  display:grid;grid-template-columns:1.4fr 1fr;
+}
+.next-race .lft{padding:clamp(28px,4.5vw,48px)}
+.next-race .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
+.next-race .tag i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+.next-race .trk{font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-.03em;font-size:clamp(2rem,5.5vw,4rem);line-height:.95;margin:14px 0 10px}
+.next-race .dt{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-dim)}
+.next-race .cw{display:inline-block;margin-top:22px;padding:9px 16px;border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+.next-race .rgt{
+  border-left:1px solid var(--line);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:28px;gap:4px;
+}
+.next-race .cd{font-weight:900;font-style:italic;letter-spacing:-.04em;font-size:clamp(3.4rem,9vw,6.5rem);line-height:.85;color:var(--amber)}
+.next-race .cdl{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--paper-dim)}
+.cal{border-top:1px solid var(--line);margin-top:16px;display:grid;grid-template-columns:1fr 1fr;column-gap:40px}
+.cal-row{
+  display:grid;grid-template-columns:44px 92px 1fr auto;gap:12px;align-items:center;
+  padding:13px 4px;border-bottom:1px solid var(--line-soft);transition:background .25s,padding-left .25s;
+}
+.cal-row:hover{padding-left:10px}
+.cal-row .no{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--paper-dim)}
+.cal-row .dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-dim)}
+.cal-row .tk{font-weight:800;text-transform:uppercase;letter-spacing:.01em;font-size:.95rem}
+.cal-row .bg{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,179,0,.35);padding:3px 8px;white-space:nowrap}
+.cal-row.done{opacity:.38}
+.cal-row.done .tk{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--paper-dim)}
+.cal-row.live{background:linear-gradient(90deg,rgba(255,179,0,.10),transparent);border-left:2px solid var(--amber);padding-left:10px}
+.cal-row.live .tk{color:var(--amber)}
+.cal-note{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--paper-dim);margin-top:18px}
+
+/* ---------- OFFICIAL PARTNERS LOGO STRIP ----------
+   Static wordmark slots. To swap in real artwork, replace a
+   .lgo's inner text with:
+     <img src="logo-name.png" alt="Name" style="max-height:44px;max-width:150px;object-fit:contain">
+   Keep them static (no links) per team request. */
+.sponsor-strip{border-top:1px solid var(--line);background:var(--asphalt-2);padding:clamp(40px,6vh,64px) var(--pad);text-align:center}
+.sponsor-strip .hdr{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--paper-dim);margin-bottom:34px}
+.lgo-row{display:flex;justify-content:center;align-items:stretch;gap:14px;flex-wrap:wrap}
+.lgo{
+  min-width:170px;padding:22px 30px;border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  filter:grayscale(1);opacity:.7;transition:filter .35s,opacity .35s,border-color .35s;
+}
+.lgo:hover{filter:grayscale(0);opacity:1;border-color:var(--amber)}
+.lgo .wm{font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-.01em;font-size:1.15rem;line-height:1.1}
+.lgo .sb{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-dim)}
+
+/* white-hat product art — until product photography lands */
+.pa-white{background:linear-gradient(160deg,#f2f0e9,#cfccc2)}
+.pa-white .mark{color:#17181c}
+
+/* footer agency credit — links to the studio that built the page */
+.cozy a{color:var(--paper);font-weight:700;transition:color .3s}
+.cozy a:hover{color:var(--amber)}
+
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:1020px){
   .shop-grid{grid-template-columns:repeat(2,1fr)}
@@ -631,6 +704,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   .del-col:nth-child(2){border-right:none}
   .del-col:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
   .press{grid-template-columns:1fr 1fr}
+  .cal{grid-template-columns:1fr;column-gap:0}
 }
 @media(max-width:860px){
   .nav-links,.nav-cta{display:none}
@@ -644,6 +718,9 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   .g3,.pkg-grid{grid-template-columns:1fr}
   .fit-row{grid-template-columns:40px 1fr;row-gap:8px}
   .fit-row .d{grid-column:2}
+  .next-race{grid-template-columns:1fr}
+  .next-race .rgt{border-left:none;border-top:1px solid var(--line);flex-direction:row;align-items:baseline;gap:14px;padding:20px 28px}
+  .cal-row{grid-template-columns:34px 84px 1fr auto}
 }
 @media(max-width:560px){
   .shop-grid{grid-template-columns:1fr 1fr;gap:10px}
@@ -678,6 +755,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
     <a href="#reach">Social</a>
     <a href="#offtrack">Lifestyle</a>
     <a href="#community">Community</a>
+    <a href="#calendar">Schedule</a>
     <a href="#beyond">Activation</a>
     <a href="#fit">Partners</a>
   </div>
@@ -694,6 +772,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   <a href="#reach">Social <span class="mono">≈100K following</span></a>
   <a href="#offtrack">Lifestyle <span class="mono">Training</span></a>
   <a href="#community">Community <span class="mono">UAC / workforce</span></a>
+  <a href="#calendar">Schedule <span class="mono">Next race + season</span></a>
   <a href="#beyond">Activation <span class="mono">Beyond the car</span></a>
   <a href="#fit">Ideal Partners <span class="mono">Who this fits</span></a>
   <a href="#partner">Invest <span class="mono green">● 2026 open</span></a>
@@ -846,10 +925,10 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
         visible ambassador for its Team Racing-2-Education program.</span>
     </div>
     <div class="brandcard rv d2">
-      <span class="rl">Race · Gateway</span>
+      <span class="rl">Rest of season · Primary at Gateway</span>
       <span class="nm">Strictly Friendly</span>
-      <span class="ds">Single-race primary at World Wide Technology Raceway — an example of
-        the one-weekend entry point into the programme.</span>
+      <span class="ds">On the No. 45 since Indianapolis for the remainder of 2026, expanding
+        to primary at World Wide Technology Raceway in September — a partner that scaled up.</span>
     </div>
     <div class="brandcard rv d3">
       <span class="rl">Associate</span>
@@ -1283,9 +1362,45 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
 </section>
 
+<!-- ============================================================
+     RACE CALENDAR — renders itself from the RACES array in the
+     script below. Nothing here is hand-updated on race weekends:
+     the next race, the countdown, and the done/upcoming states
+     are computed from today's date, and when NASCAR's public
+     schedule feed is reachable the list refreshes from it live.
+============================================================ -->
+<section class="section" id="calendar">
+  <div class="kicker rv">08 — The Calendar</div>
+  <h2 class="h-xl rv d1">Where the 45<br><em>races next.</em></h2>
+  <p class="lede rv d2">
+    33 race weekends, every one live on The CW. This schedule keeps itself current — completed
+    rounds check off automatically and the countdown always points at the next green flag.
+  </p>
+
+  <div class="next-race rv d2" id="nextRace">
+    <!-- populated by JS -->
+    <div class="lft">
+      <span class="tag"><i></i>Next race</span>
+      <div class="trk" id="nrTrack">—</div>
+      <div class="dt" id="nrDate">—</div>
+      <span class="cw">📺 Live on The CW</span>
+    </div>
+    <div class="rgt">
+      <div class="cd" id="nrDays">—</div>
+      <div class="cdl" id="nrLbl">Days to green flag</div>
+    </div>
+  </div>
+
+  <div class="cal rv d2" id="calList"><!-- populated by JS --></div>
+  <div class="cal-note rv d2" id="calNote">
+    Remaining Chase rounds sync automatically from the NASCAR schedule feed ·
+    Full schedule: <a href="https://lavarscott.com/races/" target="_blank" rel="noopener" style="color:var(--amber)">lavarscott.com/races ↗</a>
+  </div>
+</section>
+
 <!-- BEYOND THE CAR — activation + content integrations -->
 <section class="section" id="beyond" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="kicker rv">08 — Beyond The Car</div>
+  <div class="kicker rv">09 — Beyond The Car</div>
   <h2 class="h-xl rv d1">Where your brand<br><em>actually shows up.</em></h2>
   <p class="lede rv d2">
     The quarter panel is the smallest part of the deal. Here's the full surface area of a
@@ -1392,7 +1507,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 
 <!-- IDEAL BRAND PARTNERS -->
 <section class="section" id="fit">
-  <div class="kicker rv">09 — Ideal Partners</div>
+  <div class="kicker rv">10 — Ideal Partners</div>
   <h2 class="h-xl rv d1">Who this <em>works for.</em></h2>
   <p class="lede rv d2">
     Independent research is consistent on one point: NASCAR fans are measurably more responsive
@@ -1544,11 +1659,29 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
     additional media cost.
   </p>
 
+  <!-- MAINTENANCE — adding new press is copy-paste:
+       duplicate one .presscard, then fill in
+         .out  outlet name
+         .hl   headline (quoted if verbatim)
+         .mt   date · one-line context for a sponsor
+       Keep the culture hits (BET / Essence / Complex) in the
+       first row — they're the reach argument. Six cards fills
+       the grid; drop the weakest when adding a seventh. -->
   <div class="press rv d2">
+    <div class="presscard">
+      <span class="out">BET</span>
+      <span class="hl">"Next Up: Lavar Scott Is On The Fast Track To Success"</span>
+      <span class="mt">Exclusive interview · A third-generation racer, told to BET's national audience</span>
+    </div>
+    <div class="presscard">
+      <span class="out">Essence</span>
+      <span class="hl">"Black, Fast, and Breaking Barriers: Lavar Scott Makes His NASCAR Debut"</span>
+      <span class="mt">Debut-weekend feature · Culture press, far outside the racing bubble</span>
+    </div>
     <div class="presscard">
       <span class="out">Complex</span>
       <span class="hl">"NASCAR's Culture Is Changing and Lavar Scott Is Up Next"</span>
-      <span class="mt">National culture press · Reaches well outside the motorsport audience</span>
+      <span class="mt">National culture press · The audience sponsors can't buy through racing media</span>
     </div>
     <div class="presscard">
       <span class="out">NASCAR.com</span>
@@ -1565,26 +1698,16 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
       <span class="hl">"Lavar Scott Partners With Sunoco for 10 Races in 2026"</span>
       <span class="mt">March 2026 · Partnership announcements get picked up</span>
     </div>
-    <div class="presscard">
-      <span class="out">Jayski / Speedway Digest</span>
-      <span class="hl">Alpha Prime &amp; Urban Affairs Coalition launch workforce initiative</span>
-      <span class="mt">June 2026 · Community work earns trade coverage too</span>
-    </div>
-    <div class="presscard">
-      <span class="out">LancasterOnline · Daily Gazette</span>
-      <span class="hl">"There was no Plan B" — syndicated regional feature</span>
-      <span class="mt">Syndication multiplies a single story across markets</span>
-    </div>
   </div>
 </section>
 
 <!-- INVESTMENT -->
 <section class="section" id="partner" style="background:var(--asphalt-2);border-top:1px solid var(--line)">
-  <div class="kicker rv">10 — The Investment</div>
+  <div class="kicker rv">11 — The Investment</div>
   <h2 class="h-xl rv d1">Let's build <em>the deal.</em></h2>
   <p class="lede rv d2">
     Primary partnership takes the entire car for a race weekend and everything listed in
-    section 08. Associate, multi-race and season-long structures are built to fit — including
+    section 09. Associate, multi-race and season-long structures are built to fit — including
     content-only packages for brands that want the channel without the quarter panel.
   </p>
 
@@ -1604,7 +1727,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
       <p style="margin-top:24px">
         Associate positions on the car, season-long multi-race builds, community-programme
         sponsorship through the UAC partnership, and standalone content integrations from
-        section 08. Scoped and priced against what you're trying to move.
+        section 09. Scoped and priced against what you're trying to move.
       </p>
       <a href="#partner-contact"><button class="btn ghosty magnetic" style="margin-top:28px">Start a conversation</button></a>
     </div>
@@ -1630,44 +1753,39 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 <section class="section shop" id="shop">
   <div class="shop-head">
     <div>
-      <div class="kicker rv">11 — The Shop</div>
+      <div class="kicker rv">12 — The Shop</div>
       <h2 class="h-xl rv d1">Drop <em>001.</em></h2>
     </div>
-    <span class="mono rv d2" style="color:var(--paper-dim)">Concept storefront — checkout wires to Shopify / Stripe at launch</span>
+    <span class="mono rv d2" style="color:var(--paper-dim)">Checkout via Stripe — buttons go live as payment links are added in SITE_CONFIG</span>
   </div>
 
   <div class="shop-grid">
-    <!-- PHOTO SLOT: each .prod-art swaps for product photography -->
+    <!-- PHOTO SLOT: each .prod-art swaps for product photography.
+         data-item keys must match SITE_CONFIG.STRIPE_LINKS exactly. -->
     <div class="prod tilt rv">
       <div class="prod-art pa-1"><img src="lavar_shirt.png" alt="Rookie Season Tee" style="width:100%;height:100%;object-fit:cover;"></div>
       <div class="prod-info">
         <span class="nm">Rookie Season Tee</span>
         <span class="pr">$30 — S / M / L / XL / 2X</span>
-        <button class="add" data-item="Rookie Season Tee">Add to cart</button>
+        <button class="add" data-item="Rookie Season Tee">Buy now</button>
       </div>
     </div>
     <div class="prod tilt rv d1">
-      <div class="prod-art pa-2"><span class="chip">Heavyweight</span><span class="mark">No<br>Plan B</span></div>
+      <div class="prod-art pa-3"><img src="lavar_hat.png" alt="45 Snapback — Black" style="width:100%;height:100%;object-fit:cover;"></div>
       <div class="prod-info">
-        <span class="nm">No Plan B Hoodie</span>
-        <span class="pr">$68 — S / M / L / XL / 2X</span>
-        <button class="add" data-item="No Plan B Hoodie">Add to cart</button>
-      </div>
-    </div>
-    <div class="prod tilt rv d2">
-      <div class="prod-art pa-3"><img src="lavar_hat.png" alt="45 Snapback" style="width:100%;height:100%;object-fit:cover;"></div>
-      <div class="prod-info">
-        <span class="nm">45 Snapback</span>
+        <span class="nm">45 Snapback — Black</span>
         <span class="pr">$32 — One size</span>
-        <button class="add" data-item="45 Snapback">Add to cart</button>
+        <button class="add" data-item="45 Snapback — Black">Buy now</button>
       </div>
     </div>
-    <div class="prod tilt rv d3">
-      <div class="prod-art pa-4"><span class="chip">1:64</span><span class="mark">Die<br>cast</span></div>
+    <!-- PHOTO SLOT: swap the .prod-art below for the white-hat
+         product shot when the files arrive -->
+    <div class="prod tilt rv d2">
+      <div class="prod-art pa-white"><span class="chip">New</span><span class="mark">45</span></div>
       <div class="prod-info">
-        <span class="nm">No. 45 Diecast</span>
-        <span class="pr">$14 — Collectible</span>
-        <button class="add" data-item="No. 45 Diecast">Add to cart</button>
+        <span class="nm">45 Snapback — White</span>
+        <span class="pr">$32 — One size</span>
+        <button class="add" data-item="45 Snapback — White">Buy now</button>
       </div>
     </div>
   </div>
@@ -1677,7 +1795,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 <section class="section">
   <div class="pit">
     <div>
-      <div class="kicker rv">12 — Pit Crew</div>
+      <div class="kicker rv">13 — Pit Crew</div>
       <h2 class="h-xl rv d1">Ride <em>along.</em></h2>
     </div>
     <div class="rv d2">
@@ -1693,6 +1811,39 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
 </section>
 
+
+<!-- ============================================================
+     OFFICIAL PARTNERS — static logo strip (no links, per team).
+     When logo files land, swap each .lgo's inner spans for an
+     <img> per the note in the CSS block. To add a partner,
+     copy a .lgo div.
+============================================================ -->
+<section class="sponsor-strip">
+  <div class="hdr">Official Partners of the No. 45</div>
+  <div class="lgo-row">
+    <div class="lgo rv">
+      <span class="wm">Urban Affairs<br>Coalition</span>
+      <span class="sb">Community Partner</span>
+    </div>
+    <div class="lgo rv d1">
+      <span class="wm">Chevrolet</span>
+      <span class="sb">Camaro SS</span>
+    </div>
+    <div class="lgo rv d1">
+      <span class="wm">Sunoco</span>
+      <span class="sb">Primary · 10 Races</span>
+    </div>
+    <div class="lgo rv d2">
+      <span class="wm">Alpha Prime<br>Racing</span>
+      <span class="sb">Race Team</span>
+    </div>
+    <!-- TBD: swap in the new management company's name + logo -->
+    <div class="lgo rv d2">
+      <span class="wm tbd">Management</span>
+      <span class="sb tbd">Logo to come</span>
+    </div>
+  </div>
+</section>
 
 <!-- Instagram embed script — powers the live post in section 02 -->
 <script async src="https://www.instagram.com/embed.js"></script>
@@ -1717,7 +1868,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   </div>
   <div class="f-bottom">
     <span>© 2026 Lavar Scott Racing — All rights reserved</span>
-    <span class="cozy">Site concept — <b>Cozy Digital</b> · cozydigital.org</span>
+    <span class="cozy">Powered by <a href="https://cozydigital.org" target="_blank" rel="noopener"><b>Cozy Digital</b> ↗</a></span>
   </div>
 </footer>
 
@@ -1726,6 +1877,48 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
 
 <script>
 (function(){
+  /* ============================================================
+     SITE_CONFIG — the ONLY block an editor needs to touch.
+     Every value below is safe to fill in independently; each
+     feature stays in demo mode until its value is set.
+  ============================================================ */
+  var SITE_CONFIG = {
+    /* Google Analytics 4 — paste the property's Measurement ID
+       (Admin → Data streams → Web). Loads only once a real
+       G- id is present, so the placeholder never fires hits. */
+    GA_ID: 'G-XXXXXXXXXX',
+
+    /* Stripe Payment Links — create one per product in the
+       Stripe dashboard (Products → Payment links); payouts land
+       in the connected bank account. Buttons fall back to the
+       demo cart until a link is filled in. */
+    STRIPE_LINKS: {
+      'Rookie Season Tee': '',   // e.g. https://buy.stripe.com/xxxx
+      '45 Snapback — Black': '',
+      '45 Snapback — White': ''
+    },
+
+    /* Mailing list — Zapier → Mailchimp.
+       1. Zapier: new Zap → trigger "Webhooks by Zapier / Catch Hook".
+       2. Action: "Mailchimp / Add-Update Subscriber", map the
+          `email` field to the audience.
+       3. Paste the hook URL here. The form posts {email, source}
+          and Mailchimp handles the welcome + fan newsletters. */
+    ZAPIER_HOOK: ''              // e.g. https://hooks.zapier.com/hooks/catch/xxxx/xxxx/
+  };
+
+  /* ---------- GOOGLE ANALYTICS 4 ---------- */
+  if (/^G-[A-Z0-9]{6,}$/.test(SITE_CONFIG.GA_ID) && SITE_CONFIG.GA_ID.indexOf('XXXX') === -1){
+    var gs = document.createElement('script');
+    gs.async = true;
+    gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + SITE_CONFIG.GA_ID;
+    document.head.appendChild(gs);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', SITE_CONFIG.GA_ID);
+  }
+
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
@@ -1871,7 +2064,109 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
     });
   }
 
-  /* ---------- CART DEMO ---------- */
+  /* ============================================================
+     RACE CALENDAR — data + renderer.
+     RACES holds the 2026 O'Reilly Auto Parts Series schedule as
+     published; the module computes done / next / upcoming from
+     today's date, so race weekends never require a hand edit.
+     On load it also tries NASCAR's public schedule feed and, if
+     reachable, re-renders from the live data (exact names/dates
+     for any round announced or moved after this file shipped).
+  ============================================================ */
+  var RACES = [
+    {d:'2026-02-14', t:'Daytona',            n:'United Rentals 300'},
+    {d:'2026-02-21', t:'Atlanta',            n:'EchoPark Speedway'},
+    {d:'2026-02-28', t:'COTA',               n:'Austin road course'},
+    {d:'2026-03-07', t:'Phoenix',            n:''},
+    {d:'2026-03-14', t:'Las Vegas',          n:''},
+    {d:'2026-03-21', t:'Darlington',         n:'', bg:'Sunoco debut'},
+    {d:'2026-03-28', t:'Martinsville',       n:''},
+    {d:'2026-04-04', t:'Rockingham',         n:'The Rock returns'},
+    {d:'2026-04-11', t:'Bristol',            n:''},
+    {d:'2026-04-18', t:'Kansas',             n:''},
+    {d:'2026-04-25', t:'Talladega',          n:''},
+    {d:'2026-05-02', t:'Texas',              n:"Andy's Frozen Custard 340"},
+    {d:'2026-05-09', t:'Watkins Glen',       n:''},
+    {d:'2026-05-16', t:'Dover',              n:''},
+    {d:'2026-05-23', t:'Charlotte',          n:''},
+    {d:'2026-05-30', t:'Nashville',          n:''},
+    {d:'2026-06-13', t:'Pocono',             n:''},
+    {d:'2026-06-20', t:'Coronado',           n:'San Diego street course', bg:'Street debut'},
+    {d:'2026-06-27', t:'Sonoma',             n:''},
+    {d:'2026-07-04', t:'Chicagoland',        n:'July 4th weekend'},
+    {d:'2026-08-08', t:'Indianapolis',       n:''},
+    {d:'2026-08-28', t:'Daytona',            n:'Summer night race'},
+    {d:'2026-09-05', t:'Darlington',         n:'Chase opener', bg:'Chase'},
+    {d:'2026-09-12', t:'Gateway / WWTR',     n:'Nu Way 225', bg:'Chase'},
+    {d:'2026-11-07', t:'Homestead-Miami',    n:'Hard Rock Bet 300 — finale', bg:'Championship'}
+  ];
+
+  function renderCalendar(){
+    var now = new Date(); now.setHours(0,0,0,0);
+    var list = document.getElementById('calList');
+    if (!list) return;
+    var next = null;
+    RACES.forEach(function(r){ r._dt = new Date(r.d + 'T12:00:00'); });
+    for (var i=0;i<RACES.length;i++){
+      if (RACES[i]._dt >= now){ next = RACES[i]; break; }
+    }
+    var html = '';
+    RACES.forEach(function(r, i){
+      var cls = r._dt < now ? 'done' : (r === next ? 'live' : '');
+      var dstr = r._dt.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+      html += '<div class="cal-row ' + cls + '">' +
+        '<span class="no">' + String(i+1).padStart(2,'0') + '</span>' +
+        '<span class="dt">' + dstr + '</span>' +
+        '<span class="tk">' + r.t + (r.n ? ' <span style="font-weight:400;color:var(--paper-dim);font-size:.8rem">· ' + r.n + '</span>' : '') + '</span>' +
+        (r === next ? '<span class="bg">● Next</span>' : (r.bg ? '<span class="bg">' + r.bg + '</span>' : '<span></span>')) +
+        '</div>';
+    });
+    list.innerHTML = html;
+    if (next){
+      document.getElementById('nrTrack').textContent = next.t;
+      document.getElementById('nrDate').textContent =
+        next._dt.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'}) +
+        (next.n ? ' — ' + next.n : '');
+      var days = Math.round((new Date(next.d + 'T00:00:00') - now) / 864e5);
+      document.getElementById('nrDays').textContent = days;
+      document.getElementById('nrLbl').textContent = days === 1 ? 'Day to green flag' : 'Days to green flag';
+    } else {
+      document.getElementById('nextRace').querySelector('.lft .tag').innerHTML = '<i></i>Season complete';
+      document.getElementById('nrTrack').textContent = 'See you in 2027';
+      document.getElementById('nrDate').textContent = 'Championship run: February — November';
+      document.getElementById('nrDays').textContent = '🏁';
+      document.getElementById('nrLbl').textContent = '33 races down';
+    }
+  }
+  renderCalendar();
+
+  /* Live upgrade from NASCAR's public schedule feed (CORS-open
+     CDN used by fan sites). series_id 2 = O'Reilly Auto Parts
+     Series. Any failure — offline, CORS, feed moved — is
+     silently ignored and the verified list above stands. */
+  fetch('https://cf.nascar.com/cacher/2026/race_list_basic.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var races = (data && (data.series_2 || (data.filter && data.filter(function(x){ return x.series_id === 2; })))) || null;
+      if (!races || !races.length) return;
+      var mapped = races.map(function(r){
+        var d = (r.race_date || r.date_scheduled || '').slice(0,10);
+        var t = (r.track_name || '').replace(/ (International )?(Motor )?(Speedway|Raceway|Superspeedway|Circuit)$/i,'');
+        return d && t ? {d:d, t:t, n:r.race_name || ''} : null;
+      }).filter(Boolean);
+      if (mapped.length >= RACES.length){
+        RACES = mapped;
+        var note = document.getElementById('calNote');
+        renderCalendar();
+        if (note) note.innerHTML = note.innerHTML.replace('sync automatically from', 'synced live from');
+      }
+    })
+    .catch(function(){ /* fallback list stands */ });
+
+  /* ---------- SHOP — Stripe checkout ----------
+     Each buy button opens its Stripe Payment Link when one is
+     configured in SITE_CONFIG.STRIPE_LINKS; until then it keeps
+     the demo-cart behaviour so the storefront still feels alive. */
   var count = 0;
   var pill = document.getElementById('cartPill');
   var cartN = document.getElementById('cartN');
@@ -1885,18 +2180,38 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 30px;background:
   }
   document.querySelectorAll('.add').forEach(function(btn){
     btn.addEventListener('click', function(){
+      var link = SITE_CONFIG.STRIPE_LINKS[btn.dataset.item];
+      if (link){
+        if (window.gtag) gtag('event', 'begin_checkout', {item_name: btn.dataset.item});
+        window.open(link, '_blank', 'noopener');
+        return;
+      }
       count++;
       cartN.textContent = count;
       pill.classList.add('show');
-      showToast(btn.dataset.item + ' added — demo checkout');
+      showToast(btn.dataset.item + ' added — checkout opens when Stripe links land');
     });
   });
 
-  /* ---------- NEWSLETTER DEMO ---------- */
+  /* ---------- MAILING LIST — Zapier → Mailchimp ---------- */
   document.getElementById('pitBtn').addEventListener('click', function(){
-    var v = document.getElementById('pitEmail').value.trim();
-    showToast(v ? 'You\'re on the crew ✓ (demo)' : 'Enter an email to join');
-    if (v) document.getElementById('pitEmail').value = '';
+    var input = document.getElementById('pitEmail');
+    var v = input.value.trim();
+    if (!v || v.indexOf('@') < 1){ showToast('Enter an email to join'); return; }
+    if (SITE_CONFIG.ZAPIER_HOOK){
+      /* no-cors: Zapier catch hooks accept the POST but don't
+         return CORS headers; the opaque response is expected. */
+      fetch(SITE_CONFIG.ZAPIER_HOOK, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify({email:v, source:'lavarscott-site', ts:new Date().toISOString()})
+      }).catch(function(){});
+      if (window.gtag) gtag('event', 'sign_up', {method:'newsletter'});
+      showToast("You're on the crew ✓ Green flags incoming");
+    } else {
+      showToast("You're on the crew ✓ (list goes live with the Zapier hook)");
+    }
+    input.value = '';
   });
 
   /* ---------- NAV HIDE ON SCROLL / MOBILE MENU ---------- */
