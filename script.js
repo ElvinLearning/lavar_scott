@@ -227,6 +227,58 @@
     });
   }
 
+  /* ============================================================
+     CINEMATIC BACKGROUND VIDEO — each page carries at most one
+     decorative <video class="bg-video__el">. It ships with
+     preload="none" and a poster, so with this script absent,
+     blocked, or reduced-motion active, visitors only ever see the
+     static poster frame and no video byte is requested. When
+     motion is allowed, IntersectionObserver starts playback once
+     the section is in view and pauses it once it isn't, and the
+     visibilitychange listener pauses playback whenever the tab is
+     hidden and resumes it only if the section is still in view.
+     The home clip is marked data-eager so it starts as soon as
+     this script runs rather than waiting on the observer's first
+     callback, matching the brief's "home may load its video
+     earlier" allowance; every other page waits for the observer.
+  ============================================================ */
+  var bgVideos = document.querySelectorAll('.bg-video__el');
+  if (bgVideos.length && !reduced){
+    var trackedVideos = [];
+    bgVideos.forEach(function(video){
+      var state = {video:video, visible:false};
+      trackedVideos.push(state);
+      if (hasIO){
+        var wrap = video.closest('.bg-video');
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            state.visible = entry.isIntersecting;
+            if (document.hidden) return;
+            if (entry.isIntersecting){
+              video.play().catch(function(){});
+            } else {
+              video.pause();
+            }
+          });
+        }, {threshold:.15});
+        io.observe(wrap || video);
+      }
+      if (video.dataset.eager === 'true'){
+        state.visible = true;
+        video.play().catch(function(){});
+      }
+    });
+    document.addEventListener('visibilitychange', function(){
+      trackedVideos.forEach(function(state){
+        if (document.hidden){
+          state.video.pause();
+        } else if (state.visible){
+          state.video.play().catch(function(){});
+        }
+      });
+    });
+  }
+
   /* ---------- INSTAGRAM EMBED: give Instagram's generated iframe
      an accessible name and mark success. The plain fallback link
      stays in the DOM and functional either way. ---------- */

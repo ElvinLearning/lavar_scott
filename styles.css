@@ -240,6 +240,76 @@ html.js-anim .plate .dot{animation:pulse 1.6s infinite}
 html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
 @keyframes drop{to{top:100%}}
 
+/* ---------- CINEMATIC VIDEO BACKGROUNDS ----------
+   One clip per page, poster-first: the <video poster> renders
+   immediately with no network cost (preload="none"), and script.js
+   only requests/plays the file once IntersectionObserver confirms
+   the section is in view and prefers-reduced-motion is off. That
+   means this CSS never needs a reduced-motion override of its own;
+   an unplayed video simply keeps showing its poster frame. */
+.bg-video{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.bg-video__el{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block;background:var(--asphalt-2)}
+.bg-video__scrim{position:absolute;inset:0}
+.hero>.bg-video{z-index:0}
+.ghost45{z-index:1}
+.section--video{overflow:hidden}
+.section--video>*:not(.bg-video){position:relative;z-index:1}
+
+/* Home: text sits bottom-left of a tall hero; heaviest scrim near the
+   copy, lighter near the top so the livery/portrait frames still read. */
+.bg-video--home .bg-video__el{object-position:50% 22%}
+.bg-video--home .bg-video__scrim{
+  background:
+    linear-gradient(180deg,rgba(13,14,17,.55) 0%,rgba(13,14,17,.3) 32%,rgba(13,14,17,.74) 76%,rgba(13,14,17,.94) 100%),
+    linear-gradient(90deg,rgba(13,14,17,.55) 0%,rgba(13,14,17,.05) 45%);
+}
+
+/* On The Track: garage/action clip, amber-leaning scrim to match the
+   section's speed-and-machine energy. */
+.bg-video--track .bg-video__el{object-position:50% 38%}
+.bg-video--track .bg-video__scrim{
+  background:
+    linear-gradient(165deg,rgba(13,14,17,.86) 0%,rgba(13,14,17,.5) 46%,rgba(23,15,2,.72) 100%),
+    linear-gradient(0deg,rgba(13,14,17,.55) 0%,transparent 60%);
+}
+
+/* Off The Track: paddock-walk clip, calmer and darker for the
+   human/behind-the-scenes read. */
+.bg-video--offtrack .bg-video__el{object-position:50% 24%}
+.bg-video--offtrack .bg-video__scrim{
+  background:linear-gradient(195deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.58) 50%,rgba(13,14,17,.88) 100%);
+}
+
+/* Community: candid garage/social clip, faint green tint nodding to
+   the staging-light green and the UAC partnership without adding a
+   new color to the system. */
+.bg-video--community .bg-video__el{object-position:50% 30%}
+.bg-video--community .bg-video__scrim{
+  background:
+    linear-gradient(160deg,rgba(13,14,17,.88) 0%,rgba(13,14,17,.48) 48%,rgba(6,20,13,.72) 100%),
+    linear-gradient(0deg,rgba(13,14,17,.5) 0%,transparent 55%);
+}
+
+/* Partner: driver-portrait/race-pass clip, premium amber accent for
+   the sponsorship pitch. */
+.bg-video--partner .bg-video__el{object-position:50% 24%}
+.bg-video--partner .bg-video__scrim{
+  background:
+    linear-gradient(170deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.5) 45%,rgba(26,17,0,.72) 100%),
+    linear-gradient(0deg,rgba(13,14,17,.55) 0%,transparent 55%);
+}
+
+@media(max-width:860px){
+  .bg-video--home .bg-video__el{object-position:56% 18%}
+  .bg-video--track .bg-video__el{object-position:54% 42%}
+  .bg-video--offtrack .bg-video__el{object-position:50% 20%}
+  .bg-video--community .bg-video__el{object-position:52% 26%}
+  .bg-video--partner .bg-video__el{object-position:52% 20%}
+}
+@media(max-height:420px){
+  .bg-video__el{object-position:50% 32%}
+}
+
 /* ---------- MARQUEE ---------- */
 .marquee{
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
