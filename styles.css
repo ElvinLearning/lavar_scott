@@ -87,7 +87,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* reveal-on-scroll — visible by default; only animates once
    html.js-anim is present (see note above). */
 .rv{opacity:1;transform:none}
-html.js-anim .rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+html.js-anim .rv{opacity:1;transform:translateY(24px);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 html.js-anim .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.06s}.rv.d2{transition-delay:.12s}.rv.d3{transition-delay:.18s}
 
@@ -129,11 +129,18 @@ html.js-anim .nav.hide{transform:translateY(-100%)}
 .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
 .burger[aria-expanded="true"] span:nth-child(3){top:20px;transform:rotate(-45deg)}
 
-/* mobile menu overlay: no-JS fallback shows it as a normal
-   in-flow block under the nav so links are always reachable */
+/* mobile menu landmark: no-JS fallback (no html.js class) shows
+   it as a normal in-flow block right under the nav so links are
+   always reachable. Once script.js runs, html.js gates it to a
+   closed-by-default, viewport-fixed disclosure so it stays
+   reachable and in view no matter how far the page is scrolled.
+   That gating is deliberately independent of html.js-anim /
+   reduced motion — the menu must open and close for every visitor
+   running this script, motion preference aside. */
 .mmenu{
   background:var(--asphalt);border-bottom:1px solid var(--line);
   padding:8px var(--pad) 18px;
+  margin-top:var(--nav-h);
 }
 .mmenu a{
   font-weight:800;text-transform:uppercase;font-size:1.15rem;
@@ -142,12 +149,23 @@ html.js-anim .nav.hide{transform:translateY(-100%)}
   padding:14px 0;display:flex;justify-content:space-between;align-items:center;
 }
 .mmenu a .mono{color:var(--amber)}
+.mmenu a[aria-current="page"]{color:var(--amber)}
 @media(min-width:861px){ .mmenu{display:none} }
 @media(max-width:860px){
   .nav-links,.nav-cta{display:none}
   .burger{display:block}
-  html.js-anim .mmenu{display:none}
-  html.js-anim .mmenu.open{display:block}
+  html.js .mmenu{
+    display:none;
+    position:fixed;
+    margin-top:0;
+    top:var(--nav-h);left:0;right:0;
+    max-height:calc(100vh - var(--nav-h));
+    max-height:calc(100dvh - var(--nav-h));
+    overflow-y:auto;
+    z-index:899;
+    box-shadow:0 18px 30px -10px rgba(0,0,0,.55);
+  }
+  html.js .mmenu.open{display:block}
 }
 
 /* ---------- HERO ---------- */
@@ -345,7 +363,7 @@ html.js-anim .marquee .track{animation:mq 26s linear infinite}
 .embed-wrap{border:1px solid var(--line);background:var(--asphalt-2);padding:14px;display:flex;flex-direction:column;margin-top:38px;max-width:540px}
 .embed-wrap .instagram-media{margin:0 auto!important;min-width:0!important;max-width:100%!important}
 .embed-fallback{color:var(--paper-dim);font-size:.88rem;margin-top:12px}
-.embed-fallback a{color:var(--amber)}
+.embed-fallback a{color:var(--amber);text-decoration:underline;text-underline-offset:.18em}
 
 /* ---------- CALENDAR ---------- */
 .next-race{
@@ -369,11 +387,12 @@ html.js-anim .next-race .tag i{animation:pulse 1.6s infinite}
 .cal-row .dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-dim)}
 .cal-row .tk{font-weight:800;text-transform:uppercase;letter-spacing:.01em;font-size:.92rem}
 .cal-row .bg{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,179,0,.35);padding:3px 8px;white-space:nowrap}
-.cal-row.done{opacity:.4}
-.cal-row.done .tk{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--paper-dim)}
+.cal-row.done{opacity:1}
+.cal-row.done .tk{color:var(--paper-dim);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--paper-dim)}
 .cal-row.live{background:linear-gradient(90deg,rgba(255,179,0,.1),transparent);border-left:2px solid var(--amber);padding-left:8px}
 .cal-row.live .tk{color:var(--amber)}
 .cal-note{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-dim);margin-top:16px}
+.cal-note a{text-decoration:underline;text-underline-offset:.18em}
 noscript .cal-note-js{display:none}
 
 /* ---------- DELIVERABLES ---------- */
@@ -435,7 +454,7 @@ noscript .cal-note-js{display:none}
 .enquiry .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .enquiry .note{color:var(--paper-dim);font-size:.85rem;margin-top:10px}
 .enquiry .fallback{border-top:1px solid var(--line-soft);margin-top:24px;padding-top:20px}
-.enquiry .fallback a{color:var(--amber)}
+.enquiry .fallback a{color:var(--amber);text-decoration:underline;text-underline-offset:.18em}
 .contact{border:1px solid var(--line);background:var(--asphalt-2);margin-top:16px;padding:clamp(20px,3vw,28px);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
 .contact .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-dim)}
 .contact .val{font-weight:900;text-transform:uppercase;font-size:clamp(.95rem,1.8vw,1.25rem);letter-spacing:-.01em}

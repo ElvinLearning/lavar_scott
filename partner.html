@@ -6,12 +6,12 @@
 <title>Partner | Lavar Scott, No. 45</title>
 <meta name="description" content="Sponsor the No. 45 Alpha Prime Racing Chevrolet. Deliverables, ideal partner categories, earned media, and a direct way to start a conversation with the team.">
 <link rel="stylesheet" href="styles.css">
-<noscript><style>.burger{display:none!important}</style></noscript>
+<noscript><style>@media(max-width:860px){.burger{display:none!important}.mmenu{display:block!important;position:static!important;max-height:none!important;overflow:visible!important}}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Primary">
   <a class="brand" href="index.html">
     <span class="num">45</span>
     <span class="nm">Lavar Scott</span>
@@ -30,14 +30,15 @@
   </button>
 </nav>
 
-<div class="mmenu" id="mmenu">
+<nav class="mmenu" id="mmenu" aria-label="Mobile">
+  <a href="index.html">Home <span class="mono">The 45</span></a>
   <a href="story.html">Story <span class="mono">The origin</span></a>
   <a href="track.html">On The Track <span class="mono">The car, the series</span></a>
   <a href="offtrack.html">Off The Track <span class="mono">Training, lifestyle</span></a>
   <a href="community.html">Community <span class="mono">Social, UAC</span></a>
   <a href="schedule.html">Schedule <span class="mono">2026 races</span></a>
-  <a href="partner.html">Partner <span class="mono green">Sponsor the 45</span></a>
-</div>
+  <a href="partner.html" aria-current="page">Partner <span class="mono green">Sponsor the 45</span></a>
+</nav>
 
 <main id="main">
 <section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
@@ -124,7 +125,7 @@
       measurably more likely to notice a sponsor, try it, stay with it, and tell someone else
       about it.
     </p>
-    <div class="chart-scroll">
+    <div class="chart-scroll" tabindex="0" role="region" aria-label="Sponsor responsiveness chart, scroll horizontally">
       <svg viewBox="0 0 800 392" role="img" aria-label="Bar chart comparing sponsor responsiveness between the general population and NASCAR fans across four measures." xmlns="http://www.w3.org/2000/svg">
         <title>NASCAR fans vs. general population: sponsor responsiveness</title>
         <g class="grid">
@@ -293,7 +294,7 @@
     by this site; it only prepares an email for you to send.
   </p>
 
-  <form class="enquiry rv d2" id="enquiryForm">
+  <div class="enquiry rv d2" id="enquiryForm" role="group" aria-label="Partner enquiry">
     <div class="row2">
       <div class="field">
         <label for="enqName">Your name</label>
@@ -318,7 +319,7 @@
       <label for="enqMessage">Message</label>
       <textarea id="enqMessage" name="message" placeholder="Tell us about your brand and what you're hoping to build."></textarea>
     </div>
-    <button type="submit" class="btn primary">Compose Enquiry Email</button>
+    <button type="button" class="btn primary" id="enqCompose">Compose Enquiry Email</button>
     <p class="note">Clicking this opens your email app with the details above filled in.</p>
 
     <div class="fallback">
@@ -327,7 +328,7 @@
         Email <a href="mailto:contact@lavarscott.com">contact@lavarscott.com</a> directly, any time.
       </p>
     </div>
-  </form>
+  </div>
 
   <div class="contact rv d2">
     <div>

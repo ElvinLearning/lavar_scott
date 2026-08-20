@@ -6,12 +6,12 @@
 <title>Story | Lavar Scott, No. 45</title>
 <meta name="description" content="How Lavar Scott went from a family garage in Carneys Point, NJ to a full-time seat in the NASCAR O'Reilly Auto Parts Series with Alpha Prime Racing.">
 <link rel="stylesheet" href="styles.css">
-<noscript><style>.burger{display:none!important}</style></noscript>
+<noscript><style>@media(max-width:860px){.burger{display:none!important}.mmenu{display:block!important;position:static!important;max-height:none!important;overflow:visible!important}}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Primary">
   <a class="brand" href="index.html">
     <span class="num">45</span>
     <span class="nm">Lavar Scott</span>
@@ -30,14 +30,15 @@
   </button>
 </nav>
 
-<div class="mmenu" id="mmenu">
-  <a href="story.html">Story <span class="mono">The origin</span></a>
+<nav class="mmenu" id="mmenu" aria-label="Mobile">
+  <a href="index.html">Home <span class="mono">The 45</span></a>
+  <a href="story.html" aria-current="page">Story <span class="mono">The origin</span></a>
   <a href="track.html">On The Track <span class="mono">The car, the series</span></a>
   <a href="offtrack.html">Off The Track <span class="mono">Training, lifestyle</span></a>
   <a href="community.html">Community <span class="mono">Social, UAC</span></a>
   <a href="schedule.html">Schedule <span class="mono">2026 races</span></a>
   <a href="partner.html">Partner <span class="mono green">Sponsor the 45</span></a>
-</div>
+</nav>
 
 <main id="main">
 <section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
@@ -86,7 +87,7 @@
   <p class="lede rv d2">Scroll or drag through the timeline below.</p>
 
   <div class="tl-wrap" style="margin-top:32px">
-    <div class="tl" id="tl">
+    <div class="tl" id="tl" tabindex="0" role="region" aria-label="Lavar Scott career timeline, scroll horizontally">
       <article class="tcard" data-i="01">
         <div class="yr">2008</div>
         <h3>First laps</h3>

@@ -6,12 +6,12 @@
 <title>On The Track | Lavar Scott, No. 45</title>
 <meta name="description" content="The No. 45 Alpha Prime Racing Chevrolet, the NASCAR O'Reilly Auto Parts Series broadcast on The CW, and Lavar Scott's track record so far.">
 <link rel="stylesheet" href="styles.css">
-<noscript><style>.burger{display:none!important}</style></noscript>
+<noscript><style>@media(max-width:860px){.burger{display:none!important}.mmenu{display:block!important;position:static!important;max-height:none!important;overflow:visible!important}}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Primary">
   <a class="brand" href="index.html">
     <span class="num">45</span>
     <span class="nm">Lavar Scott</span>
@@ -30,14 +30,15 @@
   </button>
 </nav>
 
-<div class="mmenu" id="mmenu">
+<nav class="mmenu" id="mmenu" aria-label="Mobile">
+  <a href="index.html">Home <span class="mono">The 45</span></a>
   <a href="story.html">Story <span class="mono">The origin</span></a>
-  <a href="track.html">On The Track <span class="mono">The car, the series</span></a>
+  <a href="track.html" aria-current="page">On The Track <span class="mono">The car, the series</span></a>
   <a href="offtrack.html">Off The Track <span class="mono">Training, lifestyle</span></a>
   <a href="community.html">Community <span class="mono">Social, UAC</span></a>
   <a href="schedule.html">Schedule <span class="mono">2026 races</span></a>
   <a href="partner.html">Partner <span class="mono green">Sponsor the 45</span></a>
-</div>
+</nav>
 
 <main id="main">
 <section class="section" style="padding-top:calc(var(--nav-h) + 48px)">

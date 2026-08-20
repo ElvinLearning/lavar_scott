@@ -8,6 +8,13 @@
 (function(){
   'use strict';
 
+  /* Marks JS as available so the mobile menu can switch from its
+     no-JS in-flow fallback to a JS-controlled fixed disclosure.
+     Intentionally independent of the reduced-motion / IO check
+     below, so the menu still opens and closes for every visitor
+     whose browser runs this script, motion preference aside. */
+  document.documentElement.classList.add('js');
+
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO = 'IntersectionObserver' in window;
 
@@ -122,119 +129,83 @@
   }
 
   /* ============================================================
-     RACE CALENDAR — data + renderer, used on schedule.html.
-     RACES holds the 2026 O'Reilly Auto Parts Series schedule as
-     published. The rendered list and the static <noscript> table
-     in schedule.html carry the same 25 rounds, so the schedule is
-     readable either way; this just adds the auto-updating next
-     race countdown and done/upcoming states for JS visitors.
+     RACE CALENDAR — enhancer for the static rows in schedule.html,
+     which is the single source of truth for the verified 2026
+     O'Reilly Auto Parts Series schedule (33 rounds). This reads
+     each .cal-row's data-date/data-track/data-note attributes and
+     only ever touches classList/textContent on the existing rows;
+     it never fetches a schedule, rebuilds the list with innerHTML,
+     or keeps a second copy of the data.
   ============================================================ */
-  var RACES = [
-    {d:'2026-02-14', t:'Daytona',            n:'United Rentals 300'},
-    {d:'2026-02-21', t:'Atlanta',            n:'EchoPark Speedway'},
-    {d:'2026-02-28', t:'COTA',               n:'Austin road course'},
-    {d:'2026-03-07', t:'Phoenix',            n:''},
-    {d:'2026-03-14', t:'Las Vegas',          n:''},
-    {d:'2026-03-21', t:'Darlington',         n:'', bg:'Sunoco debut'},
-    {d:'2026-03-28', t:'Martinsville',       n:''},
-    {d:'2026-04-04', t:'Rockingham',         n:'The Rock returns'},
-    {d:'2026-04-11', t:'Bristol',            n:''},
-    {d:'2026-04-18', t:'Kansas',             n:''},
-    {d:'2026-04-25', t:'Talladega',          n:''},
-    {d:'2026-05-02', t:'Texas',              n:"Andy's Frozen Custard 340"},
-    {d:'2026-05-09', t:'Watkins Glen',       n:''},
-    {d:'2026-05-16', t:'Dover',              n:''},
-    {d:'2026-05-23', t:'Charlotte',          n:''},
-    {d:'2026-05-30', t:'Nashville',          n:''},
-    {d:'2026-06-13', t:'Pocono',             n:''},
-    {d:'2026-06-20', t:'Coronado',           n:'San Diego street course', bg:'Street debut'},
-    {d:'2026-06-27', t:'Sonoma',             n:''},
-    {d:'2026-07-04', t:'Chicagoland',        n:'July 4th weekend'},
-    {d:'2026-08-08', t:'Indianapolis',       n:''},
-    {d:'2026-08-28', t:'Daytona',            n:'Summer night race'},
-    {d:'2026-09-05', t:'Darlington',         n:'Chase opener', bg:'Chase'},
-    {d:'2026-09-12', t:'Gateway / WWTR',     n:'Nu Way 225', bg:'Chase'},
-    {d:'2026-11-07', t:'Homestead-Miami',    n:'Hard Rock Bet 300, finale', bg:'Championship'}
-  ];
-
   function renderCalendar(){
     var list = document.getElementById('calList');
     if (!list) return;
+    var rows = Array.prototype.slice.call(list.querySelectorAll('.cal-row'));
+    if (!rows.length) return;
     var now = new Date(); now.setHours(0,0,0,0);
-    RACES.forEach(function(r){ r._dt = new Date(r.d + 'T12:00:00'); });
     var next = null;
-    for (var i=0;i<RACES.length;i++){
-      if (RACES[i]._dt >= now){ next = RACES[i]; break; }
-    }
-    var html = '';
-    RACES.forEach(function(r, i){
-      var cls = r._dt < now ? 'done' : (r === next ? 'live' : '');
-      var dstr = r._dt.toLocaleDateString('en-US', {month:'short', day:'numeric'});
-      html += '<div class="cal-row ' + cls + '">' +
-        '<span class="no">' + String(i+1).padStart(2,'0') + '</span>' +
-        '<span class="dt">' + dstr + '</span>' +
-        '<span class="tk">' + r.t + (r.n ? ' <span style="font-weight:400;color:var(--paper-dim);font-size:.8rem">· ' + r.n + '</span>' : '') + '</span>' +
-        (r === next ? '<span class="bg">● Next</span>' : (r.bg ? '<span class="bg">' + r.bg + '</span>' : '<span></span>')) +
-        '</div>';
+    rows.forEach(function(row){
+      var d = row.getAttribute('data-date');
+      row.classList.remove('done', 'live');
+      if (!d) return;
+      var dt = new Date(d + 'T12:00:00');
+      if (dt < now){
+        row.classList.add('done');
+      } else if (!next){
+        next = row;
+        row.classList.add('live');
+      }
     });
-    list.innerHTML = html;
-    var nrTag = document.getElementById('nrTag');
+    rows.forEach(function(row){
+      var badge = row.children[3];
+      if (!badge) return;
+      if (row === next){
+        badge.className = 'bg';
+        badge.textContent = '● Next';
+      } else {
+        var bg = row.getAttribute('data-bg') || '';
+        badge.className = bg ? 'bg' : '';
+        badge.textContent = bg;
+      }
+    });
+    var nrTagText = document.getElementById('nrTagText');
     var nrTrack = document.getElementById('nrTrack');
     var nrDate = document.getElementById('nrDate');
     var nrDays = document.getElementById('nrDays');
     var nrLbl = document.getElementById('nrLbl');
     if (next){
-      if (nrTrack) nrTrack.textContent = next.t;
+      var nextDate = next.getAttribute('data-date');
+      var nextDt = new Date(nextDate + 'T12:00:00');
+      var track = next.getAttribute('data-track') || '';
+      var note = next.getAttribute('data-note') || '';
+      if (nrTrack) nrTrack.textContent = track;
       if (nrDate) nrDate.textContent =
-        next._dt.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'}) +
-        (next.n ? ', ' + next.n : '');
-      var days = Math.round((new Date(next.d + 'T00:00:00') - now) / 864e5);
+        nextDt.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'}) +
+        (note ? ', ' + note : '');
+      var days = Math.round((new Date(nextDate + 'T00:00:00') - now) / 864e5);
       if (nrDays) nrDays.textContent = days;
       if (nrLbl) nrLbl.textContent = days === 1 ? 'Day to green flag' : 'Days to green flag';
     } else {
-      if (nrTag) nrTag.innerHTML = '<i></i>Season complete';
+      if (nrTagText) nrTagText.textContent = 'Season complete';
       if (nrTrack) nrTrack.textContent = 'See you in 2027';
       if (nrDate) nrDate.textContent = 'Championship run: February through November';
       if (nrDays) nrDays.textContent = '🏁';
-      if (nrLbl) nrLbl.textContent = '25 rounds down';
+      if (nrLbl) nrLbl.textContent = '33 rounds down';
     }
   }
-  if (document.getElementById('calList')){
-    renderCalendar();
-    /* Optional live upgrade from NASCAR's public schedule feed.
-       Any failure (offline, CORS, feed moved) is silently
-       ignored and the verified list above stands as-is. */
-    fetch('https://cf.nascar.com/cacher/2026/race_list_basic.json')
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var races = (data && (data.series_2 || (data.filter && data.filter(function(x){ return x.series_id === 2; })))) || null;
-        if (!races || !races.length) return;
-        var mapped = races.map(function(r){
-          var d = (r.race_date || r.date_scheduled || '').slice(0,10);
-          var t = (r.track_name || '').replace(/ (International )?(Motor )?(Speedway|Raceway|Superspeedway|Circuit)$/i,'');
-          return d && t ? {d:d, t:t, n:r.race_name || ''} : null;
-        }).filter(Boolean);
-        if (mapped.length >= RACES.length){
-          RACES = mapped;
-          renderCalendar();
-          var note = document.getElementById('calNote');
-          if (note) note.textContent = note.textContent.replace('is the verified 2026 schedule', 'synced live from the NASCAR schedule feed');
-        }
-      })
-      .catch(function(){ /* verified fallback list stands */ });
-  }
+  if (document.getElementById('calList')) renderCalendar();
 
   /* ============================================================
-     PARTNER ENQUIRY — builds a mailto: link from the form fields
-     and opens it. This never submits or stores anything; it only
-     hands the visitor's email client a pre-filled message. The
-     plain mailto fallback link lower on partner.html works
+     PARTNER ENQUIRY — builds a mailto: link from the field values
+     and opens it when the compose button is clicked. The fields
+     live in a plain container, not a <form>, so there is nothing
+     for a browser to natively submit if this script never runs;
+     the plain mailto fallback link lower on partner.html works
      identically with JS off.
   ============================================================ */
-  var enquiryForm = document.getElementById('enquiryForm');
-  if (enquiryForm){
-    enquiryForm.addEventListener('submit', function(e){
-      e.preventDefault();
+  var enquiryCompose = document.getElementById('enqCompose');
+  if (enquiryCompose){
+    enquiryCompose.addEventListener('click', function(){
       var name = (document.getElementById('enqName') || {}).value || '';
       var company = (document.getElementById('enqCompany') || {}).value || '';
       var interest = (document.getElementById('enqInterest') || {}).value || '';
@@ -256,15 +227,24 @@
     });
   }
 
-  /* ---------- INSTAGRAM EMBED: mark success so the plain
-     fallback link can be visually de-emphasized once the rich
-     embed actually renders. The fallback link stays in the DOM
-     and functional either way. ---------- */
+  /* ---------- INSTAGRAM EMBED: give Instagram's generated iframe
+     an accessible name and mark success. The plain fallback link
+     stays in the DOM and functional either way. ---------- */
   var embedWrap = document.querySelector('.embed-wrap');
   if (embedWrap){
-    setTimeout(function(){
+    function labelInstagramEmbed(){
       var rendered = embedWrap.querySelector('iframe');
-      if (rendered) embedWrap.classList.add('embed-ok');
-    }, 3500);
+      if (!rendered) return false;
+      if (!rendered.getAttribute('title')) rendered.setAttribute('title', 'Lavar Scott Instagram post');
+      embedWrap.classList.add('embed-ok');
+      return true;
+    }
+    if (!labelInstagramEmbed() && 'MutationObserver' in window){
+      var embedObserver = new MutationObserver(function(){
+        if (labelInstagramEmbed()) embedObserver.disconnect();
+      });
+      embedObserver.observe(embedWrap, {childList:true, subtree:true});
+      setTimeout(function(){ embedObserver.disconnect(); }, 10000);
+    }
   }
 })();
