@@ -226,7 +226,11 @@ html.js-anim .plate .dot{animation:pulse 1.6s infinite}
   transition:background .3s,color .3s,border-color .3s,transform .25s;
 }
 .btn.primary{background:var(--amber);color:#111;border-color:var(--amber)}
-.btn.primary:hover{background:var(--green)}
+.btn.primary:hover{
+  background:var(--green);
+  box-shadow:0 0 0 1px rgba(47,226,107,.4),0 8px 30px rgba(47,226,107,.28);
+}
+.btn.primary:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 .btn.ghosty:hover{border-color:var(--amber);color:var(--amber)}
 .btn:hover{transform:translateY(-2px)}
 .hero-foot{
