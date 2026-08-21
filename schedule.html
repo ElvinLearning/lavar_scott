@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Schedule | Lavar Scott, No. 45</title>
 <meta name="description" content="The full 2026 NASCAR O'Reilly Auto Parts Series schedule for Lavar Scott and the No. 45 Alpha Prime Racing Chevrolet, live on The CW.">
 <link rel="stylesheet" href="styles.css">
@@ -41,29 +42,64 @@
 </nav>
 
 <main id="main">
-<section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
-  <div class="kicker rv">Schedule</div>
-  <h1 class="h-xl rv d1">Where the 45<br><em>races next.</em></h1>
-  <p class="lede rv d2">
-    33 race weekends across the 2026 NASCAR O'Reilly Auto Parts Series season, every one live
-    on The CW. This is the verified 2026 schedule; where JavaScript is available the next race
-    and countdown below update automatically.
-  </p>
+<!-- ============================================================
+     RACE-CONTROL BOARD. The next-race panel is no longer a card
+     floating on the page, it is mounted inside the opener over
+     the clip. Markup, ids and script behaviour are untouched:
+     only the surface it sits on changed. No live timing, results
+     or telemetry are introduced anywhere on this page.
+============================================================ -->
+<header class="cine cine--schedule">
+  <div class="bg-video bg-video--schedule" aria-hidden="true">
+    <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-04-poster.jpg">
+      <source src="media/edits/edit-04-hq.mp4" type='video/mp4; codecs="hvc1"'>
+      <source src="media/edits/edit-04.mp4" type="video/mp4">
+    </video>
+    <div class="bg-video__scrim"></div>
+  </div>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
 
-  <div class="next-race rv d2" id="nextRace">
-    <div class="lft">
-      <span class="tag" id="nrTag"><i></i><span id="nrTagText">2026 season</span></span>
-      <div class="trk" id="nrTrack">See the full schedule below</div>
-      <div class="dt" id="nrDate">33 races, February through November 2026</div>
-      <span class="cw">Live on The CW</span>
+  <div class="cine-body">
+    <div class="kicker rv cn">Schedule</div>
+    <h1 class="cine-title rv cn d1"><span>Where the 45</span><em>races next.</em></h1>
+    <p class="cine-lede rv cn d2">
+      33 race weekends across the 2026 NASCAR O'Reilly Auto Parts Series season, every one live
+      on The CW. This is the verified 2026 schedule; where JavaScript is available the next race
+      and countdown below update automatically.
+    </p>
+    <div class="cine-ctas rv cn d3">
+      <a class="btn primary" href="#calendar">See All 33 Rounds</a>
+      <a class="btn ghosty" href="partner.html">Partner With The 45</a>
     </div>
-    <div class="rgt">
-      <div class="cd" id="nrDays">&#127937;</div>
-      <div class="cdl" id="nrLbl">33 races this season</div>
+
+    <div class="next-race rv cn d4" id="nextRace">
+      <div class="lft">
+        <span class="tag" id="nrTag"><i></i><span id="nrTagText">2026 season</span></span>
+        <div class="trk" id="nrTrack">See the full schedule below</div>
+        <div class="dt" id="nrDate">33 races, February through November 2026</div>
+        <span class="cw">Live on The CW</span>
+      </div>
+      <div class="rgt">
+        <div class="cd" id="nrDays">&#127937;</div>
+        <div class="cdl" id="nrLbl">33 races this season</div>
+      </div>
     </div>
   </div>
 
-  <div class="cal rv d2" id="calList">
+  <div class="cine-edge">
+    <span>February to November 2026</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>Every round on The CW</span>
+  </div>
+</header>
+
+<section class="section" id="calendar" aria-labelledby="calendar-h">
+  <div class="kicker rv">The Calendar</div>
+  <h2 id="calendar-h" class="h-xl rv d1">All 33 <em>rounds.</em></h2>
+
+  <div class="cal rv d2" id="calList" style="margin-top:32px">
     <div class="cal-row" data-date="2026-02-14" data-track="Daytona" data-note="United Rentals 300"><span class="no">01</span><span class="dt">Feb 14</span><span class="tk">Daytona <span style="font-weight:400;color:var(--paper-dim);font-size:.8rem">&middot; United Rentals 300</span></span><span></span></div>
     <div class="cal-row" data-date="2026-02-21" data-track="Atlanta" data-note="Bennett Transportation &amp; Logistics 250"><span class="no">02</span><span class="dt">Feb 21</span><span class="tk">Atlanta <span style="font-weight:400;color:var(--paper-dim);font-size:.8rem">&middot; Bennett Transportation &amp; Logistics 250</span></span><span></span></div>
     <div class="cal-row" data-date="2026-02-28" data-track="COTA" data-note="Austin road course"><span class="no">03</span><span class="dt">Feb 28</span><span class="tk">COTA <span style="font-weight:400;color:var(--paper-dim);font-size:.8rem">&middot; Austin road course</span></span><span></span></div>

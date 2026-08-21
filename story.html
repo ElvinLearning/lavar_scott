@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Story | Lavar Scott, No. 45</title>
 <meta name="description" content="How Lavar Scott went from a family garage in Carneys Point, NJ to a full-time seat in the NASCAR O'Reilly Auto Parts Series with Alpha Prime Racing.">
 <link rel="stylesheet" href="styles.css">
@@ -41,13 +42,57 @@
 </nav>
 
 <main id="main">
-<section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
-  <div class="kicker rv">Story</div>
-  <div class="story-grid">
+<!-- ============================================================
+     DOCUMENTARY OPENING. Full-bleed local clip, near-monochrome
+     scrim, and four career beats along the floor. Every beat is
+     already stated verbatim further down this page.
+============================================================ -->
+<header class="cine cine--story">
+  <div class="bg-video bg-video--story" aria-hidden="true">
+    <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-01-poster.jpg">
+      <source src="media/edits/edit-01-hq.mp4" type='video/mp4; codecs="hvc1"'>
+      <source src="media/edits/edit-01.mp4" type="video/mp4">
+    </video>
+    <div class="bg-video__scrim"></div>
+  </div>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
+
+  <div class="cine-body">
+    <div class="kicker rv cn">Story</div>
+    <h1 class="cine-title rv cn d1"><span>Built in a</span><em>family garage.</em></h1>
+    <p class="cine-lede rv cn d2">
+      From a go-kart his grandfather built to a full-time NASCAR seat. Quarter midgets at five,
+      ARCA Rookie of the Year in 2024, and the No. 45 Chevrolet in 2026.
+    </p>
+    <div class="cine-ctas rv cn d3">
+      <a class="btn primary" href="#behind">Read The Record</a>
+      <a class="btn ghosty" href="#road">See The Timeline</a>
+    </div>
+  </div>
+
+  <ul class="cine-rail">
+    <li class="rv cn d3"><span class="k">Age 5</span><span class="v">First laps</span><span class="s">Blackbird Speedway</span></li>
+    <li class="rv cn d4"><span class="k">2019</span><span class="v">Development combine</span><span class="s">Legend car, Rev Racing</span></li>
+    <li class="rv cn d5"><span class="k">2024</span><span class="v">ARCA Rookie of the Year</span><span class="s">Championship runner-up</span></li>
+    <li class="rv cn d6"><span class="k">2026</span><span class="v">Full-time, No. 45</span><span class="s">Alpha Prime Racing</span></li>
+  </ul>
+
+  <div class="cine-edge">
+    <span>Carneys Point, NJ</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>Third-generation racer</span>
+  </div>
+</header>
+
+<section class="section" aria-labelledby="origin-h">
+  <div class="kicker rv">The Origin</div>
+  <h2 id="origin-h" class="h-xl rv d1">Racing runs in <em>the family.</em></h2>
+  <div class="story-grid" style="margin-top:36px">
     <div class="story-copy">
-      <h1 class="h-xl rv">Built in a<br><em>family garage.</em></h1>
-      <p class="rv d1" style="margin-top:24px">
-        Racing runs in the family. His grandfather <strong>Wayne Sr.</strong> opened the family
+      <p class="rv d1">
+        His grandfather <strong>Wayne Sr.</strong> opened the family
         auto shop in 1978 and drag raced with his friends. His mother <strong>Sonia</strong> held
         an NHRA license and ran drag strips across Pennsylvania, New Jersey and Delaware. When
         Lavar was four, his grandfather built him a go-kart and pushed him around the track before
@@ -85,7 +130,7 @@
      BEHIND THE DRIVER — the full record, era by era.
      Copy and results supplied by the Scott family, Aug 2026.
 ============================================================ -->
-<section class="section" aria-labelledby="behind-h">
+<section class="section" id="behind" aria-labelledby="behind-h">
   <div class="kicker rv">Behind The Driver</div>
   <h2 id="behind-h" class="h-xl rv d1">Built from discipline,<br><em>speed, and belief.</em></h2>
   <p class="lede rv d2">
@@ -222,9 +267,9 @@
 </section>
 -->
 
-<section class="section" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section class="section" id="road" aria-labelledby="road-h" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="kicker rv">The Road</div>
-  <h2 class="h-xl rv d1">Dirt to <em>the big stage.</em></h2>
+  <h2 id="road-h" class="h-xl rv d1">Dirt to <em>the big stage.</em></h2>
   <p class="lede rv d2">Scroll or drag through the timeline below.</p>
 
   <div class="tl-wrap" style="margin-top:32px">

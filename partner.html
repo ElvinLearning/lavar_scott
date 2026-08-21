@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Partner | Lavar Scott, No. 45</title>
 <meta name="description" content="Sponsor the No. 45 Alpha Prime Racing Chevrolet. Deliverables, ideal partner categories, earned media, and a direct way to start a conversation with the team.">
 <link rel="stylesheet" href="styles.css">
@@ -41,25 +42,52 @@
 </nav>
 
 <main id="main">
-<section class="section section--video" style="padding-top:calc(var(--nav-h) + 48px)">
+<!-- ============================================================
+     PREMIUM SPONSORSHIP PITCH. Biggest type on the site after the
+     home name lockup, one clean CTA pair with nothing competing
+     with it, and an amber-ruled rail of the four things a partner
+     is actually buying. Both routes to the team are preserved:
+     the mailto deck request and the enquiry flow below.
+============================================================ -->
+<header class="cine cine--partner">
   <div class="bg-video bg-video--partner" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-05-poster.jpg">
+      <source src="media/edits/edit-05-hq.mp4" type='video/mp4; codecs="hvc1"'>
       <source src="media/edits/edit-05.mp4" type="video/mp4">
     </video>
     <div class="bg-video__scrim"></div>
   </div>
-  <div class="kicker rv">Partner</div>
-  <h1 class="h-xl rv d1">Let's build<br><em>the deal.</em></h1>
-  <p class="lede rv d2">
-    Primary partnership takes the entire car for a race weekend, plus everything below.
-    Associate, multi-race and season-long structures are built to fit, including content-only
-    packages for brands that want the channel without the quarter panel.
-  </p>
-  <div class="hero-ctas rv d2" style="margin-top:26px">
-    <a class="btn primary" href="mailto:contact@lavarscott.com?subject=Request%3A%202026%20Partnership%20Deck&body=Hi%20Lavar%20Scott%20team%2C%0A%0APlease%20send%20the%202026%20sponsorship%20deck.%0A%0AName%3A%20%0ACompany%3A%20%0ABest%20way%20to%20reach%20me%3A%20%0A%0A(Sent%20from%20the%20No.%2045%20partner%20page.%20This%20opens%20my%20email%20app%3B%20nothing%20is%20submitted%20or%20stored%20by%20the%20site.)">Request The 2026 Deck</a>
-    <a class="btn ghosty" href="#enquiry">Start A Conversation</a>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
+
+  <div class="cine-body">
+    <div class="kicker rv cn">Partner</div>
+    <h1 class="cine-title rv cn d1"><span>Let's build</span><em>the deal.</em></h1>
+    <p class="cine-lede rv cn d2">
+      Primary partnership takes the entire car for a race weekend, plus everything below.
+      Associate, multi-race and season-long structures are built to fit, including content-only
+      packages for brands that want the channel without the quarter panel.
+    </p>
+    <div class="cine-ctas rv cn d3">
+      <a class="btn primary" href="mailto:contact@lavarscott.com?subject=Request%3A%202026%20Partnership%20Deck&body=Hi%20Lavar%20Scott%20team%2C%0A%0APlease%20send%20the%202026%20sponsorship%20deck.%0A%0AName%3A%20%0ACompany%3A%20%0ABest%20way%20to%20reach%20me%3A%20%0A%0A(Sent%20from%20the%20No.%2045%20partner%20page.%20This%20opens%20my%20email%20app%3B%20nothing%20is%20submitted%20or%20stored%20by%20the%20site.)">Request The 2026 Deck</a>
+      <a class="btn ghosty" href="#enquiry">Start A Conversation</a>
+    </div>
   </div>
-</section>
+
+  <ul class="cine-rail">
+    <li class="rv cn d3"><span class="k">The car</span><span class="v">No. 45 Chevrolet</span><span class="s">Camaro SS</span></li>
+    <li class="rv cn d4"><span class="k">The team</span><span class="v">Alpha Prime Racing</span><span class="s">Two full-time entries</span></li>
+    <li class="rv cn d5"><span class="k">The season</span><span class="v">33 race weekends</span><span class="s">February to November 2026</span></li>
+    <li class="rv cn d6"><span class="k">The broadcast</span><span class="v">The CW</span><span class="s">Free, over the air</span></li>
+  </ul>
+
+  <div class="cine-edge">
+    <span>Primary, associate, multi-race and content</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>contact@lavarscott.com</span>
+  </div>
+</header>
 
 <section class="section" style="background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="kicker rv">Beyond The Car</div>
