@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>On The Track | Lavar Scott, No. 45</title>
 <meta name="description" content="The No. 45 Alpha Prime Racing Chevrolet, the NASCAR O'Reilly Auto Parts Series broadcast on The CW, and Lavar Scott's track record so far.">
 <link rel="stylesheet" href="styles.css">
@@ -41,20 +42,57 @@
 </nav>
 
 <main id="main">
-<section class="section section--video" style="padding-top:calc(var(--nav-h) + 48px)">
+<!-- ============================================================
+     SPEED AND MACHINE. The opener reads across rather than down:
+     headline left, the car's own spec column hard-ruled on the
+     right. Every label in that column is repeated verbatim in the
+     full spec table further down the page.
+============================================================ -->
+<header class="cine cine--track">
   <div class="bg-video bg-video--track" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-04-poster.jpg">
+      <source src="media/edits/edit-04-hq.mp4" type='video/mp4; codecs="hvc1"'>
       <source src="media/edits/edit-04.mp4" type="video/mp4">
     </video>
     <div class="bg-video__scrim"></div>
   </div>
-  <div class="kicker rv">On The Track</div>
-  <h1 class="h-xl rv d1">Free TV.<br><em>Every weekend.</em></h1>
-  <p class="lede rv d2">
-    The NASCAR O'Reilly Auto Parts Series, the series formerly known as Xfinity, is where the
-    sport's best talent races and where Cup Series names come from. Since 2025 it has had
-    something most properties never get: a single, permanent, free broadcast home.
-  </p>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
+
+  <div class="cine-body">
+    <div>
+      <div class="kicker rv cn">On The Track</div>
+      <h1 class="cine-title rv cn d1"><span>Free TV.</span><em>Every weekend.</em></h1>
+      <p class="cine-lede rv cn d2">
+        The NASCAR O'Reilly Auto Parts Series, the series formerly known as Xfinity, is where the
+        sport's best talent races and where Cup Series names come from. Since 2025 it has had
+        something most properties never get: a single, permanent, free broadcast home.
+      </p>
+      <div class="cine-ctas rv cn d3">
+        <a class="btn primary" href="#car">See The Machine</a>
+        <a class="btn ghosty" href="schedule.html">The 2026 Schedule</a>
+      </div>
+    </div>
+    <div class="cine-spec rv cn cn-x d3">
+      <div class="row"><span class="k">Car</span><span class="v">No. <em>45</em></span></div>
+      <div class="row"><span class="k">Chassis</span><span class="v">Chevrolet Camaro SS</span></div>
+      <div class="row"><span class="k">Team</span><span class="v">Alpha Prime Racing</span></div>
+      <div class="row"><span class="k">Broadcast</span><span class="v">The CW</span></div>
+      <div class="row"><span class="k">Class</span><span class="v">2026 <em>Rookie</em></span></div>
+    </div>
+  </div>
+
+  <div class="cine-edge">
+    <span>NASCAR O'Reilly Auto Parts Series</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>Practice, qualifying and race</span>
+  </div>
+</header>
+
+<section class="section" aria-labelledby="broadcast-h">
+  <div class="kicker rv">The Broadcast</div>
+  <h2 id="broadcast-h" class="h-xl rv d1">One home, <em>no paywall.</em></h2>
 
   <div class="grid g3">
     <div class="card rv">

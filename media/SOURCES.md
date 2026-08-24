@@ -8,21 +8,40 @@ five clips are public posts from `https://www.tiktok.com/@lavar.scott34/`,
 the same official profile linked throughout the site. Original downloads are
 kept outside the repository and are not committed.
 
-## Transformations applied to every clip
+## Browser delivery profiles
 
-Re-encoded from the original TikTok download to a web-weight background loop:
+Each clip ships in two local, audio-free profiles. Browsers select the first
+format they can decode; they do not download both:
 
-- H.264 High profile MP4, `yuv420p`
-- 540 x 960 (native 9:16 export), 25 fps
-- Audio track removed entirely (the site never plays sound from these clips)
-- `moov` atom moved before `mdat` (fast-start, so playback can begin before
-  the full file downloads)
-- One representative frame exported per clip as an optimized JPEG poster,
-  used as the `<video poster>` and the only image ever shown when a visitor
-  has `prefers-reduced-motion: reduce`, has JavaScript disabled or blocked,
-  or cannot play background media
+1. **High quality:** the highest-resolution public TikTok HEVC stream, tagged
+   `hvc1` for browser compatibility. The encoded video packets are remuxed
+   bit-for-bit rather than re-encoded, the audio track is removed, and the
+   `moov` atom is moved before `mdat` for fast-start playback.
+2. **Universal H.264:** a browser-safe H.264 High profile, `yuv420p`,
+   25 fps version with no audio and fast-start. Home preserves TikTok's
+   original 720 x 1280 H.264 video packets, and edit 01 remains at
+   720 x 1280 because controlled restoration tests did not produce a clear,
+   honest gain over the public master. Edits 03, 04 and 05 now retain their
+   source-native 1080 x 1920 resolution for Chrome and other browsers that do
+   not decode HEVC. Those three files are encoded once from the highest public
+   source through a high-precision 16-bit 4:4:4 chroma conversion path before
+   final 4:2:0 delivery. No denoise, deblock, sharpening or generated detail is
+   applied: comparative tests found that filtering removed real edge detail.
 
-Combined weight of all five MP4s and posters is approximately 9.9 MiB.
+The HQ dimensions are 720 x 1280 for edits 01 and 02, and 1080 x 1920 for
+edits 03, 04 and 05. The universal H.264 dimensions match those tiers: edits
+01 and 02 are 720 x 1280, while edits 03, 04 and 05 are 1080 x 1920. Each
+poster is regenerated at the HQ stream's native resolution from the frame that
+most closely matches the previously approved poster, then saved as an optimized
+progressive JPEG.
+
+The five HQ MP4s total approximately 9.3 MiB; the five universal H.264 files
+total approximately 21.0 MiB; and the five posters total approximately
+0.7 MiB. The complete local media set is approximately 31.0 MiB in the
+repository, but a normal page requests only its single supported clip plus
+poster. The heaviest measured page transfer is approximately 6.38 MB, below
+the explicit 8 MB cinematic-page ceiling. Reduced-motion, Save-Data and
+no-JavaScript contexts request no video.
 
 ## Clips and final page mapping
 

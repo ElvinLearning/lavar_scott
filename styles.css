@@ -252,8 +252,6 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
 .bg-video__scrim{position:absolute;inset:0}
 .hero>.bg-video{z-index:0}
 .ghost45{z-index:1}
-.section--video{overflow:hidden}
-.section--video>*:not(.bg-video){position:relative;z-index:1}
 
 /* Home: text sits bottom-left of a tall hero; heaviest scrim near the
    copy, lighter near the top so the livery/portrait frames still read. */
@@ -264,18 +262,30 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
     linear-gradient(90deg,rgba(13,14,17,.55) 0%,rgba(13,14,17,.05) 45%);
 }
 
+/* Story: documentary read. Near-monochrome, no colour cast at all, with
+   a heavy floor so the career-milestone rail keeps contrast over motion. */
+.bg-video--story .bg-video__el{object-position:50% 26%}
+.bg-video--story .bg-video__scrim{
+  background:
+    linear-gradient(180deg,rgba(13,14,17,.7) 0%,rgba(13,14,17,.4) 32%,rgba(13,14,17,.86) 74%,rgba(13,14,17,.96) 100%),
+    linear-gradient(90deg,rgba(13,14,17,.74) 0%,rgba(13,14,17,.06) 62%);
+}
+
 /* On The Track: garage/action clip, amber-leaning scrim to match the
    section's speed-and-machine energy. */
 .bg-video--track .bg-video__el{object-position:50% 38%}
 .bg-video--track .bg-video__scrim{
   background:
     linear-gradient(165deg,rgba(13,14,17,.86) 0%,rgba(13,14,17,.5) 46%,rgba(23,15,2,.72) 100%),
-    linear-gradient(0deg,rgba(13,14,17,.55) 0%,transparent 60%);
+    linear-gradient(0deg,rgba(13,14,17,.74) 0%,transparent 62%);
 }
 
 /* Off The Track: paddock-walk clip, calmer and darker for the
-   human/behind-the-scenes read. */
-.bg-video--offtrack .bg-video__el{object-position:50% 24%}
+   human/behind-the-scenes read. The subject walks low in this vertical
+   frame, so the wide desktop crop has to sit well below centre; at the
+   shallower crops used by the other pages the hero showed mostly blown-out
+   sky and the brim of a cap for most of the clip. */
+.bg-video--offtrack .bg-video__el{object-position:50% 48%}
 .bg-video--offtrack .bg-video__scrim{
   background:linear-gradient(195deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.58) 50%,rgba(13,14,17,.88) 100%);
 }
@@ -287,7 +297,17 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
 .bg-video--community .bg-video__scrim{
   background:
     linear-gradient(160deg,rgba(13,14,17,.88) 0%,rgba(13,14,17,.48) 48%,rgba(6,20,13,.72) 100%),
-    linear-gradient(0deg,rgba(13,14,17,.5) 0%,transparent 55%);
+    linear-gradient(0deg,rgba(13,14,17,.72) 0%,transparent 58%);
+}
+
+/* Schedule: race-control board. Flat, cool and even across the whole
+   frame, because the countdown panel and 33-round CTA sit on top of it
+   and every label has to stay readable on any frame of the loop. */
+.bg-video--schedule .bg-video__el{object-position:50% 34%}
+.bg-video--schedule .bg-video__scrim{
+  background:
+    linear-gradient(180deg,rgba(13,14,17,.82) 0%,rgba(13,14,17,.6) 38%,rgba(13,14,17,.92) 100%),
+    linear-gradient(90deg,rgba(13,14,17,.6) 0%,rgba(13,14,17,.22) 100%);
 }
 
 /* Partner: driver-portrait/race-pass clip, premium amber accent for
@@ -296,18 +316,332 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
 .bg-video--partner .bg-video__scrim{
   background:
     linear-gradient(170deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.5) 45%,rgba(26,17,0,.72) 100%),
-    linear-gradient(0deg,rgba(13,14,17,.55) 0%,transparent 55%);
+    linear-gradient(0deg,rgba(13,14,17,.76) 0%,transparent 58%);
 }
 
 @media(max-width:860px){
   .bg-video--home .bg-video__el{object-position:56% 18%}
+  .bg-video--story .bg-video__el{object-position:52% 22%}
   .bg-video--track .bg-video__el{object-position:54% 42%}
-  .bg-video--offtrack .bg-video__el{object-position:50% 20%}
+  .bg-video--offtrack .bg-video__el{object-position:50% 44%}
   .bg-video--community .bg-video__el{object-position:52% 26%}
+  .bg-video--schedule .bg-video__el{object-position:54% 36%}
   .bg-video--partner .bg-video__el{object-position:52% 20%}
 }
-@media(max-height:420px){
-  .bg-video__el{object-position:50% 32%}
+
+/* Accessible pause/play for the background loop (WCAG 2.2.2). It ships
+   hidden and is only revealed by script.js when a clip is actually going
+   to play, so visitors under reduced motion, Save-Data, or with JS off
+   never meet a control that does nothing. Sits top-left under the nav on
+   every page: the one corner no page composition uses. */
+.bg-toggle{
+  position:absolute;z-index:4;left:var(--pad);top:calc(var(--nav-h) + 14px);
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(13,14,17,.78);border:1px solid var(--line);color:var(--paper);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 13px;transition:border-color .3s,color .3s;
+}
+.bg-toggle[hidden]{display:none}
+.bg-toggle:hover{border-color:var(--amber);color:var(--amber)}
+.bg-toggle i{
+  width:9px;height:11px;display:block;
+  border-left:3px solid currentColor;border-right:3px solid currentColor;
+}
+.bg-toggle.is-paused i{
+  width:0;height:0;border:none;
+  border-left:9px solid currentColor;
+  border-top:5.5px solid transparent;border-bottom:5.5px solid transparent;
+}
+
+/* ============================================================
+   CINEMATIC PAGE OPENERS
+   One shared shell, six page-specific compositions. Every opener
+   is a <header class="cine cine--page"> carrying that page's own
+   local clip, its own scrim, the H1, one lede, a CTA pair inside
+   the first viewport, and a metadata block drawn only from copy
+   that is already verified elsewhere on the same page.
+
+   Nothing here is required to read a page. With JS off, reduced
+   motion on, or Save-Data set, no MP4 is requested, the poster
+   frame is the only thing shown, the pause control stays hidden,
+   and every element renders in its final position at full opacity.
+============================================================ */
+.cine{
+  position:relative;overflow:hidden;
+  min-height:80vh;min-height:80svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:calc(var(--nav-h) + 40px) var(--pad) 0;
+  border-bottom:1px solid var(--line);
+}
+.cine>*:not(.bg-video):not(.bg-toggle){position:relative;z-index:2}
+/* same 120px vertical rule rhythm as the home hero: the single
+   graphic device that ties all seven openers together */
+.cine::after{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--line-soft) 0 1px,transparent 1px 120px);
+}
+.cine-body{width:100%;max-width:1180px}
+.cine-title{
+  font-weight:900;text-transform:uppercase;letter-spacing:-.03em;
+  font-size:clamp(2.05rem,8vw,5.8rem);line-height:.9;margin-top:4px;
+}
+.cine-title span,.cine-title em{display:block}
+.cine-title em{font-style:italic;color:transparent;-webkit-text-stroke:2px var(--amber)}
+.cine-lede{
+  color:var(--paper-dim);margin-top:20px;max-width:58ch;
+  font-size:clamp(.96rem,1.5vw,1.12rem);
+}
+.cine-lede strong{color:var(--paper);font-weight:700}
+.cine-ctas{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+
+/* metadata rail: verified label / value / detail, never a stat card */
+.cine-rail{
+  display:flex;flex-wrap:wrap;
+  border-top:1px solid var(--line);margin-top:clamp(26px,4.5vh,48px);
+}
+.cine-rail>*{
+  flex:1 1 170px;padding:15px 20px 17px 0;
+  border-right:1px solid var(--line-soft);
+  display:flex;flex-direction:column;gap:6px;
+}
+.cine-rail>*:last-child{border-right:none}
+.cine-rail .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.cine-rail .v{
+  font-weight:800;text-transform:uppercase;letter-spacing:-.01em;
+  font-size:clamp(.9rem,1.4vw,1.02rem);line-height:1.15;
+}
+.cine-rail .s{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-dim)}
+
+/* the hand-off into the page's own content */
+.cine-edge{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:18px 0 20px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--paper-dim);
+}
+.cine-edge .rule{flex:1 1 60px;min-width:40px;height:1px;background:var(--line)}
+
+/* ---- entrance motion ----
+   Piggybacks on the existing .rv IntersectionObserver in script.js
+   rather than adding a second observer or any scroll listener, and
+   moves transform + opacity only. Openers are in view at load, so
+   the observer fires once and the stagger plays once. */
+html.js-anim .rv.cn{
+  opacity:0;transform:translateY(28px);
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),opacity .8s cubic-bezier(.2,.7,.2,1);
+}
+html.js-anim .rv.cn.in{opacity:1;transform:none}
+/* .cn-x carries momentum in from the right instead of up: used only
+   where the composition reads across, not down */
+html.js-anim .rv.cn.cn-x{transform:translateX(30px)}
+html.js-anim .rv.cn.cn-x.in{transform:none}
+.rv.d4{transition-delay:.24s}
+.rv.d5{transition-delay:.3s}
+.rv.d6{transition-delay:.36s}
+
+/* ---- STORY: documentary opening ----
+   Widest, tallest opener. Copy sits low-left under a soft top
+   letterbox, and four verified career beats run the full width
+   along the floor, the way a documentary title card carries dates. */
+.cine--story{min-height:86vh;min-height:86svh}
+.cine--story::before{
+  content:'';position:absolute;left:0;right:0;top:0;z-index:1;pointer-events:none;
+  height:clamp(40px,8vh,86px);
+  background:linear-gradient(180deg,var(--asphalt),rgba(13,14,17,0));
+}
+.cine--story .cine-title{font-size:clamp(2rem,7.4vw,5.4rem)}
+.cine--story .cine-body{max-width:840px}
+.cine--story .cine-rail>*{flex:1 1 150px}
+.cine--story .cine-rail .v{font-style:italic}
+
+/* Home and Story keep the outlined counterline. The remaining pages
+   use a solid finish so the shared cinematic grammar does not become
+   seven copies of the same headline treatment. */
+.cine--track .cine-title em,
+.cine--offtrack .cine-title em,
+.cine--schedule .cine-title em{
+  color:var(--amber);-webkit-text-stroke:0;
+}
+.cine--community .cine-title em{color:var(--green);-webkit-text-stroke:0}
+.cine--partner .cine-title em{color:var(--paper);-webkit-text-stroke:0}
+
+/* ---- ON THE TRACK: speed and machine ----
+   Reads across, not down: headline left, and the car's own factual
+   spec column hard-ruled on the right in amber. No gauges, no
+   invented telemetry, just the labels the page already carries. */
+.cine--track{min-height:84vh;min-height:84svh}
+.cine--track .cine-body{
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);
+  gap:clamp(24px,4vw,64px);align-items:end;max-width:1260px;
+}
+.cine--track .cine-title{font-size:clamp(2rem,7.2vw,5.2rem)}
+.cine-spec{border-top:1px solid var(--amber);padding-top:12px}
+.cine-spec .row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:9px 0;border-bottom:1px solid var(--line-soft);
+}
+.cine-spec .row:last-child{border-bottom:none}
+.cine-spec .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-dim)}
+.cine-spec .v{font-weight:800;text-transform:uppercase;letter-spacing:.01em;font-size:.9rem;text-align:right}
+.cine-spec .v em{font-style:italic;color:var(--amber)}
+
+/* ---- OFF THE TRACK: preparation and endurance ----
+   The one page whose opener leads with a number, because the page's
+   own factual anchor is a number: the 120F cockpit. Stacked load
+   panel on the right, so the heat and the duration read as one unit. */
+.cine--offtrack{min-height:82vh;min-height:82svh}
+.cine--offtrack .cine-body{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:clamp(24px,4vw,56px);align-items:end;max-width:1200px;
+}
+.cine--offtrack .cine-title{font-size:clamp(2.05rem,7.6vw,5.4rem)}
+.cine-load{border:1px solid var(--line);background:rgba(13,14,17,.72)}
+.cine-load .item{padding:clamp(18px,2.6vw,26px);border-bottom:1px solid var(--line-soft)}
+.cine-load .item:last-child{border-bottom:none}
+.cine-load .n{
+  font-weight:900;font-style:italic;letter-spacing:-.04em;line-height:.9;
+  font-size:clamp(2.3rem,5.4vw,3.5rem);color:var(--amber);
+  font-variant-numeric:tabular-nums;
+}
+.cine-load .l{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--paper-dim);margin-top:9px;
+}
+
+/* The routine reads as a sequence, not four interchangeable cards. */
+.routine-sequence{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:1px;margin-top:38px;border:1px solid var(--line);background:var(--line);
+}
+.routine-beat{
+  background:var(--asphalt-2);padding:clamp(24px,3.5vw,42px);
+  min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.routine-beat--lead{
+  grid-row:span 2;min-height:361px;
+  background:linear-gradient(155deg,rgba(255,179,0,.09),var(--asphalt-2) 55%);
+}
+.routine-beat--wide{grid-column:1/-1;min-height:150px}
+.routine-beat h3{
+  font-weight:900;text-transform:uppercase;font-style:italic;
+  font-size:clamp(1.25rem,3vw,2.25rem);line-height:1;margin-bottom:12px;
+}
+.routine-beat p{color:var(--paper-dim);max-width:55ch}
+.routine-beat--lead h3{font-size:clamp(2rem,5vw,4.25rem);color:var(--amber)}
+
+/* ---- COMMUNITY: people and access ----
+   Shortest, most open opener. The workforce initiative leads, and the
+   disciplines students actually work in run as a wrapping chip rail
+   under the CTAs, tinted with the staging-tree green rather than amber. */
+.cine--community{min-height:80vh;min-height:80svh}
+.cine--community .cine-title{font-size:clamp(2rem,7.2vw,5rem)}
+.cine--community .cine-body{max-width:920px}
+.cine-chips{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  border-top:1px solid var(--line);
+  margin-top:clamp(24px,4vh,40px);padding-top:20px;
+}
+.cine-chips .lbl{
+  flex:1 0 100%;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--green);margin-bottom:2px;
+}
+.cine-chips span:not(.lbl){
+  border:1px solid var(--line);padding:7px 11px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--paper-dim);
+}
+
+/* ---- SCHEDULE: race-control board ----
+   The existing next-race panel is not a card floating on the page any
+   more, it is the board mounted inside the opener. Same markup, same
+   ids, same script: only the surface changes so it holds up on video. */
+.cine--schedule{min-height:88vh;min-height:88svh}
+.cine--schedule .cine-title{font-size:clamp(1.95rem,6.8vw,4.8rem)}
+.cine--schedule .cine-body{max-width:1240px}
+.cine--schedule .next-race{
+  margin-top:clamp(24px,4vh,40px);
+  background:rgba(13,14,17,.82);
+  border-color:var(--amber);
+}
+.cine--schedule .next-race .rgt{background:rgba(255,179,0,.07)}
+
+/* ---- PARTNER: premium sponsorship pitch ----
+   Biggest type on the site after the home name lockup, one clean CTA
+   pair, and an amber-ruled rail of the four things a sponsor is
+   actually buying. Nothing competes with the two buttons. */
+.cine--partner{min-height:88vh;min-height:88svh}
+.cine--partner .cine-title{font-size:clamp(2.05rem,8.6vw,6.4rem);letter-spacing:-.04em}
+.cine--partner .cine-body{max-width:940px}
+.cine--partner .cine-rail{border-top:1px solid var(--amber)}
+.cine--partner .cine-rail .k{color:var(--paper-dim)}
+.cine--partner .cine-rail .v{font-style:italic}
+
+@media(max-width:860px){
+  .cine--track .cine-body,.cine--offtrack .cine-body{grid-template-columns:1fr}
+  .cine--track .cine-spec,.cine--offtrack .cine-load{margin-top:26px}
+  .cine--schedule{min-height:0}
+  .cine-spec .v{font-size:.88rem}
+  .routine-sequence{grid-template-columns:1fr}
+  .routine-beat--lead,.routine-beat--wide{grid-row:auto;grid-column:auto;min-height:180px}
+}
+@media(max-width:560px){
+  .cine-rail>*{
+    flex:1 1 100%;padding:14px 0;
+    border-right:none;border-bottom:1px solid var(--line-soft);
+  }
+  .cine-rail>*:last-child{border-bottom:none}
+  .cine-edge{flex-direction:column;align-items:flex-start;gap:8px}
+  .cine-edge .rule{display:none}
+}
+/* Short/landscape phones (390x320 and similar). Two things change:
+   the opener stops reserving viewport height it cannot fill, and the
+   type/spacing tighten so the headline still lands whole. */
+@media(max-height:520px){
+  .cine{min-height:0;padding-top:calc(var(--nav-h) + 46px)}
+  .cine .kicker{margin-bottom:12px}
+  .cine-title{font-size:clamp(1.65rem,6.2vw,2.4rem)}
+  .cine-lede{margin-top:14px;font-size:.9rem}
+  .cine-ctas{margin-top:16px}
+  .cine-rail,.cine-chips{margin-top:20px}
+  .cine-edge{padding:14px 0 16px}
+  .bg-toggle{top:calc(var(--nav-h) + 7px);padding:7px 11px}
+  .cine-load .item{padding:14px}
+}
+/* At this height a kicker, a two-line headline, a full lede and a CTA
+   pair cannot all sit above the fold. Rather than cut copy or shrink
+   the headline into unreadability, the action moves up next to the
+   headline and the supporting lede follows it. No copy is removed and
+   the DOM is untouched, so the reading order a screen reader announces
+   is still headline, lede, CTA; only the visual order changes, and the
+   lede is not focusable, so tab order is unaffected either. */
+@media(max-height:520px) and (max-width:860px){
+  .cine-body,
+  .cine--track .cine-body>div:first-child,
+  .cine--offtrack .cine-body>div:first-child{display:flex;flex-direction:column}
+  .cine-body .kicker{order:0}
+  .cine-title{order:1}
+  .cine-ctas{order:2}
+  .cine-lede{order:3}
+  .cine-chips,.cine--schedule .next-race{order:4}
+}
+
+/* Home predates the shared cinematic opener. Match its short-height
+   behavior without changing the approved normal-mobile composition. */
+@media(max-height:420px) and (max-width:860px){
+  .hero{
+    min-height:100vh;min-height:100svh;justify-content:flex-start;
+    padding:calc(var(--nav-h) + 48px) var(--pad) 12px;
+  }
+  .hero .plate{margin-bottom:8px;font-size:8.5px}
+  .hero .plate>span{display:none}
+  .hero .plate>span:first-child{display:flex;padding:6px 9px}
+  .hero-name{font-size:clamp(2.45rem,12vw,3rem)}
+  .hero-sub{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;
+  }
+  .hero-ctas{margin-top:12px}
+  .hero-ctas .ghosty,.hero-foot,.hero .tree{display:none}
 }
 
 /* ---------- MARQUEE ---------- */

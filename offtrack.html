@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Off The Track | Lavar Scott, No. 45</title>
 <meta name="description" content="The training, recovery and race-week routine behind Lavar Scott's NASCAR O'Reilly Auto Parts Series rookie season.">
 <link rel="stylesheet" href="styles.css">
@@ -41,42 +42,78 @@
 </nav>
 
 <main id="main">
-<section class="section section--video" style="padding-top:calc(var(--nav-h) + 48px)">
+<!-- ============================================================
+     PREPARATION AND ENDURANCE. The only opener that leads with a
+     number, because the page's own factual anchor is one: the
+     120F cockpit and the length of a race. Both figures come
+     straight from the page's existing lede, which is tightened
+     here rather than repeated.
+============================================================ -->
+<header class="cine cine--offtrack">
   <div class="bg-video bg-video--offtrack" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-03-poster.jpg">
+      <source src="media/edits/edit-03-hq.mp4" type='video/mp4; codecs="hvc1"'>
       <source src="media/edits/edit-03.mp4" type="video/mp4">
     </video>
     <div class="bg-video__scrim"></div>
   </div>
-  <div class="kicker rv">Off The Track</div>
-  <h1 class="h-xl rv d1">The work <em>nobody films.</em></h1>
-  <p class="lede rv d2">
-    A stock car cockpit runs past 120 degrees Fahrenheit. A race is three-plus hours of
-    sustained load, heart rate pinned, hands and neck taking every bump. Lavar trains for it
-    year-round, between race weekends and through the off-season.
-  </p>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
 
-  <div class="grid g4">
-    <div class="card rv">
-      <span class="k">Format 01</span>
+  <div class="cine-body">
+    <div>
+      <div class="kicker rv cn">Off The Track</div>
+      <h1 class="cine-title rv cn d1"><span>The work</span><em>nobody films.</em></h1>
+      <p class="cine-lede rv cn d2">
+        Heart rate pinned, hands and neck taking every bump. Lavar trains for it year-round,
+        between race weekends and through the off-season.
+      </p>
+      <div class="cine-ctas rv cn d3">
+        <a class="btn primary" href="#routine">See The Routine</a>
+        <a class="btn ghosty" href="#lifestyle">Behind The Helmet</a>
+      </div>
+    </div>
+    <div class="cine-load rv cn d3">
+      <div class="item">
+        <div class="n">120&deg;F</div>
+        <div class="l">Stock car cockpit, and past it</div>
+      </div>
+      <div class="item">
+        <div class="n">3 hrs+</div>
+        <div class="l">Of sustained load, every race</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cine-edge">
+    <span>Training, fuel, recovery, race week</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>Year-round</span>
+  </div>
+</header>
+
+<section class="section" id="routine" aria-labelledby="routine-h">
+  <div class="kicker rv">The Routine</div>
+  <h2 id="routine-h" class="h-xl rv d1">An athlete's <em>routine.</em></h2>
+
+  <div class="routine-sequence">
+    <article class="routine-beat routine-beat--lead rv">
       <h3>Weight room</h3>
       <p>Lift days, neck and grip work: the unglamorous conditioning that keeps a rookie sharp deep into a run.</p>
-    </div>
-    <div class="card rv d1">
-      <span class="k">Format 02</span>
+    </article>
+    <article class="routine-beat rv d1">
       <h3>Fuel and recovery</h3>
       <p>What he eats on a travel day, hydration through a hot race, sleep and recovery between back-to-backs.</p>
-    </div>
-    <div class="card rv d2">
-      <span class="k">Format 03</span>
+    </article>
+    <article class="routine-beat rv d2">
       <h3>Race-week build</h3>
       <p>A Monday-to-Sunday routine that turns one race into a full week: sim work, travel, hauler, garage, grid.</p>
-    </div>
-    <div class="card rv d3">
-      <span class="k">Format 04</span>
+    </article>
+    <article class="routine-beat routine-beat--wide rv d3">
       <h3>Fit for the job</h3>
       <p>Young, disciplined, and in the gym as often as the car. An athlete's routine, not just a driver's schedule.</p>
-    </div>
+    </article>
   </div>
 
   <div class="pull rv d2" style="margin-top:44px">
@@ -84,9 +121,9 @@
   </div>
 </section>
 
-<section class="section" style="background:var(--asphalt-2);border-top:1px solid var(--line)">
+<section class="section" id="lifestyle" aria-labelledby="lifestyle-h" style="background:var(--asphalt-2);border-top:1px solid var(--line)">
   <div class="kicker rv">Lifestyle</div>
-  <h2 class="h-xl rv d1">Behind the <em>helmet.</em></h2>
+  <h2 id="lifestyle-h" class="h-xl rv d1">Behind the <em>helmet.</em></h2>
   <p class="lede rv d2">
     Race weekends, paddock access, training, and family: the day-to-day that runs alongside
     the schedule. For the latest posts, the social feeds and photo gallery live on the

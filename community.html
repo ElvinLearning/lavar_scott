@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Community &amp; Social | Lavar Scott, No. 45</title>
 <meta name="description" content="Lavar Scott's workforce development work with the Urban Affairs Coalition, official social channels, and a verified photo gallery.">
 <link rel="stylesheet" href="styles.css">
@@ -41,45 +42,77 @@
 </nav>
 
 <main id="main">
-<section class="section section--video" style="padding-top:calc(var(--nav-h) + 48px)">
+<!-- ============================================================
+     PEOPLE AND ACCESS. The most open composition on the site:
+     the workforce initiative leads, and the disciplines students
+     actually work in run as a chip rail under the CTAs. That list
+     used to sit mid-paragraph below; it is moved, not duplicated.
+============================================================ -->
+<header class="cine cine--community">
   <div class="bg-video bg-video--community" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-01-poster.jpg">
+      <source src="media/edits/edit-01-hq.mp4" type='video/mp4; codecs="hvc1"'>
       <source src="media/edits/edit-01.mp4" type="video/mp4">
     </video>
     <div class="bg-video__scrim"></div>
   </div>
-  <div class="kicker rv">On The Ground</div>
-  <div class="story-grid">
-    <div class="story-copy">
-      <h1 class="h-xl rv">More than a<br><em>race car.</em></h1>
-      <p class="lede rv d1" style="margin-top:24px">
-        In June 2026 Alpha Prime Racing and the Urban Affairs Coalition launched the Alpha
-        Prime Racing Workforce Development Initiative with UAC's Team Racing-2-Education, a
-        national platform creating real pathways into motorsports. Lavar's No. 45 runs as its
-        visible ambassador all season.
-      </p>
-      <p class="rv d2" style="color:var(--paper-dim);max-width:56ch;margin-top:16px">
-        A NASCAR team is a workforce. The program puts students and young adults inside race
-        team operations: engineering, mechanics, data analytics, automotive technology,
-        logistics, marketing, content production, business operations and event management,
-        through education, mentorship and hands-on experience across the 2026 season.
-      </p>
-      <p class="rv d2" style="color:var(--paper-dim);max-width:56ch;margin-top:16px">
-        Lavar's own route ran from the Philadelphia area to the national stage, which is the
-        journey the program exists to make repeatable.
-      </p>
-      <a class="btn ghosty" style="margin-top:18px" href="https://uac.org/" target="_blank" rel="noopener">Urban Affairs Coalition &#8599;</a>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
+
+  <div class="cine-body">
+    <div class="kicker rv cn">On The Ground</div>
+    <h1 class="cine-title rv cn d1"><span>More than a</span><em>race car.</em></h1>
+    <p class="cine-lede rv cn d2">
+      In June 2026 Alpha Prime Racing and the Urban Affairs Coalition launched the Alpha
+      Prime Racing Workforce Development Initiative with UAC's Team Racing-2-Education, a
+      national platform creating real pathways into motorsports. Lavar's No. 45 runs as its
+      visible ambassador all season.
+    </p>
+    <div class="cine-ctas rv cn d3">
+      <a class="btn primary" href="https://uac.org/" target="_blank" rel="noopener">Urban Affairs Coalition &#8599;</a>
+      <a class="btn ghosty" href="#social">The Official Channels</a>
     </div>
-    <div class="rv d2">
-      <div class="grid" style="margin-top:0;gap:12px">
-        <div class="card"><span class="k">01</span><h3>Team Racing-2-Education</h3>
-          <p>UAC's program introducing young people to careers in engineering, data analytics, automotive technology and media production, using the race team as the classroom.</p></div>
-        <div class="card"><span class="k">02</span><h3>Immersive placements</h3>
-          <p>Students work across race operations, marketing and content production during a live NASCAR season.</p></div>
-        <div class="card"><span class="k">03</span><h3>Co-branded activation</h3>
-          <p>Partners can put their name on the workforce program, not just the quarter panel, with content, PR and reporting to match.</p></div>
-      </div>
+    <div class="cine-chips rv cn d4">
+      <span class="lbl">Where students work inside the team</span>
+      <span>Engineering</span>
+      <span>Mechanics</span>
+      <span>Data analytics</span>
+      <span>Automotive technology</span>
+      <span>Logistics</span>
+      <span>Marketing</span>
+      <span>Content production</span>
+      <span>Business operations</span>
+      <span>Event management</span>
     </div>
+  </div>
+
+  <div class="cine-edge">
+    <span>Team Racing-2-Education</span>
+    <span class="rule" aria-hidden="true"></span>
+    <span>Across the 2026 season</span>
+  </div>
+</header>
+
+<section class="section" id="program" aria-labelledby="program-h">
+  <div class="kicker rv">The Program</div>
+  <h2 id="program-h" class="h-xl rv d1">A NASCAR team is <em>a workforce.</em></h2>
+  <p class="lede rv d2">
+    The program puts students and young adults inside race team operations through education,
+    mentorship and hands-on experience across the 2026 season.
+  </p>
+  <p class="lede rv d2">
+    Lavar's own route ran from the Philadelphia area to the national stage, which is the
+    journey the program exists to make repeatable.
+  </p>
+
+  <div class="grid g3">
+    <div class="card rv"><span class="k">01</span><h3>Team Racing-2-Education</h3>
+      <p>UAC's program introducing young people to careers in engineering, data analytics, automotive technology and media production, using the race team as the classroom.</p></div>
+    <div class="card rv d1"><span class="k">02</span><h3>Immersive placements</h3>
+      <p>Students work across race operations, marketing and content production during a live NASCAR season.</p></div>
+    <div class="card rv d2"><span class="k">03</span><h3>Co-branded activation</h3>
+      <p>Partners can put their name on the workforce program, not just the quarter panel, with content, PR and reporting to match.</p></div>
   </div>
 </section>
 
@@ -126,7 +159,6 @@
       <a href="https://www.instagram.com/p/DaV9V7rpB86/" target="_blank" rel="noopener">View it directly on Instagram &#8599;</a>
     </p>
   </div>
-  <script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
 <section class="section" id="gallery">

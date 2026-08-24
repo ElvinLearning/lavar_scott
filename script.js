@@ -241,10 +241,47 @@
      this script runs rather than waiting on the observer's first
      callback, matching the brief's "home may load its video
      earlier" allowance; every other page waits for the observer.
+
+     Two further gates: a visitor on a metered/Save-Data connection
+     is treated exactly like a reduced-motion visitor (poster only,
+     no MP4 requested), and the #bgToggle pause/play control ships
+     hidden in the HTML and is only revealed here, once a clip is
+     genuinely going to play. A visitor who pauses stays paused:
+     neither the observer nor the tab-visibility handler overrides
+     that choice.
   ============================================================ */
   var bgVideos = document.querySelectorAll('.bg-video__el');
-  if (bgVideos.length && !reduced){
+  var conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+  var saveData = !!(conn && conn.saveData);
+  if (bgVideos.length && !reduced && !saveData){
     var trackedVideos = [];
+    var userPaused = false;
+    var bgToggle = document.getElementById('bgToggle');
+    var bgToggleLabel = bgToggle && bgToggle.querySelector('.bg-toggle__lbl');
+    var toggleRevealed = false;
+
+    function revealBgToggle(){
+      if (!bgToggle || toggleRevealed) return;
+      toggleRevealed = true;
+      bgToggle.hidden = false;
+    }
+
+    /* Single place that decides whether a clip may run, so every
+       caller honours the same three conditions. play() returns a
+       promise in modern browsers and undefined in older ones; both
+       are handled, and a rejection is swallowed rather than logged. */
+    function resume(state){
+      if (userPaused || document.hidden || !state.visible) return;
+      var played = state.video.play();
+      if (played && typeof played.catch === 'function'){
+        played.then(function(){
+          if (!state.video.paused) revealBgToggle();
+        }).catch(function(){});
+      } else if (!state.video.paused){
+        revealBgToggle();
+      }
+    }
+
     bgVideos.forEach(function(video){
       var state = {video:video, visible:false};
       trackedVideos.push(state);
@@ -253,9 +290,8 @@
         var io = new IntersectionObserver(function(entries){
           entries.forEach(function(entry){
             state.visible = entry.isIntersecting;
-            if (document.hidden) return;
             if (entry.isIntersecting){
-              video.play().catch(function(){});
+              resume(state);
             } else {
               video.pause();
             }
@@ -265,25 +301,43 @@
       }
       if (video.dataset.eager === 'true'){
         state.visible = true;
-        video.play().catch(function(){});
+        resume(state);
       }
     });
+
     document.addEventListener('visibilitychange', function(){
       trackedVideos.forEach(function(state){
         if (document.hidden){
           state.video.pause();
-        } else if (state.visible){
-          state.video.play().catch(function(){});
+        } else {
+          resume(state);
         }
       });
     });
+
+    if (bgToggle){
+      bgToggle.addEventListener('click', function(){
+        userPaused = !userPaused;
+        bgToggle.classList.toggle('is-paused', userPaused);
+        bgToggle.setAttribute('aria-label', userPaused ? 'Play background video' : 'Pause background video');
+        if (bgToggleLabel) bgToggleLabel.textContent = userPaused ? 'Play' : 'Pause';
+        trackedVideos.forEach(function(state){
+          if (userPaused){
+            state.video.pause();
+          } else {
+            resume(state);
+          }
+        });
+      });
+    }
   }
 
-  /* ---------- INSTAGRAM EMBED: give Instagram's generated iframe
-     an accessible name and mark success. The plain fallback link
-     stays in the DOM and functional either way. ---------- */
+  /* ---------- INSTAGRAM EMBED: defer the third-party script until
+     the below-fold embed is near the viewport. The plain fallback link
+     remains complete with JS off, blocked embeds, or older browsers. ---------- */
   var embedWrap = document.querySelector('.embed-wrap');
   if (embedWrap){
+    var embedRequested = false;
     function labelInstagramEmbed(){
       var rendered = embedWrap.querySelector('iframe');
       if (!rendered) return false;
@@ -291,12 +345,36 @@
       embedWrap.classList.add('embed-ok');
       return true;
     }
-    if (!labelInstagramEmbed() && 'MutationObserver' in window){
-      var embedObserver = new MutationObserver(function(){
-        if (labelInstagramEmbed()) embedObserver.disconnect();
-      });
-      embedObserver.observe(embedWrap, {childList:true, subtree:true});
-      setTimeout(function(){ embedObserver.disconnect(); }, 10000);
+    function requestInstagramEmbed(){
+      if (embedRequested) return;
+      embedRequested = true;
+      var embedObserver;
+      if (!labelInstagramEmbed() && 'MutationObserver' in window){
+        embedObserver = new MutationObserver(function(){
+          if (labelInstagramEmbed()) embedObserver.disconnect();
+        });
+        embedObserver.observe(embedWrap, {childList:true,subtree:true});
+        setTimeout(function(){ embedObserver.disconnect(); }, 10000);
+      }
+      var instagramScript = document.createElement('script');
+      instagramScript.async = true;
+      instagramScript.src = 'https://www.instagram.com/embed.js';
+      instagramScript.onload = function(){
+        if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
+      };
+      document.head.appendChild(instagramScript);
+    }
+    if (hasIO){
+      var embedProximity = new IntersectionObserver(function(entries){
+        if (entries.some(function(entry){ return entry.isIntersecting; })){
+          embedProximity.disconnect();
+          requestInstagramEmbed();
+        }
+      }, {rootMargin:'600px 0px'});
+      embedProximity.observe(embedWrap);
+    } else {
+      embedWrap.addEventListener('focusin', requestInstagramEmbed, {once:true});
+      embedWrap.addEventListener('pointerenter', requestInstagramEmbed, {once:true});
     }
   }
 })();

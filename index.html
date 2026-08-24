@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.classList.add('js')</script>
 <title>Lavar Scott | No. 45, Alpha Prime Racing</title>
 <meta name="description" content="Lavar Scott, No. 45 Alpha Prime Racing Chevrolet. Full-time rookie season in the NASCAR O'Reilly Auto Parts Series, live every weekend on The CW.">
 <link rel="stylesheet" href="styles.css">
@@ -44,10 +45,14 @@
 <header class="hero" id="top">
   <div class="bg-video bg-video--home" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-02-poster.jpg" data-eager="true">
+      <source src="media/edits/edit-02-hq.mp4" type='video/mp4; codecs="hvc1"'>
       <source src="media/edits/edit-02.mp4" type="video/mp4">
     </video>
     <div class="bg-video__scrim"></div>
   </div>
+  <button type="button" class="bg-toggle" id="bgToggle" hidden aria-label="Pause background video">
+    <i aria-hidden="true"></i><span class="bg-toggle__lbl">Pause</span>
+  </button>
   <div class="ghost45" id="ghost45" aria-hidden="true">45</div>
 
   <div class="tree" id="tree" aria-hidden="true">
