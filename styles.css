@@ -281,8 +281,11 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
 }
 
 /* Off The Track: paddock-walk clip, calmer and darker for the
-   human/behind-the-scenes read. */
-.bg-video--offtrack .bg-video__el{object-position:50% 24%}
+   human/behind-the-scenes read. The subject walks low in this vertical
+   frame, so the wide desktop crop has to sit well below centre; at the
+   shallower crops used by the other pages the hero showed mostly blown-out
+   sky and the brim of a cap for most of the clip. */
+.bg-video--offtrack .bg-video__el{object-position:50% 48%}
 .bg-video--offtrack .bg-video__scrim{
   background:linear-gradient(195deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.58) 50%,rgba(13,14,17,.88) 100%);
 }
@@ -320,7 +323,7 @@ html.js-anim .scroll-cue i::after{animation:drop 1.8s infinite}
   .bg-video--home .bg-video__el{object-position:56% 18%}
   .bg-video--story .bg-video__el{object-position:52% 22%}
   .bg-video--track .bg-video__el{object-position:54% 42%}
-  .bg-video--offtrack .bg-video__el{object-position:50% 20%}
+  .bg-video--offtrack .bg-video__el{object-position:50% 44%}
   .bg-video--community .bg-video__el{object-position:52% 26%}
   .bg-video--schedule .bg-video__el{object-position:54% 36%}
   .bg-video--partner .bg-video__el{object-position:52% 20%}
