@@ -637,3 +637,40 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   html{scroll-behavior:auto}
   .rv{opacity:1!important;transform:none!important}
 }
+
+
+/* ============================================================
+   VIDEO FIX A — BLUR FILL
+   The source clips are 540x960 (vertical, phone-cut). Forcing one
+   into a 1440px-wide hero with object-fit:cover upscales it ~2.7x,
+   which is the blur everyone can see.
+
+   Here the sharp copy is never scaled beyond its native width: it
+   sits centered at its real aspect ratio, and a second, heavily
+   blurred and desaturated copy of the same file fills the space
+   either side. Blurring hides the upscale entirely, because a
+   blurred image has no detail to lose.
+
+   Cost: nothing. No new assets, no re-encode.
+============================================================ */
+.bg-video__el{
+  width:auto;height:100%;max-width:none;
+  margin:0 auto;object-fit:contain;
+  position:relative;z-index:1;
+}
+.bg-video::before{
+  content:'';position:absolute;inset:-6%;z-index:0;
+  background-image:var(--bgv-poster);
+  background-size:cover;background-position:50% 30%;
+  filter:blur(46px) saturate(.62) brightness(.5);
+  transform:scale(1.12);
+}
+/* the blurred plate is a still (the poster frame), so it costs no
+   extra decode and cannot judder against the sharp copy */
+.bg-video{display:flex;align-items:center;justify-content:center}
+@media(max-width:860px){
+  /* portrait viewports are the shape the clip was cut for: let it
+     fill edge to edge at native resolution, no blur plate needed */
+  .bg-video__el{width:100%;object-fit:cover}
+  .bg-video::before{display:none}
+}
