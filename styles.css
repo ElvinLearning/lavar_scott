@@ -645,32 +645,39 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
    into a 1440px-wide hero with object-fit:cover upscales it ~2.7x,
    which is the blur everyone can see.
 
-   Here the sharp copy is never scaled beyond its native width: it
-   sits centered at its real aspect ratio, and a second, heavily
-   blurred and desaturated copy of the same file fills the space
-   either side. Blurring hides the upscale entirely, because a
-   blurred image has no detail to lose.
+   Here the sharp copy is never scaled beyond its native width. It
+   sits to the right, clear of the headline, and a heavily blurred
+   plate built from the poster frame fills the rest of the hero.
+   Blurring hides the upscale completely, because a blurred image
+   has no fine detail to lose in the first place.
 
    Cost: nothing. No new assets, no re-encode.
 ============================================================ */
+.bg-video{display:flex;align-items:center;justify-content:flex-end}
 .bg-video__el{
-  width:auto;height:100%;max-width:none;
-  margin:0 auto;object-fit:contain;
+  width:auto;height:100%;max-width:52%;
+  object-fit:contain;object-position:center;
   position:relative;z-index:1;
+  margin-right:clamp(0px,4vw,90px);
 }
 .bg-video::before{
-  content:'';position:absolute;inset:-6%;z-index:0;
+  content:'';position:absolute;inset:-8%;z-index:0;
   background-image:var(--bgv-poster);
-  background-size:cover;background-position:50% 30%;
-  filter:blur(46px) saturate(.62) brightness(.5);
-  transform:scale(1.12);
+  background-size:cover;background-position:50% 28%;
+  filter:blur(52px) saturate(.7) brightness(.68);
+  transform:scale(1.15);
 }
-/* the blurred plate is a still (the poster frame), so it costs no
-   extra decode and cannot judder against the sharp copy */
-.bg-video{display:flex;align-items:center;justify-content:center}
+/* the copy side gets a heavier wash so the headline always holds */
+.bg-video__scrim{z-index:2}
+.bg-video--home .bg-video__scrim{
+  background:
+    linear-gradient(90deg,rgba(13,14,17,.94) 0%,rgba(13,14,17,.78) 34%,rgba(13,14,17,.28) 62%,rgba(13,14,17,.42) 100%),
+    linear-gradient(180deg,rgba(13,14,17,.5) 0%,rgba(13,14,17,.18) 40%,rgba(13,14,17,.82) 100%);
+}
 @media(max-width:860px){
-  /* portrait viewports are the shape the clip was cut for: let it
-     fill edge to edge at native resolution, no blur plate needed */
-  .bg-video__el{width:100%;object-fit:cover}
+  /* portrait is the shape the clip was cut for: edge to edge at
+     native resolution, no blur plate needed */
+  .bg-video{display:block}
+  .bg-video__el{width:100%;max-width:none;object-fit:cover;margin-right:0}
   .bg-video::before{display:none}
 }
