@@ -637,3 +637,45 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   html{scroll-behavior:auto}
   .rv{opacity:1!important;transform:none!important}
 }
+
+
+/* ============================================================
+   VIDEO FIX C — HYBRID (stills on desktop, video on phones)
+   The clips were cut vertically for TikTok. They are sharp in the
+   shape they were made for and soft in any other, because there are
+   only 540x960 pixels to work with.
+
+   So this treatment plays to that instead of fighting it:
+     phones/portrait -> the clip runs full-bleed at native size,
+                        exactly as shot, motion and all;
+     desktop/wide    -> the video is not used at all. The hero runs
+                        the full-resolution stills with a slow drift,
+                        which reads as motion without inventing a
+                        single pixel.
+
+   This is the only one of the three where a wide screen shows no
+   upscaled video anywhere. If a true 1080x1920 master is supplied
+   later, delete the display:none rule and the video returns.
+============================================================ */
+@media(min-width:861px){
+  .bg-video__el{display:none}
+  .bg-video::before{
+    content:'';position:absolute;inset:-4%;
+    background-image:var(--bgv-still);
+    background-size:cover;background-position:50% 32%;
+    animation:heroDrift 26s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes heroDrift{
+    from{transform:scale(1.04) translate3d(0,0,0)}
+    to{transform:scale(1.11) translate3d(-1.4%,-1.2%,0)}
+  }
+}
+@media(min-width:861px) and (prefers-reduced-motion:reduce){
+  .bg-video::before{animation:none;transform:scale(1.04)}
+}
+/* portrait keeps the clip exactly as it is today: native shape,
+   native resolution, full bleed */
+@media(max-width:860px){
+  .bg-video__el{width:100%;height:100%;object-fit:cover}
+}
