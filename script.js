@@ -269,6 +269,54 @@
         state.visible = true;
         video.play().catch(function(){});
       }
+
+      /* ---------- LIVE AMBIENT BLUR ----------
+         The blurred plate behind the clip is a CSS background built
+         from the poster frame, which is correct before playback but
+         drifts out of step the moment the video moves. This samples
+         the playing video into a very small canvas each frame and
+         uses that as the plate instead, so the surround tracks the
+         footage live.
+
+         The canvas is deliberately tiny (a few dozen pixels wide):
+         it is blurred to nothing anyway, so drawing it costs almost
+         nothing and needs no second video download. If canvas is
+         unavailable the poster-based CSS plate simply stays. */
+      var wrapEl = video.closest('.bg-video');
+      if (wrapEl){
+        var amb = document.createElement('canvas');
+        amb.className = 'bg-video__amb';
+        amb.width = 48; amb.height = 85;
+        amb.setAttribute('aria-hidden', 'true');
+        var actx = amb.getContext ? amb.getContext('2d') : null;
+        if (actx){
+          wrapEl.insertBefore(amb, wrapEl.firstChild);
+          var ambOn = false, ambReq = null;
+          var ambDraw = function(){
+            if (video.paused || video.ended || video.readyState < 2){
+              ambReq = requestAnimationFrame(ambDraw); return;
+            }
+            try{
+              actx.drawImage(video, 0, 0, amb.width, amb.height);
+              if (!ambOn){ wrapEl.classList.add('amb-live'); ambOn = true; }
+            }catch(e){
+              /* a tainted or not-yet-ready frame: keep the poster plate */
+              cancelAnimationFrame(ambReq); return;
+            }
+            ambReq = requestAnimationFrame(ambDraw);
+          };
+          video.addEventListener('playing', function(){
+            if (ambReq === null) ambReq = requestAnimationFrame(ambDraw);
+          });
+          document.addEventListener('visibilitychange', function(){
+            if (document.hidden && ambReq !== null){
+              cancelAnimationFrame(ambReq); ambReq = null;
+            } else if (!document.hidden && !video.paused && ambReq === null){
+              ambReq = requestAnimationFrame(ambDraw);
+            }
+          });
+        }
+      }
     });
     document.addEventListener('visibilitychange', function(){
       trackedVideos.forEach(function(state){

@@ -665,7 +665,24 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   background-size:cover;background-position:50% 28%;
   filter:blur(52px) saturate(.7) brightness(.68);
   transform:scale(1.15);
+  transition:opacity .8s ease;
 }
+/* Live ambient plate. script.js samples the playing clip into a
+   tiny canvas and fades this in over the poster-based plate above,
+   so the surround keeps matching the footage instead of freezing
+   on the first frame. Without JS or canvas the poster plate stays
+   and nothing below ever applies. */
+.bg-video__amb{
+  position:absolute;inset:-8%;z-index:0;
+  width:116%;height:116%;
+  object-fit:cover;
+  filter:blur(52px) saturate(.7) brightness(.68);
+  transform:scale(1.15);
+  opacity:0;transition:opacity 1s ease;
+  pointer-events:none;
+}
+.bg-video.amb-live .bg-video__amb{opacity:1}
+.bg-video.amb-live::before{opacity:0}
 /* the copy side gets a heavier wash so the headline always holds */
 .bg-video__scrim{z-index:2}
 .bg-video--home .bg-video__scrim{
@@ -679,7 +696,7 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   .bg-video{display:block}
   .bg-video__el{width:100%;max-width:none;object-fit:cover;margin-right:0}
   .bg-video::before{display:none}
-=======
+}
 /* ---------- LIGHTBOX ----------
    Fullscreen photo viewer for the gallery. Progressive
    enhancement: every thumbnail is a plain link to the full-size
@@ -777,7 +794,4 @@ html.js .gallery a{cursor:zoom-in}
   .cal-row{grid-template-columns:28px 70px 1fr;row-gap:8px}
   .cal-row .endcell{grid-column:1 / -1;justify-content:flex-start}
   .cal-row .tix{padding:7px 12px}
-
-
-/*
 }
