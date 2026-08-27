@@ -638,7 +638,7 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   .rv{opacity:1!important;transform:none!important}
 }
 
-=====================================================
+/* ============================================================
    VIDEO FIX A — BLUR FILL
    The source clips are 540x960 (vertical, phone-cut). Forcing one
    into a 1440px-wide hero with object-fit:cover upscales it ~2.7x,
