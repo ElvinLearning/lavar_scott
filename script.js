@@ -157,7 +157,9 @@
       }
     });
     rows.forEach(function(row){
-      var badge = row.children[3];
+      /* the badge is the first span inside the row's end cell; the
+         Get-tickets link sits beside it and is never touched here */
+      var badge = row.querySelector('.endcell > span');
       if (!badge) return;
       if (row === next){
         badge.className = 'bg';
@@ -299,4 +301,85 @@
       setTimeout(function(){ embedObserver.disconnect(); }, 10000);
     }
   }
+
+  /* ---------- LIGHTBOX ----------
+     Upgrades the gallery's plain full-size-image links into a
+     fullscreen viewer. With JS off every thumbnail is still a
+     working link to the photo, so nothing here is required to
+     see the images. Keyboard: arrows move, Escape closes, and
+     focus is returned to the thumbnail that opened it. ---------- */
+  var grid = document.getElementById('galleryGrid');
+  var lb = document.getElementById('lightbox');
+  if (grid && lb){
+    var shots = [].slice.call(grid.querySelectorAll('a'));
+    var lbImg = document.getElementById('lbImg');
+    var lbCap = document.getElementById('lbCap');
+    var lbCount = document.getElementById('lbCount');
+    var idx = 0, opener = null;
+
+    function show(i){
+      idx = (i + shots.length) % shots.length;
+      var a = shots[idx];
+      var thumb = a.querySelector('img');
+      var cap = a.querySelector('figcaption');
+      lbImg.src = a.getAttribute('href');
+      lbImg.alt = thumb ? thumb.alt : '';
+      lbCap.textContent = cap ? cap.textContent : '';
+      lbCount.textContent = (idx + 1) + ' / ' + shots.length;
+    }
+    function open(i, from){
+      opener = from || null;
+      show(i);
+      lb.hidden = false;
+      lb.classList.add('open');
+      document.body.classList.add('lb-lock');
+      document.getElementById('lbClose').focus();
+    }
+    function close(){
+      lb.classList.remove('open');
+      lb.hidden = true;
+      document.body.classList.remove('lb-lock');
+      lbImg.removeAttribute('src');
+      if (opener) opener.focus();
+    }
+
+    shots.forEach(function(a, i){
+      a.addEventListener('click', function(e){
+        /* let modified clicks behave normally (new tab, download) */
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        open(i, a);
+      });
+    });
+
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function(){ show(idx - 1); });
+    document.getElementById('lbNext').addEventListener('click', function(){ show(idx + 1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape'){ close(); }
+      else if (e.key === 'ArrowLeft'){ show(idx - 1); }
+      else if (e.key === 'ArrowRight'){ show(idx + 1); }
+      else if (e.key === 'Tab'){
+        /* keep focus inside the dialog while it is open */
+        var f = lb.querySelectorAll('button');
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+
+    /* swipe on touch devices */
+    var sx = null;
+    lb.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+    lb.addEventListener('touchend', function(e){
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 45) show(idx + (dx < 0 ? 1 : -1));
+      sx = null;
+    }, {passive:true});
+  }
+
 })();

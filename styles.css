@@ -638,8 +638,7 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   .rv{opacity:1!important;transform:none!important}
 }
 
-
-/* ============================================================
+=====================================================
    VIDEO FIX A — BLUR FILL
    The source clips are 540x960 (vertical, phone-cut). Forcing one
    into a 1440px-wide hero with object-fit:cover upscales it ~2.7x,
@@ -680,4 +679,105 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
   .bg-video{display:block}
   .bg-video__el{width:100%;max-width:none;object-fit:cover;margin-right:0}
   .bg-video::before{display:none}
+=======
+/* ---------- LIGHTBOX ----------
+   Fullscreen photo viewer for the gallery. Progressive
+   enhancement: every thumbnail is a plain link to the full-size
+   image, so with JS off clicking still opens the photo. script.js
+   intercepts the click and shows this overlay instead. */
+.lb{
+  position:fixed;inset:0;z-index:1500;display:none;
+  background:rgba(6,7,9,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.lb.open{display:flex;flex-direction:column}
+.lb-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px clamp(14px,3vw,26px);border-bottom:1px solid var(--line);flex:0 0 auto;
+}
+.lb-count{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--paper-dim);font-variant-numeric:tabular-nums}
+.lb-close{
+  background:none;border:1px solid var(--line);color:var(--paper);cursor:pointer;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:8px 14px;transition:border-color .25s,color .25s;
+}
+.lb-close:hover{border-color:var(--amber);color:var(--amber)}
+.lb-stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;padding:clamp(10px,2vw,22px)}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:clamp(42px,6vw,58px);height:clamp(42px,6vw,58px);
+  background:rgba(13,14,17,.72);border:1px solid var(--line);color:var(--paper);
+  cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+  transition:border-color .25s,color .25s,background .25s;
+}
+.lb-nav:hover{border-color:var(--amber);color:var(--amber);background:rgba(13,14,17,.92)}
+.lb-prev{left:clamp(8px,2vw,20px)}
+.lb-next{right:clamp(8px,2vw,20px)}
+.lb-cap{
+  flex:0 0 auto;padding:14px clamp(14px,3vw,26px);border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim);
+}
+.lb :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+body.lb-lock{overflow:hidden}
+/* the gallery grid becomes clickable-looking once JS is on */
+html.js .gallery a{cursor:zoom-in}
+
+/* ---------- NEWS CARDS ---------- */
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+.newscard{
+  border:1px solid var(--line);background:var(--asphalt-2);padding:24px 22px;
+  display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;
+  transition:border-color .3s,transform .3s;
+}
+.newscard:hover,.newscard:focus-visible{border-color:var(--amber);transform:translateY(-4px)}
+.newscard .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.newscard h3{font-weight:800;font-size:1rem;line-height:1.35;text-transform:none;letter-spacing:0}
+.newscard p{color:var(--paper-dim);font-size:.86rem}
+.newscard .go{margin-top:auto;padding-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+
+/* ---------- REACH OUT ---------- */
+.reach{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-top:38px}
+.reachcard{border:1px solid var(--line);background:var(--asphalt-2);padding:clamp(24px,3.5vw,34px)}
+.reachcard h3{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(1.05rem,2vw,1.3rem);margin-bottom:14px}
+.reachcard .addr{font-style:normal;font-size:1.05rem;line-height:1.7;font-weight:700}
+.reachcard .note{
+  border-left:2px solid var(--amber);padding:12px 0 12px 14px;margin-bottom:18px;
+  color:var(--paper-dim);font-size:.88rem;
+}
+.reachcard .note b{color:var(--paper)}
+.sociallist{display:flex;flex-direction:column;margin-top:4px}
+.sociallist a{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--line-soft);
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  transition:padding-left .25s,color .25s;
+}
+.sociallist a:last-child{border-bottom:none}
+.sociallist a:hover,.sociallist a:focus-visible{padding-left:8px;color:var(--amber)}
+.sociallist .h{color:var(--paper-dim)}
+
+/* ---------- TICKETS BUTTON ---------- */
+.tix{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--amber);color:var(--amber);padding:6px 12px;white-space:nowrap;
+  transition:background .25s,color .25s;
+}
+.tix:hover,.tix:focus-visible{background:var(--amber);color:#0d0e11}
+.cal-row.done .tix{display:none}
+
+@media(max-width:860px){
+  .news,.reach{grid-template-columns:1fr}
+}
+/* schedule rows that carry both a badge and a tickets link keep
+   them together in the grid's last cell */
+.endcell{display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+/* narrow screens: the ticket button drops to its own line under the
+   race name rather than squeezing the 4-column row into overflow */
+@media(max-width:620px){
+  .cal-row{grid-template-columns:28px 70px 1fr;row-gap:8px}
+  .cal-row .endcell{grid-column:1 / -1;justify-content:flex-start}
+  .cal-row .tix{padding:7px 12px}
+
+
+/*
 }
