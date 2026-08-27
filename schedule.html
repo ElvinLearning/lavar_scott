@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Schedule | Lavar Scott, No. 45</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="description" content="The full 2026 NASCAR O'Reilly Auto Parts Series schedule for Lavar Scott and the No. 45 Alpha Prime Racing Chevrolet, live on The CW.">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('js-ready'))document.documentElement.classList.remove('js')},1500)</script>
 <link rel="stylesheet" href="styles.css">
 <noscript><style>@media(max-width:860px){.burger{display:none!important}.mmenu{display:block!important;position:static!important;max-height:none!important;overflow:visible!important}}</style></noscript>
 </head>
@@ -41,14 +43,22 @@
 </nav>
 
 <main id="main">
-<section class="section" style="padding-top:calc(var(--nav-h) + 48px)">
-  <div class="kicker rv">Schedule</div>
-  <h1 class="h-xl rv d1">Where the 45<br><em>races next.</em></h1>
-  <p class="lede rv d2">
-    33 race weekends across the 2026 NASCAR O'Reilly Auto Parts Series season, every one live
-    on The CW. This is the verified 2026 schedule; where JavaScript is available the next race
-    and countdown below update automatically.
-  </p>
+<section class="page-hero page-hero--schedule">
+  <div class="page-hero__media" aria-hidden="true">
+    <img src="img/gallery-wwtr-action.jpg" alt="">
+  </div>
+  <div class="page-hero__scrim"></div>
+  <div class="page-hero__content">
+    <div class="kicker rv">2026 Schedule</div>
+    <h1 class="h-xl rv d1">Every race.<br><em>One place.</em></h1>
+    <p class="lede rv d2">Thirty-three race weekends. Every lap live on The CW.</p>
+    <a class="btn primary rv d2" href="#calendar">See The Next Race</a>
+  </div>
+</section>
+
+<section class="section schedule-board" id="calendar">
+  <h2 class="h-xl rv">Next up.<br><em>Full season.</em></h2>
+  <p class="lede rv d1">The verified 2026 schedule updates the next-race countdown automatically when JavaScript is available.</p>
 
   <div class="next-race rv d2" id="nextRace">
     <div class="lft">

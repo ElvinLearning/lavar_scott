@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<!-- Secret page — deliberately unlinked. Keep it out of search. -->
+<!-- Secret page - deliberately unlinked. Keep it out of search. -->
 <meta name="robots" content="noindex, nofollow">
 <title>Summer Nights in Daytona</title>
-<meta name="description" content="120 years of speed on one stretch of Florida sand — scrolled from noon to night.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="description" content="More than a century of speed on one stretch of Florida sand, scrolled from noon to night.">
 <!-- ============================================================
-     SUMMER NIGHTS IN DAYTONA — hidden easter-egg page.
-     Reached only by typing /summer_nights_in_daytona.
+     SUMMER NIGHTS IN DAYTONA - hidden easter-egg page.
+     Reached only by typing /summer_nights_in_daytona.html.
      The sky is the clock: scroll position drives a day-to-night
      gradient, the sun sets and becomes the moon, stars fade in,
      tire discs spin with the scroll wheel, and the 1959 banking
@@ -41,6 +42,8 @@ body{
   min-height:100vh;
 }
 ::selection{background:var(--amber);color:#16224A}
+.skip-link{position:absolute;left:12px;top:-60px;z-index:50;background:#16224A;color:#fff;padding:12px 16px;font-weight:800}
+.skip-link:focus{top:12px}
 
 /* ---------- FIXED SKY LAYERS ---------- */
 .sky{position:fixed;inset:0;z-index:-3;background:linear-gradient(180deg,var(--skyA),var(--skyB))}
@@ -86,6 +89,7 @@ p+p{margin-top:12px}
   -webkit-text-stroke:1.5px var(--card-ink);
   font-variant-numeric:tabular-nums;
 }
+.lit .stat{display:inline-block;color:#FFD34D;background:#101937;border:2px solid #FFD34D;padding:.06em .15em;-webkit-text-stroke:0}
 .stat-l{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--card-dim);margin-top:8px}
 
 /* ---------- LAYOUT ---------- */
@@ -106,7 +110,8 @@ section.ch{min-height:92vh;display:flex;align-items:center;padding:12vh 0}
 .art svg{width:100%;max-width:420px;height:auto;overflow:visible}
 
 /* reveal on scroll */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+html.js-anim .rv{opacity:0;transform:translateY(34px)}
 .rv.in{opacity:1;transform:none}
 
 /* ---------- HERO ---------- */
@@ -202,12 +207,13 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="sky"></div>
-<canvas id="stars"></canvas>
+<div class="sky" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
 
 <!-- sun that becomes the moon -->
-<div class="celestial" id="celestial">
+<div class="celestial" id="celestial" aria-hidden="true">
   <svg viewBox="0 0 100 100" aria-hidden="true">
     <g class="rays" id="rays" stroke="var(--amber)" stroke-width="4" stroke-linecap="round">
       <line x1="50" y1="-4" x2="50" y2="12"/><line x1="50" y1="88" x2="50" y2="104"/>
@@ -249,16 +255,16 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   <circle cx="102" cy="92" r="7" fill="currentColor"/><circle cx="112" cy="96" r="6" fill="currentColor"/>
 </svg>
 
-<!-- ================= HERO — NOON ================= -->
+<!-- ================= HERO - NOON ================= -->
+<main id="main">
 <header class="hero wrap">
-  <div class="kicker">A hidden page for people who scroll — <b>est. 1903</b></div>
+  <div class="kicker">A hidden page for people who scroll - <b>est. 1903</b></div>
   <h1>
     <span>Summer</span>
     <span class="hollow">Nights in</span>
     <span>Daytona</span>
   </h1>
-  <div class="sub">120 years of speed on one stretch of Florida sand · scrolled from noon to night</div>
-  <div class="scroll-cue">Scroll to sundown<i></i></div>
+  <div class="sub">More than a century of speed on one stretch of Florida sand · scrolled from noon to night</div>
 </header>
 
 <!-- spinning tire disc #1 -->
@@ -276,7 +282,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   </div></div>
 </div>
 
-<!-- ================= 1903 — THE MEASURED MILE ================= -->
+<!-- ================= 1903 - THE MEASURED MILE ================= -->
 <section class="ch wrap">
   <div class="split">
     <div class="card rv">
@@ -307,7 +313,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   </div>
 </section>
 
-<!-- ================= 1935 — 276 MPH ================= -->
+<!-- ================= 1935 - 276 MPH ================= -->
 <section class="ch wrap">
   <div class="split">
     <div class="art rv">
@@ -332,17 +338,17 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
       <h2>The fastest place on Earth.</h2>
       <p>For three decades the world's land-speed records were set here. The last of them:
          Sir Malcolm Campbell's Bluebird screaming down the beach at 276 miles per hour
-         in 1935 — on tires, on sand, before seatbelts were taken seriously.</p>
+         in 1935 - on tires, on sand, before seatbelts were taken seriously.</p>
       <p>When record hunters left for Bonneville, Daytona kept the speed.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= 1936–1947 — BIRTH OF NASCAR ================= -->
+<!-- ================= 1936-1947 - BIRTH OF NASCAR ================= -->
 <section class="ch wrap">
   <div class="split">
     <div class="card rv">
-      <div class="era">Chapter 03 · <b>1936–47</b> · The beach-road course</div>
+      <div class="era">Chapter 03 · <b>1936-47</b> · The beach-road course</div>
       <h2>Stock cars. A hotel. A handshake.</h2>
       <p>In 1936 the city ran its first stock car race on a 3.2-mile loop: half beach, half
          highway A1A. Drivers slid through the sand turns two wheels from the surf.</p>
@@ -384,7 +390,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   </div></div>
 </div>
 
-<!-- ================= 1959 — THE SPEEDWAY + BANKING ================= -->
+<!-- ================= 1959 - THE SPEEDWAY + BANKING ================= -->
 <section class="ch wrap">
   <div class="card rv" style="max-width:760px">
     <div class="era">Chapter 04 · <b>1959</b> · The Speedway</div>
@@ -392,7 +398,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
     <p>Daytona International Speedway opened in 1959: a 2.5-mile tri-oval with turns banked
        so steep you can't walk up them. The first Daytona 500 finished in a photo so close
        it took three days to name Lee Petty the winner.</p>
-    <p><strong>Scroll — feel the corner tilt to its real angle.</strong></p>
+    <p><strong>Scroll - feel the corner tilt to its real angle.</strong></p>
     <div class="bankstage">
       <div class="bank" id="bank">
         <svg class="car" viewBox="0 0 90 30" aria-hidden="true">
@@ -406,12 +412,12 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
     </div>
     <div class="deg">
       <span class="stat" id="degN">0°</span>
-      <span class="stat-l">of banking · turns 1–4 · lean on the scroll wheel</span>
+      <span class="stat-l">of banking · turns 1-4 · lean on the scroll wheel</span>
     </div>
   </div>
 </section>
 
-<!-- ================= 1979–1998 — INTO THE TV ERA ================= -->
+<!-- ================= 1979-1998 - INTO THE TV ERA ================= -->
 <section class="ch wrap">
   <div class="split">
     <div class="art rv">
@@ -430,24 +436,24 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
       </svg>
     </div>
     <div class="card rv">
-      <div class="era">Chapter 05 · <b>1979–98</b> · Legends hour</div>
+      <div class="era">Chapter 05 · <b>1979-98</b> · Legends hour</div>
       <h2>America tunes in.</h2>
       <p>1979: the first 500 broadcast live flag-to-flag ends with a last-lap crash and a
          fistfight in turn three, in front of a nation snowed in and glued to CBS. Stock car
          racing goes national on Daytona's back.</p>
-      <p>1998: after twenty years of heartbreak, Dale Earnhardt finally wins the 500 — and
+      <p>1998: after twenty years of heartbreak, Dale Earnhardt finally wins the 500 - and
          every crew member on pit road lines up to shake his hand.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= 1998 — THE LIGHTS ================= -->
+<!-- ================= 1998 - THE LIGHTS ================= -->
 <section class="ch wrap">
   <div class="card rv" style="max-width:700px">
     <div class="era">Chapter 06 · <b>1998</b> · Lights on</div>
     <h2>Then the sun stopped ending the party.</h2>
     <p>In 1998 Daytona flipped the switch on the largest lighted sports venue in the world
-       at the time — miles of towers turning the tri-oval into a bowl of daylight at 9 p.m.
+       at the time - miles of towers turning the tri-oval into a bowl of daylight at 9 p.m.
        The summer race moved under the lights and never came back.</p>
     <p>Superspeedway racing at night: 190 mph, three-wide, in a stadium glow you can see
        from the beach where it all started. There is nothing else like it in American sport.</p>
@@ -473,9 +479,9 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
 <section class="ch wrap">
   <div style="width:100%">
     <div class="card rv" style="max-width:700px">
-      <div class="era">Chapter 07 · <b>2023–26</b> · The 45 arrives</div>
+      <div class="era">Chapter 07 · <b>2023-26</b> · The 45 arrives</div>
       <h2>Lavar's Daytona.</h2>
-      <p>February 2023: Lavar Scott's first superspeedway start — ARCA, with Rev Racing,
+      <p>February 2023: Lavar Scott's first superspeedway start - ARCA, with Rev Racing,
          on the same 31-degree banking. February 2026: he rolls off for the United Rentals
          300, the opening race of his first full-time national season with Alpha Prime Racing.</p>
       <p>A kid from Carneys Point, New Jersey, in the No. 45, on the sand where American
@@ -483,27 +489,27 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
     </div>
     <div class="gallery">
       <figure class="rv">
-        <div class="photo"><img src="lavar_in_car.jpg" alt="Lavar Scott strapped into the No. 45"></div>
+        <div class="photo"><img src="lavar_in_car.jpg" alt="Lavar Scott strapped into the No. 45" loading="lazy" width="1080" height="1440"></div>
         <figcaption class="pcap">Belted in · superspeedway debut came at Daytona, 2023</figcaption>
       </figure>
       <figure class="rv">
-        <div class="photo flip"><img src="lavar_car_only_fast.jpg" alt="The No. 45 at speed"></div>
+        <div class="photo flip"><img src="lavar_car_only_fast.jpg" alt="The No. 45 at speed" loading="lazy" width="1440" height="1920"></div>
         <figcaption class="pcap">The 45 at speed · 2.5 miles, 31 degrees</figcaption>
       </figure>
       <figure class="rv">
-        <div class="photo"><img src="lavar_face_out_of_car.jpg" alt="Lavar Scott climbing from the car"></div>
+        <div class="photo"><img src="lavar_face_out_of_car.jpg" alt="Lavar Scott climbing from the car" loading="lazy" width="1440" height="1920"></div>
         <figcaption class="pcap">Out of the car · February 2026, season opener weekend</figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<!-- ================= FINALE — NIGHT ================= -->
+<!-- ================= FINALE - NIGHT ================= -->
 <section class="finale wrap">
   <div class="era rv" style="color:var(--ink)">Chapter 08 · <b>Aug 28, 2026</b> · Summer night race</div>
   <h2 class="rv">The lights come on<br><em>for the 45.</em></h2>
   <div class="count rv" id="countWrap">
-    <span class="n" id="cdN">—</span>
+    <span class="n" id="cdN">-</span>
     <span class="l" id="cdL">days until the green flag</span>
   </div>
   <div class="lightpoles rv" aria-hidden="true">
@@ -511,6 +517,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   </div>
 </section>
 
+</main>
 <footer>
   You found the hidden page. Tell nobody. 🌙<br><br>
   <a href="./">← Back to the No. 45</a>
@@ -546,7 +553,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
     };
   }
 
-  /* stars — drawn once, faded in by scroll */
+  /* stars - drawn once, faded in by scroll */
   var cv = document.getElementById('stars'), cx = cv.getContext('2d');
   function drawStars(){
     cv.width = innerWidth; cv.height = innerHeight;
@@ -614,7 +621,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   }
 
   if (reduced){
-    /* static "summer night" state — no scroll choreography */
+    /* static "summer night" state - no scroll choreography */
     scrollTo(0,0);
     var pal = palette(0.9);
     root.style.setProperty('--skyA', rgb(pal.skyA));
@@ -637,11 +644,14 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
     frame();
   }
 
-  /* reveal on scroll */
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.18});
-  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  /* reveal on scroll, progressively enhanced from visible content */
+  if ('IntersectionObserver' in window && !reduced){
+    document.documentElement.classList.add('js-anim');
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:0.18});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  }
 
   /* countdown to the summer night race */
   var race = new Date('2026-08-28T00:00:00');
@@ -650,7 +660,7 @@ footer a:focus-visible,.scroll-cue:focus-visible{outline:2px solid var(--amber);
   var n = document.getElementById('cdN'), l = document.getElementById('cdL');
   if (days > 1){ n.textContent = days; l.textContent = 'days until the green flag'; }
   else if (days === 1){ n.textContent = '1'; l.textContent = 'day until the green flag'; }
-  else if (days === 0){ n.textContent = '🏁'; l.textContent = 'race night — lights on'; }
+  else if (days === 0){ n.textContent = '🏁'; l.textContent = 'race night - lights on'; }
   else { n.textContent = '🌙'; l.textContent = 'lights on. history made.'; }
 })();
 </script>

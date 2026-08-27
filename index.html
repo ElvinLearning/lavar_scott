@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Lavar Scott | No. 45, Alpha Prime Racing</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="description" content="Lavar Scott, No. 45 Alpha Prime Racing Chevrolet. Full-time rookie season in the NASCAR O'Reilly Auto Parts Series, live every weekend on The CW.">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('js-ready'))document.documentElement.classList.remove('js')},1500)</script>
 <link rel="stylesheet" href="styles.css">
 <noscript><style>@media(max-width:860px){.burger{display:none!important}.mmenu{display:block!important;position:static!important;max-height:none!important;overflow:visible!important}}</style></noscript>
 </head>
@@ -42,7 +44,7 @@
 
 <main id="main">
 <header class="hero" id="top">
-  <div style="--bgv-poster:url(media/edits/edit-02-poster.jpg)" class="bg-video bg-video--home" aria-hidden="true">
+  <div style="--bgv-fill:url(img/video-fill/edit-02.webp)" class="bg-video bg-video--home" aria-hidden="true">
     <video class="bg-video__el" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" poster="media/edits/edit-02-poster.jpg" data-eager="true">
       <source src="media/edits/edit-02.mp4" type="video/mp4">
     </video>
@@ -55,36 +57,25 @@
     <div class="bulb" data-b="2"></div>
     <div class="bulb" data-b="3"></div>
     <div class="bulb" data-b="4"></div>
-    <span class="lbl">Staging</span>
   </div>
 
   <div class="hero-inner" id="heroInner">
     <div class="plate">
-      <span><i class="dot"></i>2026 Rookie Season</span>
-      <span>NASCAR O'Reilly Auto Parts Series</span>
-      <span>Live on The CW</span>
-      <span>No. 45 Alpha Prime Chevrolet</span>
+      <span class="active">2026 Rookie Season</span>
     </div>
 
     <h1 class="hero-name"><span class="l1">Lavar</span> <span class="l2">Scott</span></h1>
 
     <p class="hero-sub">
-      Lavar Scott is running his first full-time rookie season in the NASCAR O'Reilly Auto
-      Parts Series, driving the No. 45 Chevrolet for Alpha Prime Racing. On track, in the gym,
-      and in the community: this is the full story, not just race results.
+      From Carneys Point to NASCAR: follow the rookie season, the work behind it, and the people riding with No. 45.
     </p>
 
     <div class="hero-ctas">
-      <a class="btn primary" href="partner.html">Partner With The 45</a>
+      <a class="btn primary" href="partner.html">Partner With 45</a>
       <a class="btn ghosty" href="story.html">Read The Story</a>
     </div>
   </div>
 
-  <div class="hero-foot">
-    <span>Carneys Point, NJ. Behind the wheel since age five.</span>
-    <span class="scroll-cue"><i></i>Scroll</span>
-    <span>No. 45 Alpha Prime Racing Chevrolet</span>
-  </div>
 </header>
 
 <div class="marquee" aria-hidden="true">
@@ -116,27 +107,46 @@
     <span class="t">Already on the 45, 2026</span>
     <span class="s">Brands and partners running with Lavar this season</span>
   </div>
-  <div class="proof-grid">
-    <div class="brandcard rv">
-      <span class="rl">Primary, 10 races</span>
-      <span class="nm">Sunoco</span>
-      <span class="ds">Primary partner on the No. 45 for ten races in 2026, beginning at Darlington in March.</span>
-    </div>
-    <div class="brandcard rv d1">
-      <span class="rl">Season, community</span>
-      <span class="nm">Urban Affairs Coalition</span>
-      <span class="ds">Philadelphia workforce-development nonprofit. The No. 45 is the visible ambassador for its Team Racing-2-Education program.</span>
-    </div>
-    <div class="brandcard rv d2">
-      <span class="rl">Rest of season</span>
-      <span class="nm">Strictly Friendly</span>
-      <span class="ds">On the No. 45 since Indianapolis for the remainder of 2026, expanding to primary at World Wide Technology Raceway in September.</span>
-    </div>
-    <div class="brandcard rv d3">
-      <span class="rl">Associate</span>
-      <span class="nm">Archer &amp; Greiner</span>
-      <span class="ds">Regional law firm backing the South Jersey story since the start of the national-series run.</span>
-    </div>
+  <div class="proof-grid proof-grid--editorial">
+    <article class="brandcard brandcard--lead rv">
+      <img src="img/proof/sunoco.webp" alt="" loading="lazy" width="960" height="1280">
+      <div class="brandcard__scrim"></div>
+      <div class="brandcard__copy">
+        <img class="brandmark brandmark--sunoco" src="img/partners/sunoco.svg" alt="Sunoco Race Fuels">
+        <span class="rl">Primary partner, 10 races</span>
+        <span class="nm">Sunoco</span>
+        <span class="ds">Ten primary weekends in 2026, beginning at Darlington.</span>
+      </div>
+    </article>
+    <article class="brandcard brandcard--community rv d1">
+      <img src="img/proof/uac.webp" alt="" loading="lazy" width="960" height="537">
+      <div class="brandcard__scrim"></div>
+      <div class="brandcard__copy">
+        <img class="brandmark brandmark--uac" src="img/partners/uac.png" alt="Urban Affairs Coalition">
+        <span class="rl">Season and community</span>
+        <span class="nm">Urban Affairs Coalition</span>
+        <span class="ds">The No. 45 carries Team Racing-2-Education into a national season.</span>
+      </div>
+    </article>
+    <article class="brandcard brandcard--compact rv d2">
+      <img src="img/proof/strictly-friendly.webp" alt="" loading="lazy" width="960" height="1200">
+      <div class="brandcard__scrim"></div>
+      <div class="brandcard__copy">
+        <span class="rl">Rest of season</span>
+        <span class="nm">Strictly Friendly</span>
+        <span class="ds">Associate support with a primary weekend at World Wide Technology Raceway.</span>
+      </div>
+    </article>
+    <article class="brandcard brandcard--compact rv d3">
+      <img src="img/proof/archer-greiner.webp" alt="" loading="lazy" width="960" height="640">
+      <div class="brandcard__scrim"></div>
+      <div class="brandcard__copy">
+        <img class="brandmark brandmark--archer" src="img/partners/archer.svg" alt="Archer">
+        <span class="rl">Associate partner</span>
+        <span class="nm">Archer &amp; Greiner</span>
+        <span class="ds">Backing the South Jersey story on the national stage.</span>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -145,41 +155,41 @@
   <h2 id="explore-h" class="h-xl rv d1">Six ways in.</h2>
   <p class="lede rv d2">The site is organized by what you're here for, not one long scroll.</p>
 
-  <div class="grid g3">
-    <a class="navcard rv" href="story.html">
-      <span class="num">01</span>
+  <div class="grid g3 explore-grid">
+    <a class="navcard navcard--story rv" href="story.html">
+      <img class="navcard__media" src="img/nav/story.webp" alt="" loading="lazy" width="960" height="960">
       <h3>Story</h3>
       <p>A family garage, quarter midgets, and the road to a NASCAR seat.</p>
       <span class="go">Read the story &rarr;</span>
     </a>
-    <a class="navcard rv d1" href="track.html">
-      <span class="num">02</span>
+    <a class="navcard navcard--track rv d1" href="track.html">
+      <img class="navcard__media" src="img/nav/track.webp" alt="" loading="lazy" width="960" height="1280">
       <h3>On The Track</h3>
       <p>The car, the team, the broadcast deal, and the track record so far.</p>
       <span class="go">See the machine &rarr;</span>
     </a>
-    <a class="navcard rv d2" href="offtrack.html">
-      <span class="num">03</span>
+    <a class="navcard navcard--offtrack rv d2" href="offtrack.html">
+      <img class="navcard__media" src="img/nav/offtrack.webp" alt="" loading="lazy" width="960" height="1280">
       <h3>Off The Track</h3>
       <p>Training, recovery, and the work that happens between race weekends.</p>
-      <span class="go">Off the track &rarr;</span>
+      <span class="go">Behind the helmet &rarr;</span>
     </a>
-    <a class="navcard rv" href="community.html">
-      <span class="num">04</span>
+    <a class="navcard navcard--community rv" href="community.html">
+      <img class="navcard__media" src="img/nav/community.webp" alt="" loading="lazy" width="960" height="537">
       <h3>Community &amp; Social</h3>
-      <p>Workforce development with UAC, plus the official social feeds and photo gallery.</p>
-      <span class="go">See the community &rarr;</span>
+      <p>Workforce development with UAC, official channels, and the gallery.</p>
+      <span class="go">See the impact &rarr;</span>
     </a>
-    <a class="navcard rv d1" href="schedule.html">
-      <span class="num">05</span>
+    <a class="navcard navcard--schedule rv d1" href="schedule.html">
+      <img class="navcard__media" src="img/nav/schedule.webp" alt="" loading="lazy" width="960" height="1200">
       <h3>Schedule</h3>
-      <p>The full 2026 O'Reilly Auto Parts Series calendar and the next green flag.</p>
+      <p>The 2026 calendar and the next green flag.</p>
       <span class="go">View schedule &rarr;</span>
     </a>
-    <a class="navcard rv d2" href="partner.html">
-      <span class="num">06</span>
+    <a class="navcard navcard--partner rv d2" href="partner.html">
+      <img class="navcard__media" src="img/nav/partner.webp" alt="" loading="lazy" width="960" height="640">
       <h3>Partner</h3>
-      <p>What a partnership includes, who it fits, and how to start a conversation.</p>
+      <p>Brand access, content, hospitality, and community activation.</p>
       <span class="go">Partner with 45 &rarr;</span>
     </a>
   </div>
@@ -187,10 +197,10 @@
 
 <section class="updates">
   <div>
-    <h2>Want race-day updates?</h2>
-    <p>A quick, honest way to stay in the loop. This opens your email app; nothing is submitted or stored by this site.</p>
+    <h2>Race-day updates, straight from the team.</h2>
+    <p>Join the official Lavar Scott mailing list for pit-lane news, team updates, and race-week stories.</p>
   </div>
-  <a class="btn primary" href="mailto:contact@lavarscott.com?subject=Add%20me%20to%202026%20race%20updates&body=Hi%20Lavar%20Scott%20team%2C%0A%0APlease%20add%20me%20to%20race%20weekend%20and%20season%20updates.%0A%0AName%3A%20%0AEmail%3A%20%0A%0A(Sent%20via%20the%20lavarscott.com%20site%20update%20link.%20This%20just%20opens%20my%20email%20app.%20Nothing%20is%20submitted%20or%20stored%20by%20the%20site.)">Get Updates</a>
+  <a class="btn primary" href="https://lavarscott.com/" target="_blank" rel="noopener">Join The Official List <span aria-hidden="true">&#8599;</span></a>
 </section>
 </main>
 

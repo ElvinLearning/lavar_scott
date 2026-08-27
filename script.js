@@ -13,7 +13,12 @@
      Intentionally independent of the reduced-motion / IO check
      below, so the menu still opens and closes for every visitor
      whose browser runs this script, motion preference aside. */
-  document.documentElement.classList.add('js');
+  document.documentElement.classList.add('js', 'js-ready');
+
+  var progress = document.createElement('div');
+  progress.className = 'race-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(progress);
 
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO = 'IntersectionObserver' in window;
@@ -48,18 +53,6 @@
         burger.focus();
       }
     });
-  }
-
-  /* ---------- NAV: hide on scroll down, show on scroll up ---------- */
-  var nav = document.getElementById('nav');
-  if (nav){
-    var lastY = 0;
-    addEventListener('scroll', function(){
-      var y = scrollY;
-      var menuOpen = mmenu && mmenu.classList.contains('open');
-      nav.classList.toggle('hide', y > lastY && y > 140 && !menuOpen);
-      lastY = y;
-    }, {passive:true});
   }
 
   /* ---------- REVEAL ON SCROLL ---------- */
@@ -205,8 +198,26 @@
   ============================================================ */
   var enquiryCompose = document.getElementById('enqCompose');
   if (enquiryCompose){
+    var enquiryName = document.getElementById('enqName');
+    var enquiryNameError = document.getElementById('enqNameError');
+    if (enquiryName){
+      enquiryName.addEventListener('input', function(){
+        if (enquiryName.value.trim()){
+          enquiryName.removeAttribute('aria-invalid');
+          if (enquiryNameError) enquiryNameError.hidden = true;
+        }
+      });
+    }
     enquiryCompose.addEventListener('click', function(){
-      var name = (document.getElementById('enqName') || {}).value || '';
+      var name = ((enquiryName || {}).value || '').trim();
+      if (!name){
+        if (enquiryName){
+          enquiryName.setAttribute('aria-invalid', 'true');
+          enquiryName.focus();
+        }
+        if (enquiryNameError) enquiryNameError.hidden = false;
+        return;
+      }
       var company = (document.getElementById('enqCompany') || {}).value || '';
       var interest = (document.getElementById('enqInterest') || {}).value || '';
       var message = (document.getElementById('enqMessage') || {}).value || '';
@@ -227,63 +238,118 @@
     });
   }
 
-  /* ============================================================
-     CINEMATIC BACKGROUND VIDEO — each page carries at most one
-     decorative <video class="bg-video__el">. It ships with
-     preload="none" and a poster, so with this script absent,
-     blocked, or reduced-motion active, visitors only ever see the
-     static poster frame and no video byte is requested. When
-     motion is allowed, IntersectionObserver starts playback once
-     the section is in view and pauses it once it isn't, and the
-     visibilitychange listener pauses playback whenever the tab is
-     hidden and resumes it only if the section is still in view.
-     The home clip is marked data-eager so it starts as soon as
-     this script runs rather than waiting on the observer's first
-     callback, matching the brief's "home may load its video
-     earlier" allowance; every other page waits for the observer.
-  ============================================================ */
+  /* ---------- CINEMATIC BACKGROUND VIDEO ----------
+     Media is poster-first. Playback begins only when motion is allowed,
+     Save-Data is off, and the page section is visible. A real control is
+     revealed only after play succeeds, and a visitor's pause choice wins
+     over observer and tab-visibility attempts to resume. ---------- */
   var bgVideos = document.querySelectorAll('.bg-video__el');
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var deferAutoplay = saveData || window.matchMedia('(max-width:700px)').matches;
   if (bgVideos.length && !reduced){
     var trackedVideos = [];
-    bgVideos.forEach(function(video){
-      var state = {video:video, visible:false};
+
+    function makeVideoState(video){
+      var section = video.closest('section,header') || video.parentElement;
+      var control = document.createElement('button');
+      control.type = 'button';
+      control.className = 'video-control';
+      control.hidden = !deferAutoplay;
+      control.textContent = deferAutoplay ? 'Play film' : 'Pause film';
+      control.setAttribute('aria-label', deferAutoplay ? 'Play film' : 'Pause film');
+      section.appendChild(control);
+
+      var state = {
+        video:video,
+        control:control,
+        visible:false,
+        userPaused:false,
+        userInitiated:false,
+        loaded:false
+      };
       trackedVideos.push(state);
+
+      function updateControl(){
+        var paused = video.paused;
+        control.textContent = paused ? 'Play film' : 'Pause film';
+        control.setAttribute('aria-label', paused ? 'Play film' : 'Pause film');
+      }
+      function ensureLoaded(){
+        if (state.loaded) return;
+        state.loaded = true;
+        video.load();
+      }
+      function resume(fromUser){
+        if (fromUser) state.userInitiated = true;
+        if (state.userPaused || document.hidden || !state.visible) return;
+        if (deferAutoplay && !state.userInitiated) return;
+        ensureLoaded();
+        var result;
+        try { result = video.play(); } catch (err) { control.hidden = false; updateControl(); return; }
+        if (result && typeof result.then === 'function'){
+          result.then(function(){
+            control.hidden = false;
+            updateControl();
+          }).catch(function(){ control.hidden = false; updateControl(); });
+        } else {
+          control.hidden = false;
+          updateControl();
+        }
+      }
+      function pause(){ video.pause(); updateControl(); }
+
+      control.addEventListener('click', function(){
+        if (video.paused){
+          state.userPaused = false;
+          state.visible = true;
+          resume(true);
+        } else {
+          state.userPaused = true;
+          pause();
+        }
+      });
+
       if (hasIO){
-        var wrap = video.closest('.bg-video');
-        var io = new IntersectionObserver(function(entries){
+        var observer = new IntersectionObserver(function(entries){
           entries.forEach(function(entry){
             state.visible = entry.isIntersecting;
-            if (document.hidden) return;
-            if (entry.isIntersecting){
-              video.play().catch(function(){});
-            } else {
-              video.pause();
-            }
+            if (entry.isIntersecting) resume(false); else pause();
           });
         }, {threshold:.15});
-        io.observe(wrap || video);
-      }
-      if (video.dataset.eager === 'true'){
+        observer.observe(section);
+      } else if (video.dataset.eager === 'true'){
         state.visible = true;
-        video.play().catch(function(){});
+        resume(false);
       }
-    });
+      return state;
+    }
+
+    bgVideos.forEach(makeVideoState);
     document.addEventListener('visibilitychange', function(){
       trackedVideos.forEach(function(state){
         if (document.hidden){
           state.video.pause();
-        } else if (state.visible){
-          state.video.play().catch(function(){});
+          updateTrackedControl(state);
+        } else if (state.visible && !state.userPaused && (!deferAutoplay || state.userInitiated)){
+          var result;
+          try { result = state.video.play(); } catch (err) { return; }
+          if (result && typeof result.catch === 'function') result.catch(function(){});
         }
       });
     });
+    function updateTrackedControl(state){
+      state.control.textContent = state.video.paused ? 'Play film' : 'Pause film';
+      state.control.setAttribute('aria-label', state.video.paused ? 'Play film' : 'Pause film');
+    }
   }
 
-  /* ---------- INSTAGRAM EMBED: give Instagram's generated iframe
-     an accessible name and mark success. The plain fallback link
-     stays in the DOM and functional either way. ---------- */
+  /* ---------- INSTAGRAM EMBED ----------
+     Keep the initial page free of third-party requests. The official
+     embed script is loaded only when the labeled block approaches the
+     viewport; the plain link remains complete without JavaScript. */
   var embedWrap = document.querySelector('.embed-wrap');
-  if (embedWrap){
+  var embedConfig = document.getElementById('instagramEmbedConfig');
+  if (embedWrap && embedConfig){
     function labelInstagramEmbed(){
       var rendered = embedWrap.querySelector('iframe');
       if (!rendered) return false;
@@ -291,12 +357,34 @@
       embedWrap.classList.add('embed-ok');
       return true;
     }
-    if (!labelInstagramEmbed() && 'MutationObserver' in window){
-      var embedObserver = new MutationObserver(function(){
-        if (labelInstagramEmbed()) embedObserver.disconnect();
-      });
-      embedObserver.observe(embedWrap, {childList:true, subtree:true});
-      setTimeout(function(){ embedObserver.disconnect(); }, 10000);
+    function loadInstagram(){
+      if (loadInstagram.loaded) return;
+      loadInstagram.loaded = true;
+      var config;
+      try { config = JSON.parse(embedConfig.textContent || '{}'); } catch (err) { config = {}; }
+      if (!config.src) return;
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = config.src;
+      document.body.appendChild(script);
+      if ('MutationObserver' in window){
+        var embedObserver = new MutationObserver(function(){
+          if (labelInstagramEmbed()) embedObserver.disconnect();
+        });
+        embedObserver.observe(embedWrap, {childList:true, subtree:true});
+        setTimeout(function(){ embedObserver.disconnect(); }, 10000);
+      }
+    }
+    if (hasIO){
+      var embedIO = new IntersectionObserver(function(entries){
+        if (entries.some(function(entry){ return entry.isIntersecting; })){
+          loadInstagram();
+          embedIO.disconnect();
+        }
+      }, {rootMargin:'300px 0px'});
+      embedIO.observe(embedWrap);
+    } else {
+      embedWrap.addEventListener('click', loadInstagram, {once:true});
     }
   }
 })();
