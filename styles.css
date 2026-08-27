@@ -642,33 +642,44 @@ footer{border-top:1px solid var(--line);padding:36px var(--pad) 26px;background:
 /* ============================================================
    VIDEO FIX B — TRIPTYCH
    Three-panel hero. The vertical clip holds the centre panel at its
-   native 540x960 shape, and the two side panels are filled with the
-   real high-resolution photography already in img/ rather than an
+   native 540x960 shape, and the side panels use the real
+   high-resolution photography already in img/ rather than an
    upscale of the video. Nothing is enlarged past its true size, so
    every panel is sharp on a wide screen.
 
-   Swapping a side panel is one line: change the background-image.
-   If AI-generated side plates are produced later they drop into the
-   same two slots with no other change.
+   The panels are weighted so the widest one sits under the headline
+   and carries the heaviest wash, keeping the copy readable while
+   the sharp clip sits right of centre.
+
+   Swapping a panel is one line: change the background-image. If
+   AI-generated side plates are produced later they drop straight
+   into the same two slots with no other change.
 ============================================================ */
-.bg-video{display:grid;grid-template-columns:1fr minmax(0,auto) 1fr;align-items:stretch}
+.bg-video{display:grid;grid-template-columns:1.5fr minmax(0,auto) 0.9fr;align-items:stretch}
 .bg-video__el{
-  width:auto;height:100%;max-width:none;object-fit:cover;
+  width:auto;height:100%;max-width:100%;object-fit:cover;
   grid-column:2;position:relative;z-index:1;
 }
 .bg-video::before,
 .bg-video::after{
   content:'';display:block;position:relative;z-index:0;
   background-size:cover;background-position:center;
-  filter:grayscale(.35) brightness(.52) contrast(1.05);
+  filter:grayscale(.4) brightness(.42) contrast(1.06);
 }
-.bg-video::before{grid-column:1;background-image:var(--bgv-left)}
-.bg-video::after{grid-column:3;background-image:var(--bgv-right)}
-/* a hairline seam keeps the three panels reading as a deliberate
-   triptych rather than a broken image */
-.bg-video::before{box-shadow:inset -1px 0 0 rgba(237,236,230,.14)}
-.bg-video::after{box-shadow:inset 1px 0 0 rgba(237,236,230,.14)}
-
+.bg-video::before{grid-column:1;background-image:var(--bgv-left);box-shadow:inset -1px 0 0 rgba(237,236,230,.16)}
+.bg-video::after{grid-column:3;background-image:var(--bgv-right);box-shadow:inset 1px 0 0 rgba(237,236,230,.16)}
+/* scrim rides above all three panels so the copy always holds */
+.bg-video__scrim{z-index:2}
+.bg-video--home .bg-video__scrim{
+  background:
+    linear-gradient(90deg,rgba(13,14,17,.9) 0%,rgba(13,14,17,.62) 30%,rgba(13,14,17,.2) 55%,rgba(13,14,17,.3) 100%),
+    linear-gradient(180deg,rgba(13,14,17,.45) 0%,rgba(13,14,17,.15) 42%,rgba(13,14,17,.85) 100%);
+}
+@media(max-width:1100px){
+  /* two panels below laptop width, dropping the narrow right plate */
+  .bg-video{grid-template-columns:1.2fr minmax(0,auto)}
+  .bg-video::after{display:none}
+}
 @media(max-width:860px){
   /* portrait: the clip is already the right shape, so it takes the
      whole hero and the side panels are dropped */
