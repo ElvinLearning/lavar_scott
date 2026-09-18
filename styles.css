@@ -373,6 +373,15 @@ html.js-anim .marquee .track{animation:mq 26s linear infinite}
   color:var(--paper-dim);padding:12px 4px 0;
 }
 
+/* caption row that lines up under a three-column photo grid */
+.photo-caption.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.photo-caption.cols3 span:nth-child(2){text-align:center}
+.photo-caption.cols3 span:nth-child(3){text-align:right}
+@media(max-width:860px){
+  .photo-caption.cols3{grid-template-columns:1fr;gap:4px}
+  .photo-caption.cols3 span{text-align:left!important}
+}
+
 /* ---------- STATS ---------- */
 .stats{background:var(--asphalt-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr)}
