@@ -198,38 +198,6 @@
   if (document.getElementById('calList')) renderCalendar();
 
   /* ============================================================
-     PARTNER ENQUIRY — builds a mailto: link from the field values
-     and opens it when the compose button is clicked. The fields
-     live in a plain container, not a <form>, so there is nothing
-     for a browser to natively submit if this script never runs;
-     the plain mailto fallback link lower on partner.html works
-     identically with JS off.
-  ============================================================ */
-  var enquiryCompose = document.getElementById('enqCompose');
-  if (enquiryCompose){
-    enquiryCompose.addEventListener('click', function(){
-      var name = (document.getElementById('enqName') || {}).value || '';
-      var company = (document.getElementById('enqCompany') || {}).value || '';
-      var interest = (document.getElementById('enqInterest') || {}).value || '';
-      var message = (document.getElementById('enqMessage') || {}).value || '';
-      var subject = 'Sponsorship enquiry: ' + (company || name || 'New contact');
-      var bodyLines = [
-        'Name: ' + name,
-        'Company / brand: ' + company,
-        'Interested in: ' + interest,
-        '',
-        message,
-        '',
-        '(Sent from the No. 45 partner enquiry page. This opens your email app; nothing is stored on this site.)'
-      ];
-      var mailto = 'mailto:contact@lavarscott.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
-      window.location.href = mailto;
-    });
-  }
-
-  /* ============================================================
      CINEMATIC BACKGROUND VIDEO — each page carries at most one
      decorative <video class="bg-video__el">. It ships with
      preload="none" and a poster, so with this script absent,
