@@ -805,3 +805,10 @@ html.js .gallery a{cursor:zoom-in}
 .game-feature .btn{flex-shrink:0}
 
 @media(max-width:360px){.contact-page .sociallist a{flex-wrap:wrap;gap:4px 12px}.contact-page .sociallist .h{overflow-wrap:anywhere}}
+
+/* Keep the seven primary destinations clear on smaller desktop screens. */
+@media (min-width:861px) and (max-width:1100px){
+  .nav-links{gap:12px}
+  .nav-links a{letter-spacing:.08em}
+  .nav-cta{padding:10px 12px}
+}
